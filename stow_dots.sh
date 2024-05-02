@@ -11,7 +11,7 @@ function log() {
 }
 
 readonly script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-readonly stow_opts="--target=${script_dir}/.."
+readonly stow_opts="--target=${script_dir}/.. --no-folding"
 readonly stow_command="stow ${stow_opts} $@ */"
 
 log "Entering: ${script_dir}/stow"
