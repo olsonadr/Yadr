@@ -53,10 +53,10 @@ apt-get -y update && \
         ```console
         cd stow && stow -t ~ <PROGRAM>
         ```
-    - Install (n)vim vundle plugins and themes
-        ```console
-        vim -c "PluginInstall"
-        ```
+6. Install (n)vim vundle plugins and themes
+    ```console
+    vim -c "PluginInstall"
+    ```
 
 ## Next Steps
 - See [olsonadr/awful-dots](https://github.com/olsonadr/awful-dots/tree/master)
