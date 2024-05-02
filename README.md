@@ -28,25 +28,28 @@ Oneliner to install requirements on ubuntu (as root):
 ### Installation
 ***WARNING: Backup your dotfiles before installing anything!***
 
-1. Ensure you have cloned all repo submodules
-    ```console
-    $ git submodule update --init --recursive
-    ```
-2. Clone this repo to the homedir as `~/.dotfiles` and enter the clone
+1. Clone this repo to the homedir as `~/.dotfiles` and enter the clone
     ```console
     $ git clone https://github.com/olsonadr/Yadr.git ~/.dotfiles && cd ~/.dotfiles
+    ```
+2. Ensure you have cloned all repo submodules
+    ```console
+    $ git submodule update --init --recursive
     ```
 3. Install ohmyzsh
     ```console
     $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ```
-4. Backup (or remove) the default `.zshrc`
+4. Backup (or remove) the default `.bashrc` and `.zshrc`
     ```console
-    $ mv ~/.zshrc ~/.zshrc.default-oh-my-zsh
+    $ mv ~/.zshrc ~/.zshrc.default-oh-my-zsh && mv ~/.bashrc ~/.bashrc.yadr_backup
     ```
-5. Install *all* Yadr dotfiles
+5. Install Yadr dotfiles
     ```console
-    $ stow */
+    $ ./stow_dots.sh
     ```
-    - Or install only one set of dotfiles by replacing `*/` with a single program with dotfiles (like bash, nvim, tmux, vim, zsh, etc.)
+    - Or install only one set of dotfiles by entering the `stow` directory, and using stow directly for any <PROGRAM> (like bash, nvim, tmux, vim, zsh, etc.)
+        ```console
+            $ cd stow && stow -t ~ <PROGRAM>
+        ```
 
