@@ -17,7 +17,7 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 
 Oneliner to install requirements on ubuntu (as root):
 ```console
-# apt-get -y update && \
+apt-get -y update && \
     (   apt-get install -y software-properties-common ; \
         apt-get install -y python-software-properties ; \
     ) ; \
@@ -30,26 +30,26 @@ Oneliner to install requirements on ubuntu (as root):
 
 1. Clone this repo to the homedir as `~/.dotfiles` and enter the clone
     ```console
-    $ git clone https://github.com/olsonadr/Yadr.git ~/.dotfiles && cd ~/.dotfiles
+    git clone https://github.com/olsonadr/Yadr.git ~/.dotfiles && cd ~/.dotfiles
     ```
 2. Ensure you have cloned all repo submodules
     ```console
-    $ git submodule update --init --recursive
+    git submodule update --init --recursive
     ```
 3. Install ohmyzsh
     ```console
-    $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ```
 4. Backup (or remove) the default `.bashrc` and `.zshrc`
     ```console
-    $ mv ~/.zshrc ~/.zshrc.default-oh-my-zsh && mv ~/.bashrc ~/.bashrc.yadr_backup
+    mv ~/.zshrc ~/.zshrc.default-oh-my-zsh && mv ~/.bashrc ~/.bashrc.yadr_backup
     ```
 5. Install Yadr dotfiles
     ```console
-    $ ./stow_dots.sh
+    ./stow_dots.sh
     ```
     - Or install only one set of dotfiles by entering the `stow` directory, and using stow directly for any <PROGRAM> (like bash, nvim, tmux, vim, zsh, etc.)
         ```console
-            $ cd stow && stow -t ~ <PROGRAM>
+        cd stow && stow -t ~ <PROGRAM>
         ```
 
