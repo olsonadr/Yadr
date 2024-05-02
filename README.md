@@ -51,7 +51,7 @@ apt-get -y update && \
     ```
     - Or install only one set of dotfiles by entering the `stow` directory, and using stow directly for any <PROGRAM> (like bash, nvim, tmux, vim, zsh, etc.)
         ```console
-        cd stow && stow -t ~ <PROGRAM>
+        cd stow && stow -t ~ --no-folding <PROGRAM>
         ```
 6. Install (n)vim vundle plugins and themes
     ```console
