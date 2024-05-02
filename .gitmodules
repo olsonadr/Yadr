@@ -7,3 +7,6 @@
 [submodule "stow/vim/.vim/bundle/Vundle.vim"]
 	path = stow/vim/.vim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "stow/secret"]
+	path = stow/secret
+	url = git@github.com:olsonadr/secret-stow-dots.git
