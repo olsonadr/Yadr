@@ -1,11 +1,8 @@
-[submodule "nvim/.nvim/bundle/Vundle.vim"]
-	path = nvim/.nvim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim.git
 [submodule "tmux/.tmux"]
 	path = tmux/.tmux
 	url = https://github.com/gpakosz/.tmux.git
-[submodule "stow/nvim/.config/nvim/bundle/Vundle.vim"]
-	path = stow/nvim/.config/nvim/bundle/Vundle.vim
+[submodule "stow/nvim/.nvim/bundle/Vundle.vim"]
+	path = stow/nvim/.nvim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
 [submodule "stow/vim/.vim/bundle/Vundle.vim"]
 	path = stow/vim/.vim/bundle/Vundle.vim

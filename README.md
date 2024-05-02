@@ -4,6 +4,7 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 ## Includes
 - [Oh my tmux!](https://github.com/gpakosz/.tmux)
 - [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
+- [Vundle](https://github.com/VundleVim/Vundle.vim?tab=readme-ov-file)
 
 ## Usage
 ### Requirements
@@ -52,4 +53,12 @@ apt-get -y update && \
         ```console
         cd stow && stow -t ~ <PROGRAM>
         ```
+    - Install (n)vim vundle plugins and themes
+        ```console
+        vim -c "PluginInstall"
+        ```
 
+## Next Steps
+- See [olsonadr/awful-dots](https://github.com/olsonadr/awful-dots/tree/master)
+  for additional dotfile scripts/bootstrapping, including automatic gnome
+  extention installation and gnome dconf settings management.

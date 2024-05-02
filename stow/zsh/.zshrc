@@ -68,7 +68,7 @@ ZSH_THEME="agnoster_custom"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(evalcache git git-extras debian tmux screen history extract colorize web-search docker fzf)
+plugins=(git git-extras debian tmux screen history extract colorize web-search docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,6 +88,12 @@ source $ZSH/oh-my-zsh.sh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+
+XAUTHORITY=$HOME/.Xauthority
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
 # Launch in tmux
 ZSH_TMUX_AUTOSTART=true
@@ -110,11 +116,10 @@ if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
 
-# Enable my keys
-source ~/.zkbd/xterm-256color-:0
-[[ -n ${key[Home]} ]] && bindkey "${key[Home]}" .beginning-of-line
-[[ -n ${key[End]} ]] && bindkey "${key[End]}" .end-of-line
-XAUTHORITY=$HOME/.Xauthority
+# # Enable my keys
+# source ~/.zkbd/xterm-256color-:0
+# [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" .beginning-of-line
+# [[ -n ${key[End]} ]] && bindkey "${key[End]}" .end-of-line
 
 # Use nvim instead of vim
 alias vim="nvim"
