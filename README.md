@@ -28,19 +28,23 @@ Oneliner to install requirements on ubuntu (as root):
 ### Installation
 ***WARNING: Backup your dotfiles before installing anything!***
 
-1. Clone this repo to the homedir as `~/.dotfiles` and enter the clone
+1. Ensure you have cloned all repo submodules
+    ```console
+    $ git submodule update --init --recursive
+    ```
+2. Clone this repo to the homedir as `~/.dotfiles` and enter the clone
     ```console
     $ git clone https://github.com/olsonadr/Yadr.git ~/.dotfiles && cd ~/.dotfiles
     ```
-2. Install ohmyzsh
+3. Install ohmyzsh
     ```console
     $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ```
-3. Backup (or remove) the default `.zshrc`
+4. Backup (or remove) the default `.zshrc`
     ```console
     $ mv ~/.zshrc ~/.zshrc.default-oh-my-zsh
     ```
-4. Install *all* Yadr dotfiles
+5. Install *all* Yadr dotfiles
     ```console
     $ stow */
     ```
