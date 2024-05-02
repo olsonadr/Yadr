@@ -35,7 +35,7 @@ apt-get -y update && \
     ```
 2. Ensure you have cloned all repo submodules
     ```console
-    git submodule update --init --recursive
+    ./update_submodules.sh
     ```
 3. Install ohmyzsh
     ```console
