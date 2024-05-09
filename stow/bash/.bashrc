@@ -131,6 +131,7 @@ export PS1="┌─\[\e[1;03;36m\]\u@\h\[\e[0m\]\[\e[1;03;31m\] [\w] \[\e[0m\]\[\
 export PATH="/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
 export PATH="${PATH}:${HOME}/.vimpkg/bin"
 export PATH="${PATH}:${HOME}/.local/bin"
+export PATH="${PATH}:${HOME}/.cargo/bin"
 export PATH="${PATH}:${HOME}/bin:"
 export PATH="${PATH}:/snap/bin"
 
