@@ -8,6 +8,7 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 
 ## Usage
 ### Requirements
+- cargo
 - curl
 - fzf
 - git
@@ -23,7 +24,8 @@ apt-get -y update && \
         apt-get install -y python-software-properties ; \
     ) ; \
     add-apt-repository -y ppa:neovim-ppa/stable && \
-    apt-get -y update && apt install -y curl fzf git neovim stow tmux zsh
+    apt-get -y update && apt install -y cargo curl fzf git neovim stow tmux zsh && \
+    cargo install --locked rbw
 ```
 
 ### Installation
