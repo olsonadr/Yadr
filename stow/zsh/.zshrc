@@ -68,7 +68,7 @@ ZSH_THEME="agnoster_custom"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras debian tmux screen history extract colorize web-search docker)
+plugins=(fzf git git-extras debian tmux screen history extract colorize web-search docker)
 
 source $ZSH/oh-my-zsh.sh
 
