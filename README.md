@@ -9,6 +9,7 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 ## Usage
 ### Requirements
 - awesome
+- awesome-copycats
 - cargo
 - curl
 - fzf
@@ -31,6 +32,8 @@ apt-get -y update && \
     apt install -y cargo curl fzf git neovim stow tmux zsh && \
     apt install -y awesome awesome-extra fonts-font-awesome i3lock xautolock fonts-powerline && \
     cargo install --locked rbw
+    git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.git && \
+    mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats
 ```
 
 ### Installation
@@ -50,7 +53,7 @@ apt-get -y update && \
     ```
 4. Backup (or remove) the default `.bashrc` and `.zshrc`
     ```console
-    mv ~/.zshrc ~/.zshrc.default-oh-my-zsh && mv ~/.bashrc ~/.bashrc.yadr_backup
+    mv ~/.zshrc{,.default-oh-my-zsh} && mv ~/.bashrc{,.yadr_backup} && mv ~/.config/awesome/rc.lua{,.yadr_backup}
     ```
 5. Install Yadr dotfiles
     ```console
