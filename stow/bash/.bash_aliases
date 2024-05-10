@@ -5,6 +5,7 @@ alias brc="source ~/.bashrc"
 alias c='clear'
 alias e='echo'
 alias init_venv='python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt'
+alias ifconfig='ip -c a'
 alias reboot='echo no'
 alias svim="sudo vim"
 alias tmux='TERM=screen-256color-bce tmux -2'
@@ -23,6 +24,7 @@ alias gcl="git clone"
 alias gl="git pull"
 alias gp="git push"
 alias gsu='git submodule update --init --recursive'
+alias gst='git status'
 function gg() { git branch | grep "$1" | sed -e 's/^. //'; }
 function ggsw() { git switch $(gg "$1"); }
 
