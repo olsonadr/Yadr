@@ -85,19 +85,20 @@ awful.spawn.with_shell(
 -- {{{ Variable definitions
 
 local themes = {
-    "blackburn",       -- 1
-    "copland",         -- 2
-    "dremora",         -- 3
-    "holo",            -- 4
-    "multicolor",      -- 5
-    "powerarrow",      -- 6
-    "powerarrow-dark", -- 7
-    "rainbow",         -- 8
-    "steamburn",       -- 9
-    "vertex"           -- 10
+    "blackburn",	      -- 1
+    "copland",         	      -- 2
+    "dremora",         	      -- 3
+    "holo",            	      -- 4
+    "multicolor",      	      -- 5
+    "powerarrow",      	      -- 6
+    "powerarrow-dark", 	      -- 7
+    "rainbow",         	      -- 8
+    "steamburn",       	      -- 9
+    "vertex",          	      -- 10
+    "powerarrow-dark-custom", -- 11
 }
 
-local chosen_theme = themes[7]
+local chosen_theme = themes[11]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "gnome-terminal"
