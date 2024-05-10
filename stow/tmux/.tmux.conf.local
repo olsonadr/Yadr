@@ -488,3 +488,6 @@ set -g @continuum-restore 'on'
 #
 # "$@"
 # # /!\ do not remove the previous line
+
+set-option -g default-shell /usr/bin/zsh
+
