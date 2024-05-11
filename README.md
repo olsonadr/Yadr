@@ -18,22 +18,24 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 - neovim
 - stow
 - tmux >= 2.6
+- wmctrl
 - xautolock
 - zsh
 
 Oneliner to install requirements on ubuntu (as root):
 ```console
-apt-get -y update && \
-    (   apt-get install -y software-properties-common ; \
-        apt-get install -y python-software-properties ; \
+sudo apt-get -y update && \
+    (   sudo apt-get install -y software-properties-common ; \
+        sudo apt-get install -y python-software-properties ; \
     ) ; \
-    add-apt-repository -y ppa:neovim-ppa/stable && \
-    apt-get -y update && \
-    apt install -y cargo curl fzf git neovim stow tmux zsh && \
-    apt install -y awesome awesome-extra fonts-font-awesome i3lock xautolock fonts-powerline && \
+    add-sudo apt-repository -y ppa:neovim-ppa/stable && \
+    sudo apt-get -y update && \
+    sudo apt install -y cargo curl fzf git neovim stow wmctrl tmux zsh && \
+    sudo apt install -y awesome awesome-extra fonts-font-awesome i3lock xautolock fonts-powerline && \
     cargo install --locked rbw
     git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.git && \
-    mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats
+    mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats && \
+    git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins
 ```
 
 ### Installation
@@ -51,7 +53,7 @@ apt-get -y update && \
     ```console
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ```
-4. Backup (or remove) the default `.bashrc` and `.zshrc`
+4. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar
     ```console
     mv ~/.zshrc{,.default-oh-my-zsh} && mv ~/.bashrc{,.yadr_backup} && mv ~/.config/awesome/rc.lua{,.yadr_backup}
     ```
