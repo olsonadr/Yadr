@@ -1,6 +1,6 @@
-import time
-import subprocess
 import os
+import subprocess
+import time
 import traceback
 
 from collections import namedtuple
@@ -57,7 +57,7 @@ class Plugin(PluginInstance, TriggerQueryHandler):
             for item in _handleQuery(query):
                 query.add(item)
         except:
-            error(traceback.format_exc())
+            debug(traceback.format_exc())
         finally:
             debug(f"execute:{query.string}. cost: {round((time.time() - start_time) * 1000, 3)} ms ")
 
