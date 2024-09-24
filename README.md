@@ -31,11 +31,13 @@ sudo apt-get -y update && \
     add-sudo apt-repository -y ppa:neovim-ppa/stable && \
     sudo apt-get -y update && \
     sudo apt install -y cargo curl fzf git neovim stow wmctrl tmux zsh && \
-    sudo apt install -y awesome awesome-extra fonts-font-awesome i3lock scrot imagemagick xautolock fonts-powerline && \
+    sudo apt install -y awesome awesome-extra fonts-font-awesome brightnessctl i3lock scrot imagemagick xautolock fonts-powerline && \
     cargo install --locked rbw
     git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.git && \
     mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats && \
     git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins
+    sudo usermod -a -G input ${USER}
+    sudo usermod -a -G video ${USER}
 ```
 
 ### Installation
