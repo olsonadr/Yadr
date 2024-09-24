@@ -108,16 +108,16 @@ local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "librewolf"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "1-web", "2-term", "3-misc", "4", "5" }
 awful.layout.layouts = {
+    awful.layout.suit.fair,
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    --awful.layout.suit.fair,
-    --awful.layout.suit.fair.horizontal,
-    --awful.layout.suit.spiral,
+    awful.layout.suit.fair.horizontal,
+    awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
     --awful.layout.suit.max,
     --awful.layout.suit.max.fullscreen,
@@ -198,6 +198,17 @@ awful.util.mymainmenu = freedesktop.menu.build {
     }
 }
 
+-- Hide titlebars unless floating
+function hide_unless_floating(c)
+    if c.floating and awful.titlebar then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end
+
+-- client.connect_signal("property::floating", hide_unless_floating)
+
 -- Hide the menu when the mouse leaves it
 --[[
 awful.util.mymainmenu.wibox:connect_signal("mouse::leave", function()
@@ -267,7 +278,7 @@ root.buttons(mytable.join(
 
 globalkeys = mytable.join(
     -- Mine
-    awful.key( { modkey }, "l", function () awful.util.spawn("lock") end),
+    awful.key( { modkey, "Shift" }, "l", function () awful.util.spawn("lock") end),
 
 
 
@@ -763,7 +774,7 @@ client.connect_signal("manage", function (c)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
+function titlebar_callback(c)
     -- Custom
     if beautiful.titlebar_fun then
         beautiful.titlebar_fun(c)
@@ -807,7 +818,9 @@ client.connect_signal("request::titlebars", function(c)
         },
         layout = wibox.layout.align.horizontal
     }
-end)
+    hide_unless_floating(c)
+end
+client.connect_signal("request::titlebars", titlebar_callback)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)

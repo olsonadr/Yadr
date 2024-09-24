@@ -12,7 +12,7 @@ trigger=" "
 [Qt]
 style=GTK+
 
-[applications_xdg]
+[applications]
 enabled=true
 use_keywords=false
 
