@@ -15,7 +15,7 @@ local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
-theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark-custom"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "Terminus 12"
 theme.fg_normal                                 = "#DDDDFF"
@@ -50,6 +50,9 @@ theme.layout_fullscreen                         = theme.dir .. "/icons/fullscree
 theme.layout_magnifier                          = theme.dir .. "/icons/magnifier.png"
 theme.layout_floating                           = theme.dir .. "/icons/floating.png"
 theme.widget_ac                                 = theme.dir .. "/icons/ac.png"
+theme.widget_perf_mode_0			= "↘"
+theme.widget_perf_mode_1			= "→"
+theme.widget_perf_mode_2			= "↗"
 theme.widget_battery                            = theme.dir .. "/icons/battery.png"
 theme.widget_battery_low                        = theme.dir .. "/icons/battery_low.png"
 theme.widget_battery_empty                      = theme.dir .. "/icons/battery_empty.png"
@@ -206,25 +209,77 @@ theme.fs = lain.widget.fs({
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_battery)
-local bat = lain.widget.bat({
-    settings = function()
-        if bat_now.status and bat_now.status ~= "N/A" then
-            if bat_now.ac_status == 1 then
-                baticon:set_image(theme.widget_ac)
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
-                baticon:set_image(theme.widget_battery_empty)
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
-                baticon:set_image(theme.widget_battery_low)
-            else
-                baticon:set_image(theme.widget_battery)
-            end
-            widget:set_markup(markup.font(theme.font, " " .. bat_now.perc .. "% "))
-        else
-            widget:set_markup(markup.font(theme.font, " AC "))
-            baticon:set_image(theme.widget_ac)
-        end
+local batpowermode = wibox.widget.textbox("?")
+function battery_settings_cb()
+    local markup_str = ""
+    if bat_now.status and bat_now.status ~= "N/A" then
+	if bat_now.ac_status == 1 then
+	    baticon:set_image(theme.widget_ac)
+	elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
+	    baticon:set_image(theme.widget_battery_empty)
+	elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
+	    baticon:set_image(theme.widget_battery_low)
+	else
+	    baticon:set_image(theme.widget_battery)
+	end
+	markup_str = " " .. bat_now.perc .. "% "
+    else
+	markup_str = " AC "
+	baticon:set_image(theme.widget_ac)
     end
-})
+    widget:set_markup(markup.font(theme.font, markup_str))
+    awful.spawn.easy_async_with_shell("powerprofilesctl get", display_power_mode_cb)
+end
+function display_power_mode_cb(stdout, stderr, exitreason, exitcode)
+    if stdout == "power-saver\n" then 
+	prefix = theme.widget_perf_mode_0
+    elseif stdout == "balanced\n" then 
+	prefix = theme.widget_perf_mode_1
+    elseif stdout == "performance\n" then 
+	prefix = theme.widget_perf_mode_2
+    else
+	prefix = "?"
+    end
+    batpowermode:set_markup(markup.font(theme.font, prefix))
+end
+
+local bat = lain.widget.bat({settings = battery_settings_cb})
+awful.spawn.easy_async_with_shell("powerprofilesctl get", display_power_mode_cb)
+
+-- Construct callback with the given cycle direction (true forward, false back)
+function make_set_power_mode_cb(dir)
+    -- Callback for reading current power mode
+    function set_power_mode_outer_cb()
+	-- Callback for setting power mode given the read value
+	function set_power_mode_inner_cb(stdout, stderr, exitreason, exitcode)
+	    local target = "balanced"
+	    if stdout == "power-saver\n" then
+		target = dir and "balanced" or "performance"
+	    elseif stdout == "balanced\n" then
+		target = dir and "performance" or "power-saver"
+	    elseif stdout == "performance\n" then
+		target = dir and "power-saver" or "balanced"
+	    end
+
+	    awful.spawn.easy_async_with_shell("powerprofilesctl set " .. target, function(stdout, stderr, exitreason, exitcode)
+		bat.update()
+	    end)
+	end
+	
+	awful.spawn.easy_async_with_shell("powerprofilesctl get", set_power_mode_inner_cb)
+    end
+    return set_power_mode_outer_cb
+end
+
+local bat_buttons = awful.util.table.join(
+    awful.button({}, 1,	make_set_power_mode_cb(true)),
+    awful.button({}, 3,	make_set_power_mode_cb(false))
+)
+bat.widget:buttons(bat_buttons)
+baticon:buttons(bat_buttons)
+batpowermode:buttons(bat_buttons)
+awful.spawn.easy_async_with_shell("sleep 2", function(); bat.update(); end)
+
 
 -- ALSA volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
@@ -343,6 +398,7 @@ function theme.at_screen_connect(s)
             --wibox.container.background(theme.fs.widget, theme.bg_focus),
             arrl_dl,
             baticon,
+	    batpowermode,
             bat.widget,
             arrl_ld,
             wibox.container.background(neticon, theme.bg_focus),

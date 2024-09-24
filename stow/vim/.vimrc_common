@@ -33,6 +33,7 @@ Plugin 'ap/vim-buftabline'
 Plugin 'mhinz/vim-startify'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'bullets-vim/bullets.vim'
 
 call vundle#end()
 
