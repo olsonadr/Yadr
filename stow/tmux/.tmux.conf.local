@@ -491,3 +491,6 @@ set -g @continuum-restore 'on'
 
 set-option -g default-shell /usr/bin/zsh
 
+# Fix continuum spawning extra sessions
+run-shell -b ${HOME}/.tmux/plugins/tmux-continuum/continuum.tmux
+
