@@ -278,7 +278,9 @@ local bat_buttons = awful.util.table.join(
 bat.widget:buttons(bat_buttons)
 baticon:buttons(bat_buttons)
 batpowermode:buttons(bat_buttons)
-awful.spawn.easy_async_with_shell("sleep 2", function(); bat.update(); end)
+awful.spawn.easy_async_with_shell("sleep 1", function(); bat.update(); end)
+awful.spawn.easy_async_with_shell("sleep 3", function(); bat.update(); end)
+awful.spawn.easy_async_with_shell("sleep 5", function(); bat.update(); end)
 
 
 -- ALSA volume
