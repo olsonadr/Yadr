@@ -108,7 +108,7 @@ local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "librewolf"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1-web", "2-term", "3-misc", "4", "5" }
+awful.util.tagnames = { "1-term", "2-web", "3-misc", "4", "5" }
 awful.layout.layouts = {
     awful.layout.suit.fair,
     awful.layout.suit.floating,
