@@ -105,7 +105,8 @@ local terminal     = "gnome-terminal"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local browser      = "librewolf"
+local browser      = "firefox"
+local scrlocker    = "lock"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1-term", "2-web", "3-misc", "4", "5" }
@@ -277,11 +278,6 @@ root.buttons(mytable.join(
 -- {{{ Key bindings
 
 globalkeys = mytable.join(
-    -- Mine
-    awful.key( { modkey, "Shift" }, "l", function () awful.util.spawn("lock") end),
-
-
-
     -- Destroy all notifications
     awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,
               {description = "destroy all notifications", group = "hotkeys"}),
@@ -291,6 +287,8 @@ globalkeys = mytable.join(
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
+    awful.key({ modkey, "Shift" }, "l", function () os.execute(scrlocker) end,
+              {description = "lock screen (alt)", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
