@@ -56,6 +56,13 @@ enabled=false
 enabled=true
 watchSources=false
 
+[python.bitwarden]
+enabled=true
+
+[python.window_switcher_v2]
+enabled=true
+trigger="w "
+
 [python_eval]
 enabled=true
 
