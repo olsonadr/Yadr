@@ -125,3 +125,7 @@ fi
 # Use nvim instead of vim
 alias vim="nvim"
 alias svim="sudo nvim"
+
+# Fix keyboard layout
+setxkbmap -option
+

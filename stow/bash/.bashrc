@@ -154,5 +154,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 . "$HOME/.cargo/env"
 
+# Fix keyboard layout
+setxkbmap -option
+
 # Misc
 export XAUTHORITY=$HOME/.Xauthority
+

@@ -848,4 +848,5 @@ tag.connect_signal("property::selected", backham)
 
 -- }}}
 
-
+-- Start autorun programs
+awful.spawn.with_shell("~/.config/awesome/autorun.sh")
