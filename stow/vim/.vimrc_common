@@ -23,7 +23,7 @@ call vundle#begin()
 let g:vundle#bundle_dir = '~/.' . g:vimdist . '/bundle/'
 
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'drewtempelmeyer/palenight.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'junegunn/fzf.vim'
