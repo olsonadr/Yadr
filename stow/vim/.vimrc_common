@@ -129,6 +129,7 @@ endfunction
 imap <leader>program <Esc>mz:execute FileHeading()<CR>`zjjjj$A
 imap <leader>function <Esc>mz:execute FunctionHeading()<CR>`zj$A
 imap <leader>cp <Esc>:execute 'normal 0vg_"+y'<CR>
+imap <A-BS> <C-W>
 map cp <Esc>:execute 'normal 0vg_"+y'<CR>
 
 map <silent> <c-f> :call Format()<CR>
