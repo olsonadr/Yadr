@@ -31,12 +31,12 @@ sudo apt-get -y update && \
     add-sudo apt-repository -y ppa:neovim-ppa/stable && \
     sudo apt-get -y update && \
     sudo apt install -y cargo curl fzf git neovim stow wmctrl tmux zsh && \
-    sudo apt install -y awesome awesome-extra fonts-font-awesome brightnessctl dex x11-xserver-utils i3lock scrot imagemagick xautolock fonts-powerline && \
+    sudo apt install -y awesome awesome-extra fonts-font-awesome brightnessctl dex x11-xserver-utils i3lock scrot imagemagick xautolock fonts-powerline python3-pynvim && \
     cargo install --locked rbw
     git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.git && \
     mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats && \
-    git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins
-    sudo usermod -a -G input ${USER}
+    git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins && \
+    sudo usermod -a -G input ${USER} && \
     sudo usermod -a -G video ${USER}
 ```
 
@@ -70,6 +70,12 @@ sudo apt-get -y update && \
 6. Install (n)vim vundle plugins and themes
     ```console
     vim -c "PluginInstall"
+    nvim -c "PluginInstall"
+    ```
+7. Install (n)vim autocomplete language server
+    ```console
+    sudo apt install mono-complete golang nodejs openjdk-17-jdk openjdk-17-jre npm
+    cd ~/.nvim/bundle/YouCompleteMe ; python3 install.py --all ; cd -
     ```
 
 ## Next Steps
