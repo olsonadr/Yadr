@@ -71,14 +71,15 @@ end
 run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
---[[
 awful.spawn.with_shell(
     'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
     'xrdb -merge <<< "awesome.started:true";' ..
     -- list each of your autostart commands, followed by ; inside single quotes, followed by ..
+    'albert ; ' ..
+    'setxkbmap -option ; ' ..
+    -- end commands
     'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
 )
---]]
 
 -- }}}
 
@@ -177,6 +178,13 @@ beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv
 
 -- }}}
 
+-- {{{ Quit Func
+function quit_awesome()
+    awful.spawn("~/.config/awesome/shutdown.sh")
+    awesome.quit()
+end
+-- }}}
+
 -- {{{ Menu
 
 -- Create a launcher widget and a main menu
@@ -185,7 +193,7 @@ local myawesomemenu = {
    { "Manual", string.format("%s -e man awesome", terminal) },
    { "Edit config", string.format("%s -e %s %s", terminal, editor, awesome.conffile) },
    { "Restart", awesome.restart },
-   { "Quit", function() awesome.quit() end },
+   { "Quit", quit_awesome },
 }
 
 awful.util.mymainmenu = freedesktop.menu.build {
@@ -201,14 +209,15 @@ awful.util.mymainmenu = freedesktop.menu.build {
 
 -- Hide titlebars unless floating
 function hide_unless_floating(c)
-    if c.floating and awful.titlebar then
+    if not awful.titlebar then; return; end
+    if c.floating then
         awful.titlebar.show(c)
     else
         awful.titlebar.hide(c)
     end
 end
 
--- client.connect_signal("property::floating", hide_unless_floating)
+--client.connect_signal("property::floating", hide_unless_floating)
 
 -- Hide the menu when the mouse leaves it
 --[[
@@ -287,8 +296,8 @@ globalkeys = mytable.join(
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ modkey, "Shift" }, "l", function () os.execute(scrlocker) end,
-              {description = "lock screen (alt)", group = "hotkeys"}),
+    -- awful.key({ modkey, "Shift" }, "l", function () os.execute(scrlocker) end,
+    --           {description = "lock screen (alt)", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
@@ -412,7 +421,7 @@ globalkeys = mytable.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    awful.key({ modkey, "Shift"   }, "q", quit_awesome,
               {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey, altkey    }, "l",     function () awful.tag.incmwfact( 0.05)          end,
@@ -579,6 +588,12 @@ globalkeys = mytable.join(
 )
 
 clientkeys = mytable.join(
+    -- Mine
+    -- Toggle titlebar
+    awful.key({ "Control", "Shift", modkey, altkey }, "t", function(c) awful.titlebar.toggle(c) end,
+	      {description="toggle titlebar", group="client"}),
+
+    -- Default
     awful.key({ altkey, "Shift"   }, "m",      lain.util.magnify_client,
               {description = "magnify client", group = "client"}),
     awful.key({ modkey,           }, "f",
@@ -816,7 +831,8 @@ function titlebar_callback(c)
         },
         layout = wibox.layout.align.horizontal
     }
-    hide_unless_floating(c)
+    awful.titlebar.hide(c)
+    --hide_unless_floating(c)
 end
 client.connect_signal("request::titlebars", titlebar_callback)
 
@@ -848,5 +864,9 @@ tag.connect_signal("property::selected", backham)
 
 -- }}}
 
--- Start autorun programs
-awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+-- -- Start autorun programs
+-- awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+
+-- Limit size of notification icons
+naughty.config.defaults['icon_size'] = 100
+

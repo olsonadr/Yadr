@@ -62,6 +62,9 @@ enabled=true
 [python.my_domain]
 enabled=true
 
+[python.vpn]
+enabled=true
+
 [python.window_switcher_v2]
 enabled=true
 trigger="w "
