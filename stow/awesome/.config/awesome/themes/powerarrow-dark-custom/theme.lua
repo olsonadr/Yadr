@@ -272,8 +272,8 @@ function make_set_power_mode_cb(dir)
 end
 
 local bat_buttons = awful.util.table.join(
-    awful.button({}, 1,	make_set_power_mode_cb(true)),
-    awful.button({}, 3,	make_set_power_mode_cb(false))
+    awful.button({}, 1,	make_set_power_mode_cb(false)),
+    awful.button({}, 3,	make_set_power_mode_cb(true))
 )
 bat.widget:buttons(bat_buttons)
 baticon:buttons(bat_buttons)
