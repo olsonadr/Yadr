@@ -286,6 +286,7 @@ awful.spawn.easy_async_with_shell("sleep 5", function(); bat.update(); end)
 -- ALSA volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
 theme.volume = lain.widget.alsa({
+    cmd = "amixer -D pulse",
     settings = function()
         if volume_now.status == "off" then
             volicon:set_image(theme.widget_vol_mute)
@@ -302,11 +303,11 @@ theme.volume = lain.widget.alsa({
 })
 theme.volume.widget:buttons(awful.util.table.join(
                                awful.button({}, 4, function ()
-                                     awful.util.spawn("amixer set Master 1%+")
+                                     awful.util.spawn("amixer -D pulse set Master 1%+")
                                      theme.volume.update()
                                end),
                                awful.button({}, 5, function ()
-                                     awful.util.spawn("amixer set Master 1%-")
+                                     awful.util.spawn("amixer -D pulse set Master 1%-")
                                      theme.volume.update()
                                end)
 ))

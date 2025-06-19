@@ -82,3 +82,7 @@ sudo apt-get -y update && \
 - See [olsonadr/awful-dots](https://github.com/olsonadr/awful-dots/tree/master)
   for additional dotfile scripts/bootstrapping, including automatic gnome
   extention installation and gnome dconf settings management.
+
+## Additional References
+- [https://github.com/JaKooLit/Ubuntu-Hyprland/tree/main?tab=readme-ov-file](Potential Ubuntu Hyprland install script)
+- [https://bacardi55.io/2023/07/07/i3lock-and-fingerprint/](i3lock with fingerprint pam on thikpad)

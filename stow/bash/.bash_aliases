@@ -10,6 +10,8 @@ alias reboot='echo no'
 alias svim="sudo vim"
 alias tmux='TERM=screen-256color-bce tmux -2'
 alias t='tmux'
+alias ghci="ghci -ghci-script ~/.ghc/ghci.conf"
+alias signal-desktop="signal-desktop --password-store=gnome-libsecret"
 
 # Apt
 alias sai="sudo apt install"
