@@ -13,7 +13,6 @@ let g:clipboard = {
     \   },
     \ }
 
-
 "Vundle Stuff"
 let &rtp .= ',~/.' . g:vimdist . '/bundle/Vundle.vim'
 set nocompatible
@@ -34,6 +33,8 @@ Plugin 'mhinz/vim-startify'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bullets-vim/bullets.vim'
+Plugin 'neovim/nvim-lspconfig'
+Plugin 'rdnetto/YCM-Generator'
 
 call vundle#end()
 
@@ -173,3 +174,27 @@ function! XTermPasteBegin()
   set paste
   return ""
 endfunction
+
+function! XTermPasteEnd()
+  set paste&
+  return ""
+endfunction
+
+" Auto add modelines (from vim fandom wiki)
+"
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+"Please no tabs"
+set paste&
+set expandtab
+
+" vim: set ts=8 sw=4 tw=78 et :

@@ -129,3 +129,27 @@ alias svim="sudo nvim"
 # Fix keyboard layout
 setxkbmap -option
 
+# NVM setup
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# JLink PATH
+export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
+
+#  vim: set ts=8 sw=4 tw=0 noet :
+
+# >>> Added by Spyder >>>
+alias spyder=/home/olsonadr/.local/spyder-6/envs/spyder-runtime/bin/spyder
+alias uninstall-spyder=/home/olsonadr/.local/spyder-6/uninstall-spyder.sh
+# <<< Added by Spyder <<<
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/path.zsh.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+
+[ -f "/home/olsonadr/.ghcup/env" ] && . "/home/olsonadr/.ghcup/env" # ghcup-env

@@ -14,6 +14,7 @@ style=GTK+
 
 [applications]
 enabled=true
+fuzzy=false
 use_keywords=false
 
 [bitwarden]
@@ -58,6 +59,9 @@ watchSources=false
 
 [python.bitwarden]
 enabled=true
+
+[python.locate]
+enabled=false
 
 [python.my_domain]
 enabled=true
