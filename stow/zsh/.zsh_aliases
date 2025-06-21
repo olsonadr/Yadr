@@ -123,3 +123,14 @@ function oneline() {
   done
   echo
 }
+
+
+# Silent background process (job that doesnt give output, or DONE message)
+silent_background() {
+    #[[ $- =~ m ]] && oldstate="-m" || oldstate="+m"
+    #set -m
+    #exec 3>&2 2>/dev/null
+    { 2>&3 2>/dev/null "$@"& } 3>&2 2>-
+    disown &>/dev/null  # Close STD{OUT,ERR} for silence if job has already completed
+    #set "${oldstate}"
+}

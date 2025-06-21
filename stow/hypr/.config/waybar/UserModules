@@ -1,0 +1,38 @@
+//* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
+/* Waybar Modules Extras */
+
+/* This is where you can add Extra Modules you wish. copy.sh will try to restore*/
+/* this file along with the unique configs and styles. */
+/* IMPORTANT, be mindful with , or ". else waybar will not start */
+
+{
+  "group/audio_no_drawer": {
+	"orientation": "inherit",
+	"modules": [
+		"pulseaudio",
+	]
+  },
+  "group/notify_no_drawer": {
+        "orientation": "inherit",
+        "modules": [
+                "custom/swaync",
+        ]
+  },
+  "group/mobo_no_drawer": {
+	"orientation": "inherit",
+	"modules": [
+		"temperature",		
+		"cpu",
+		"power-profiles-daemon",	
+		"memory",
+		"disk",
+	]
+  },
+  "group/audio_no_drawer": {
+	"orientation": "inherit",
+	"modules": [
+		"pulseaudio",
+		"pulseaudio#microphone",
+	]
+  },
+}

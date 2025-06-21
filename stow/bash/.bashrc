@@ -129,11 +129,11 @@ export PS1="┌─\[\e[1;03;36m\]\u@\h\[\e[0m\]\[\e[1;03;31m\] [\w] \[\e[0m\]\[\
 
 # PATH modifications
 export PATH="/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
-export PATH="${PATH}:${HOME}/.vimpkg/bin"
-export PATH="${PATH}:${HOME}/.local/bin"
-export PATH="${PATH}:${HOME}/.cargo/bin"
-export PATH="${PATH}:${HOME}/bin:"
-export PATH="${PATH}:/snap/bin"
+export PATH="${HOME}/.vimpkg/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
+export PATH="${HOME}/bin:${PATH}"
+export PATH="/snap/bin:${PATH}"
 
 # Configure fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -154,8 +154,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 . "$HOME/.cargo/env"
 
-# Fix keyboard layout
-setxkbmap -option
+## Fix keyboard layout
+#setxkbmap -option
 
 # Misc
 export XAUTHORITY=$HOME/.Xauthority

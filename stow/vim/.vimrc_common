@@ -2,16 +2,27 @@
 
 set sessionoptions=blank,curdir,folds,help,tabpages,winpos
 let g:clipboard = {
-    \   'name': 'xclip-custom',
+    \   'name': 'wl-copy-custom',
     \   'copy': {
-    \      '+': 'xclip -quiet -i -selection clipboard',
-    \      '*': 'xclip -quiet -i -selection primary',
+    \      '+': 'wl-copy',
+    \      '*': 'wl-copy -p',
     \    },
     \   'paste': {
-    \      '+': 'xclip -o -selection clipboard',
-    \      '*': 'xclip -o -selection primary',
+    \      '+': 'wl-paste',
+    \      '*': 'wl-paste -p',
     \   },
     \ }
+"let g:clipboard = {
+"    \   'name': 'xclip-custom',
+"    \   'copy': {
+"    \      '+': 'xclip -quiet -i -selection clipboard',
+"    \      '*': 'xclip -quiet -i -selection primary',
+"    \    },
+"    \   'paste': {
+"    \      '+': 'xclip -o -selection clipboard',
+"    \      '*': 'xclip -o -selection primary',
+"    \   },
+"    \ }
 
 "Vundle Stuff"
 let &rtp .= ',~/.' . g:vimdist . '/bundle/Vundle.vim'

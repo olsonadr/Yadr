@@ -10,7 +10,7 @@ function log() {
   echo "${prefix}$@"
 }
 
-readonly script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+readonly script_dir="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
 readonly stow_opts="--target=${script_dir}/.. --no-folding"
 readonly stow_command="stow ${stow_opts} $@ */"
 

@@ -86,3 +86,10 @@ sudo apt-get -y update && \
 ## Additional References
 - [https://github.com/JaKooLit/Ubuntu-Hyprland/tree/main?tab=readme-ov-file](Potential Ubuntu Hyprland install script)
 - [https://bacardi55.io/2023/07/07/i3lock-and-fingerprint/](i3lock with fingerprint pam on thikpad)
+- [https://sw.kovidgoyal.net/kitty/binary/](Updated Kitty install to solve startup lag)
+
+## TODOs
+- [ ] Fix libinput gestures
+- [ ] Make X/Wayland agnostic scripts for:
+    - [ ] xclip/xsel
+    - [ ] wl-copy/wl-paste
