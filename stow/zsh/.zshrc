@@ -1,4 +1,3 @@
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -106,11 +105,11 @@ TERM=xterm-256color
 
 # PATH modifications
 export PATH="/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
-export PATH="${PATH}:${HOME}/.vimpkg/bin"
-export PATH="${PATH}:${HOME}/.local/bin"
-export PATH="${PATH}:${HOME}/.cargo/bin"
-export PATH="${PATH}:${HOME}/bin:"
-export PATH="${PATH}:/snap/bin"
+export PATH="${HOME}/.vimpkg/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
+export PATH="${HOME}/bin:${PATH}"
+export PATH="/snap/bin:${PATH}"
 
 # Alias definitions
 if [ -f ~/.zsh_aliases ]; then
@@ -126,12 +125,12 @@ fi
 alias vim="nvim"
 alias svim="sudo nvim"
 
-# Fix keyboard layout
-setxkbmap -option
+## Fix keyboard layout
+#setxkbmap -option
 
 # NVM setup
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/nvm.sh" ] && silent_background \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # JLink PATH
@@ -153,3 +152,4 @@ if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc' 
 
 
 [ -f "/home/olsonadr/.ghcup/env" ] && . "/home/olsonadr/.ghcup/env" # ghcup-env
+

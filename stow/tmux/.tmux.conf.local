@@ -366,7 +366,8 @@ set -g mouse on
 
 # Copy most recent copy buffer to clipboard
 #bind C-[ run -b "tmux save-buffer - | xsel -i -b"
-bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"
+#bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"
+bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
 bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - > ~/nick/clipboard.txt" 
 
 # force Vi mode

@@ -58,6 +58,7 @@ enabled=true
 watchSources=false
 
 [python.bitwarden]
+cache_timeout=5
 enabled=true
 
 [python.locate]
@@ -89,6 +90,7 @@ command_lock=lock
 command_poweroff=systemctl poweroff
 command_reboot=systemctl reboot
 enabled=true
+fuzzy=false
 
 [terminal]
 enabled=true
@@ -128,6 +130,16 @@ showFallbacksOnEmpty=true
 systemShadow=true
 theme=Nord
 windowPosition=@Point(917 288)
+
+[widgetsboxmodel-ng]
+alwaysOnTop=true
+clearOnHide=true
+displayScrollbar=false
+followCursor=true
+hideOnFocusLoss=true
+historySearch=true
+itemCount=5
+showCentered=true
 
 [window_switcher_v2]
 enabled=true
