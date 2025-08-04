@@ -29,7 +29,7 @@ sudo apt-get -y update && \
     (   sudo apt-get install -y software-properties-common ; \
         sudo apt-get install -y python-software-properties ; \
     ) ; \
-    add-sudo apt-repository -y ppa:neovim-ppa/stable && \
+    sudo add-apt-repository -y ppa:neovim-ppa/stable && \
     sudo apt-get -y update && \
     sudo apt install -y cargo curl fzf git neovim stow wmctrl tmux zsh ydotool && \
     sudo apt install -y awesome awesome-extra fonts-font-awesome brightnessctl dex x11-xserver-utils i3lock scrot imagemagick xautolock fonts-powerline python3-pynvim && \
@@ -66,7 +66,7 @@ sudo apt-get -y update && \
     ```
     - Or install only one set of dotfiles by entering the `stow` directory, and using stow directly for any <PROGRAM> (like bash, nvim, tmux, vim, zsh, etc.)
         ```console
-        cd stow && stow -t ~ --no-folding <PROGRAM>
+        cd stow && stow -t ${HOME} --no-folding <PROGRAM>
         ```
 6. Install (n)vim vundle plugins and themes
     ```console
