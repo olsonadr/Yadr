@@ -24,7 +24,11 @@ let g:clipboard = {
 "    \   },
 "    \ }
 
+
+
 "Vundle Stuff"
+"set rtp+=~/.vim/bundle/Vundle.vim
+"set &rtp .= ',~/.' . g:vimdist . '/bundle/Vundle.vim'
 let &rtp .= ',~/.' . g:vimdist . '/bundle/Vundle.vim'
 set nocompatible
 filetype off
@@ -46,6 +50,10 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'bullets-vim/bullets.vim'
 Plugin 'neovim/nvim-lspconfig'
 Plugin 'rdnetto/YCM-Generator'
+Plugin 'easymotion/vim-easymotion'
+"Plugin 'bkad/CamelCaseMotion.vim'
+Plugin 'justinmk/vim-sneak'
+Plugin 'shrynx/line-numbers.nvim'
 
 call vundle#end()
 
@@ -207,5 +215,19 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 "Please no tabs"
 set paste&
 set expandtab
+
+"set opt.number = true
+"set opt.relativenumber = true
+"set opt.signcolumn = "number"
+
+"set statuscolumn=%@SignCb@%s%=%T%@NumCb@%r│%T
+"let &stc='%=%{v:relnum?v:relnum:v:lnum} '
+"let &stc='%#NonText#%{&nu?v:lnum:""}%=%{v:relnum?v:relnum:v:lnum} '
+let &stc='%#NonText#%{&nu?v:lnum:""}|%=%{v:relnum} '
+"let &stc='%#NonText#%{&nu?v:lnum:""}%=%{&rnu&&(v:lnum%2)?"\ ".v:relnum:""}%#LineNr#%{&rnu&&!(v:lnum%2)?"\ ".v:relnum:""}'
+"let &stc='%#NonText#%{&nu?v:lnum:""}' . '%=%{&rnu&&(v:lnum%2)?"\ ".v:relnum:""}' . '%#LineNr#%{&rnu&&!(v:lnum%2)?"\ ".v:relnum:""}'
+"let &stc='%=%{&rnu&&(v:lnum%2)?"\ ".v:relnum:""}' . '%#LineNr#%{&rnu&&!(v:lnum%2)?"\ ".v:relnum:""}'
+"let &stc='%#LineNr#%{&rnu&&!(v:lnum%2)?"\ ".v:relnum:""}'
+
 
 " vim: set ts=8 sw=4 tw=78 et :
