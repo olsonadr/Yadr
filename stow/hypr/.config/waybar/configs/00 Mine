@@ -31,7 +31,8 @@
 	],
     
 "modules-right": [
-	"group/mobo_no_drawer",
+	"idle_inhibitor",
+        "group/mobo_no_drawer",
 	"battery",
         "power-profiles-daemon",
  	"group/audio_no_drawer", 
