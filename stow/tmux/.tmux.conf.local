@@ -4,6 +4,12 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
+
+# ctrl+space prefix
+
+set -g prefix C-space
+
+
 # -- nvim color fix ------------------------------------------------------------
 #set -g default-terminal "screen-256color"
 set -g default-terminal "tmux-256color"
