@@ -121,10 +121,6 @@ fi
 # [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" .beginning-of-line
 # [[ -n ${key[End]} ]] && bindkey "${key[End]}" .end-of-line
 
-# Use nvim instead of vim
-alias vim="nvim"
-alias svim="sudo nvim"
-
 ## Fix keyboard layout
 #setxkbmap -option
 
@@ -135,8 +131,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # JLink PATH
 export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
-
-#  vim: set ts=8 sw=4 tw=0 noet :
 
 # >>> Added by Spyder >>>
 alias spyder=/home/olsonadr/.local/spyder-6/envs/spyder-runtime/bin/spyder
@@ -149,7 +143,25 @@ if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/path.zsh.inc' ]; the
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc'; fi
 
-
-
 [ -f "/home/olsonadr/.ghcup/env" ] && . "/home/olsonadr/.ghcup/env" # ghcup-env
 
+# Multiple nvim skews (https://www.youtube.com/watch?v=LkHjJlSgKZY)
+function nvims() {
+    items=("default" "LazyVim")
+    config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=50% --layout=reverse --border --exit-0)
+    if [[ -z $config ]]; then
+	echo "Nothing selected"
+	return 0
+    elif [[ $config == "default" ]]; then
+	config=""
+    fi
+    NVIM_APPNAME=$config nvim $@
+}
+bindkey -s ^a "nvims\n"
+#bindkey -s  "nvims\n"
+
+# Vi mode for tmux (bash/zsh specific *sadge* )
+editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
+export EDITOR="$(type -p ${editor_target} | sed -e 's/.* is //g')"
+
+#  vim: set ts=8 sw=4 tw=0 noet :

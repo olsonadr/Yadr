@@ -400,15 +400,21 @@ bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-b
 # use lowercase | for split too
 bind \\ split-window -h
 
-# Binds to switch panes using Alt-arrow without prefix
+# Binds to switch panes using Alt-arrow/hjkl without prefix
 bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
+bind -n M-h select-pane -L
+bind -n M-l select-pane -R
+bind -n M-k select-pane -U
+bind -n M-j select-pane -D
 
 # Binds to switch windows using Ctrl-Alt-arrow without prefix
 bind -n C-M-Left previous-window
 bind -n C-M-Right next-window
+bind -n C-M-h previous-window
+bind -n C-M-l next-window
 
 # Powerline fonts
 tmux_conf_theme_left_separator_main='\uE0B0'
@@ -420,7 +426,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'
 set -g pane-border-status bottom
 
 # On ressurrect, restore ssh, yocto build docker interact, screen for serial out, nested tmux sessions
-set -g @resurrect-processes 'ssh "vim" "screen" "~docker_interact.sh" "~nested-tmux"'
+set -g @resurrect-processes 'ssh "nvim" "vim" "screen" "~docker_interact.sh" "~nested-tmux"'
 
 
 # -- tpm -----------------------------------------------------------------------
