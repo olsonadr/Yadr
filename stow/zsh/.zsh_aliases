@@ -3,7 +3,7 @@
 # Misc
 alias c='clear'
 alias e='echo'
-alias fzf="bfind | fzf"
+alias fzfb="bfind | fzf"
 alias init_venv='python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt'
 alias ifconfig='ip -c a'
 alias reboot='echo no'
