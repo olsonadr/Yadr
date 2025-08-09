@@ -7,7 +7,6 @@ alias fzfb="bfind | fzf"
 alias init_venv='python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt'
 alias ifconfig='ip -c a'
 alias reboot='echo no'
-alias svim="sudo vim"
 alias t='tmux'
 alias tmux='TERM=screen-256color-bce tmux -2'
 alias zrc="source ~/.zshrc"
@@ -50,7 +49,8 @@ function swupkcc() { swup "$(cc_id $1)" "$2" "$3"; }
 ## Use nvim instead of vim
 alias vim="nvim"
 alias svim="sudo nvim"
-alias viml="NVIM_APPNAME=LazyVim nvim"
+alias lazyvim="NVIM_APPNAME=lazyvim nvim"
+alias lvim="lazyvim"
 
 # Acroname usb hub control
 alias usb_hub="/usr/local/usb_hub_software/bin/AcronameHubCLI"

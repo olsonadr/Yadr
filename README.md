@@ -5,6 +5,7 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 - [Oh my tmux!](https://github.com/gpakosz/.tmux)
 - [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
 - [Vundle](https://github.com/VundleVim/Vundle.vim?tab=readme-ov-file)
+- [LazyVim](https://www.lazyvim.org/)
 
 ## Usage
 ### Requirements
@@ -22,6 +23,8 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 - xautolock
 - zsh
 - ydotool
+- fd-find
+- ripgrep
 
 Oneliner to install requirements on ubuntu (as root):
 ```console
@@ -38,7 +41,8 @@ sudo apt-get -y update && \
     mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats && \
     git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins && \
     sudo usermod -a -G input ${USER} && \
-    sudo usermod -a -G video ${USER}
+    sudo usermod -a -G video ${USER} && \
+    sudo apt install -y fd-find ripgrep
 ```
 
 ### Installation
@@ -85,6 +89,7 @@ sudo apt-get -y update && \
   extention installation and gnome dconf settings management.
 
 ## Additional References
+- [https://github.com/JetBrains/JetBrainsMono/releases/latest](Jetbrains Mono font)
 - [https://github.com/JaKooLit/Ubuntu-Hyprland/tree/main?tab=readme-ov-file](Potential Ubuntu Hyprland install script)
 - [https://bacardi55.io/2023/07/07/i3lock-and-fingerprint/](i3lock with fingerprint pam on thikpad)
 - [https://sw.kovidgoyal.net/kitty/binary/](Updated Kitty install to solve startup lag)
@@ -94,3 +99,7 @@ sudo apt-get -y update && \
 - [ ] Look into why albert wont show applications sometimes
 - [ ] Make X/Wayland agnostic scripts for:
     - [ ] xclip/xsel <-> wl-copy/wl-paste
+- [ ] petertriho/nvim-scrollbar
+- [ ] fix leap binds
+- [ ] make binds for fzf (replace ctrl-p?)
+- [ ] lazyvim
