@@ -147,7 +147,7 @@ if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc' 
 
 # Multiple nvim skews (https://www.youtube.com/watch?v=LkHjJlSgKZY)
 function nvims() {
-    items=("default" "LazyVim")
+    items=("default" "lazyvim" "vanilla")
     config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=50% --layout=reverse --border --exit-0)
     if [[ -z $config ]]; then
 	echo "Nothing selected"
