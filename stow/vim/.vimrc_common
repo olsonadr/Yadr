@@ -1,36 +1,40 @@
-"source $VIMRUNTIME/defaults.vim
+" Common rc for vim and nvim
 
 " leader and localleader
 let maplocalleader = "\\"
 let mapleader = " "
 
-" plugins
+"========="
+" Sources "
+"========="
+"source $VIMRUNTIME/defaults.vim
 source ${HOME}/.vimrc_common_plugins
-
-" funcs
 source ${HOME}/.vimrc_common_funcs
- 
+
+"============"
+" Maps/Binds "
+"============"
 " maps
-map <C-\> :NERDTreeToggle<CR>
 nnoremap <silent> <localleader>ml :call AppendModeline()<CR>
 "map <silent> <c-f> :call Format()<CR>
-
 " imaps
 imap <A-BS> <C-W>
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+"inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 imap <localleader>cp <Esc>:execute 'normal 0vg_"+y'<CR>
 " Use jk for esc to quickly exit insert 
 inoremap jk <ESC>
-
 " abbreviations (and <c-b> for optional abbrevs)
 inoremap <c-b> <c-v><c-a><c-]>
 iab date <c-r>=strftime("%F")<CR>
 iab program <Esc>mz:execute FileHeading()<CR>`zjjjj$A
 iab function <Esc>mz:execute FunctionHeading()<CR>`zj$A
 
-" Misc params
+"=============="
+" Misc Options "
+"=============="
 syntax on
 set sessionoptions=blank,curdir,folds,help,tabpages,winpos
+set clipboard+=unnamedplus
 set autoindent
 set tabstop=8
 set softtabstop=4
@@ -43,6 +47,7 @@ set completeopt-=preview
 set shortmess+=c
 set foldmethod=indent   " fold based on indent
 set nofoldenable
+set nocompatible
 " Colorscheme from plugin
 colorscheme palenight
 let g:palenight_terminal_italics=1
@@ -56,6 +61,9 @@ set relativenumber
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
 
+"=============="
+" Misc Verbose "
+"=============="
 " Fix neovim colors
 if (has("nvim"))
 	"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -66,35 +74,35 @@ if (has("termguicolors"))
 	set termguicolors
 endif
 
-" Fix clipboard on X/wayland/WSL
-if system('uname -r') =~ "microsoft"
-  augroup Yank
-    autocmd!
-    autocmd TextYankPost * :call system('clip.exe ',@")
-  augroup END
-else
-    let g:clipboard = {
-        \   'name': 'wl-copy-custom',
-        \   'copy': {
-        \      '+': 'wl-copy',
-        \      '*': 'wl-copy -p',
-        \    },
-        \   'paste': {
-        \      '+': 'wl-paste',
-        \      '*': 'wl-paste -p',
-        \   },
-        \ }
-    "let g:clipboard = {
-    "    \   'name': 'xclip-custom',
-    "    \   'copy': {
-    "    \      '+': 'xclip -quiet -i -selection clipboard',
-    "    \      '*': 'xclip -quiet -i -selection primary',
-    "    \    },
-    "    \   'paste': {
-    "    \      '+': 'xclip -o -selection clipboard',
-    "    \      '*': 'xclip -o -selection primary',
-    "    \   },
-    "    \ }
-endif
+" " Fix clipboard on X/wayland/WSL
+" if system('uname -r') =~ "microsoft"
+" "  augroup Yank
+" "    autocmd!
+" "    autocmd TextYankPost * :call system('clip.exe ',@")
+" "  augroup END
+" else
+"     let g:clipboard = {
+"         \   'name': 'wl-copy-custom',
+"         \   'copy': {
+"         \      '+': 'wl-copy',
+"         \      '*': 'wl-copy -p',
+"         \    },
+"         \   'paste': {
+"         \      '+': 'wl-paste',
+"         \      '*': 'wl-paste -p',
+"         \   },
+"         \ }
+"     "let g:clipboard = {
+"     "    \   'name': 'xclip-custom',
+"     "    \   'copy': {
+"     "    \      '+': 'xclip -quiet -i -selection clipboard',
+"     "    \      '*': 'xclip -quiet -i -selection primary',
+"     "    \    },
+"     "    \   'paste': {
+"     "    \      '+': 'xclip -o -selection clipboard',
+"     "    \      '*': 'xclip -o -selection primary',
+"     "    \   },
+"     "    \ }
+" endif
 
 " vim: set ts=8 sw=4 tw=78 et :

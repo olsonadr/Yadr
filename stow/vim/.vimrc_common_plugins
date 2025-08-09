@@ -1,17 +1,24 @@
-"Vundle Stuff"
-let &rtp .= ',~/.' . g:vimdist . '/bundle/Vundle.vim'
-set nocompatible
-filetype off
+"Plugin-related config"
 
-" Easymotion settings
+"-------------"
+" Plugin Maps "
+"-------------"
+" Easymotion
 map <Leader> <Plug>(easymotion-prefix)
 map <Leader><CR> <Plug>(easymotion-jumptoanywhere)
 map <Leader><Leader>j <Plug>(easymotion-jumptoanywhere)
+" NERDTree
+map <C-\> :NERDTreeToggle<CR>
 
+"-----------------------------"
+" Vundle Settings/Plugin List "
+"-----------------------------"
+let &rtp .= ','.$HOME.'/.'. g:vimdist.'/bundle/Vundle.vim'
+filetype off
 call vundle#begin()
-let g:vundle#bundle_dir = '~/.' . g:vimdist . '/bundle/'
+let g:vundle#bundle_dir = $HOME.'/.'.g:vimdist.'/bundle/'
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'drewtempelmeyer/palenight.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'junegunn/fzf.vim'
@@ -25,23 +32,26 @@ Plugin 'bullets-vim/bullets.vim'
 Plugin 'neovim/nvim-lspconfig'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'bkad/CamelCaseMotion.vim'
+"Plugin 'bkad/CamelCaseMotion'
+Plugin 'inkarkat/vim-camelcasemotion'
 Plugin 'justinmk/vim-sneak'
 Plugin 'shrynx/line-numbers.nvim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 call vundle#end()
 filetype plugin indent on
-let g:ycm_global_ycm_extra_conf = '~/.' . g:vimdist . '/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = $HOME.'/.'.g:vimdist.'/.ycm_extra_conf.py'
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
-"End Vundle Stuff"
 
-
+"----------------------------"
+" Plugin Settings (non-maps) "
+"----------------------------"
 " Ctrl-P Settings
-let runtimepath = '~/.' . g:vimdist . '/bundle/ctrlp.vim'
+let runtimepath = $HOME.'/.'.g:vimdist.'/bundle/ctrlp.vim'
 set tags+=doc/tags
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = ['buffertag', 'dir', 'line']
-
 " Startify stuff
 function s:my_sessions()
     let s_files = split(globpath('./doc/sessions', '*'), '\n')

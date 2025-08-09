@@ -152,7 +152,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; h
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
+if [ -f ${HOME}/.cargo/env ]; then . "$HOME/.cargo/env"; fi
 
 ## Fix keyboard layout
 #setxkbmap -option
@@ -178,5 +178,9 @@ if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/path.bash.inc' ]; th
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc'; fi
+
+# Vi mode for tmux (bash/zsh specific *sadge* )
+editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
+export EDITOR="$(type -P ${editor_target})"
 
 #  vim: set ts=8 sw=4 tw=0 noet :
