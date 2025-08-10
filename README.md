@@ -111,6 +111,6 @@ sudo apt-get -y update && \
 - [ ] jupyter?
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)
-- [ ] 
+- [ ] `<prefix>ctrl+hjkl` for tmux pane navigation?
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
