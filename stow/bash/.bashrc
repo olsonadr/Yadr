@@ -135,52 +135,52 @@ export PATH="${HOME}/.cargo/bin:${PATH}"
 export PATH="${HOME}/bin:${PATH}"
 export PATH="/snap/bin:${PATH}"
 
-# Configure fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
-
-## Setup Instant History Across Terminals
-## Source: https://unix.stackexchange.com/a/1292
-# Avoid duplicates
-HISTCONTROL=ignoredups:erasedups
-# When the shell exits, append to the history file instead of overwriting it
-shopt -s histappend
-# After each command, append to the history file and reread it
-PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-
-# Configure nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-if [ -f ${HOME}/.cargo/env ]; then . "$HOME/.cargo/env"; fi
-
-## Fix keyboard layout
-#setxkbmap -option
-
-# Misc
-export XAUTHORITY=$HOME/.Xauthority
-
-# NVM setup
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# JLink PATH
-export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
-
-# >>> Added by Spyder >>>
-alias spyder=/home/olsonadr/.local/spyder-6/envs/spyder-runtime/bin/spyder
-alias uninstall-spyder=/home/olsonadr/.local/spyder-6/uninstall-spyder.sh
-# <<< Added by Spyder <<<
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/path.bash.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc'; fi
-
-# Vi mode for tmux (bash/zsh specific *sadge* )
-editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
-export EDITOR="$(type -P ${editor_target})"
-
-#  vim: set ts=8 sw=4 tw=0 noet :
+## Configure fzf
+#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+#export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
+#
+### Setup Instant History Across Terminals
+### Source: https://unix.stackexchange.com/a/1292
+## Avoid duplicates
+#HISTCONTROL=ignoredups:erasedups
+## When the shell exits, append to the history file instead of overwriting it
+#shopt -s histappend
+## After each command, append to the history file and reread it
+#PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+#
+## Configure nvm
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#if [ -f ${HOME}/.cargo/env ]; then . "$HOME/.cargo/env"; fi
+#
+### Fix keyboard layout
+##setxkbmap -option
+#
+## Misc
+#export XAUTHORITY=$HOME/.Xauthority
+#
+## NVM setup
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#
+## JLink PATH
+#export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
+#
+## >>> Added by Spyder >>>
+#alias spyder=/home/olsonadr/.local/spyder-6/envs/spyder-runtime/bin/spyder
+#alias uninstall-spyder=/home/olsonadr/.local/spyder-6/uninstall-spyder.sh
+## <<< Added by Spyder <<<
+#
+## The next line updates PATH for the Google Cloud SDK.
+#if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/path.bash.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/path.bash.inc'; fi
+#
+## The next line enables shell command completion for gcloud.
+#if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc'; fi
+#
+## Vi mode for tmux (bash/zsh specific *sadge* )
+#editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
+#export EDITOR="$(type -P ${editor_target})"
+#
+##  vim: set ts=8 sw=4 tw=0 noet :

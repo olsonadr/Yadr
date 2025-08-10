@@ -22,7 +22,7 @@ map <Leader>s <Plug>(leap-anywhere)
 "-----------------------------"
 " Vundle Settings/Plugin List "
 "-----------------------------"
-let &rtp .= ','.$HOME.'/.'. g:vimdist.'/bundle/Vundle.vim'
+let &rtp .= ','.$HOME.'/.'.g:vimdist.'/bundle/Vundle.vim'
 filetype off
 call vundle#begin()
 let g:vundle#bundle_dir = $HOME.'/.'.g:vimdist.'/bundle/'

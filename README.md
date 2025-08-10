@@ -25,6 +25,7 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 - ydotool
 - fd-find
 - ripgrep
+- luarocks
 
 Oneliner to install requirements on ubuntu (as root):
 ```console
@@ -42,7 +43,7 @@ sudo apt-get -y update && \
     git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins && \
     sudo usermod -a -G input ${USER} && \
     sudo usermod -a -G video ${USER} && \
-    sudo apt install -y fd-find ripgrep
+    sudo apt install -y fd-find ripgrep luarocks
 ```
 
 ### Installation
@@ -98,8 +99,18 @@ sudo apt-get -y update && \
 - [ ] Fix libinput gestures
 - [ ] Look into why albert wont show applications sometimes
 - [ ] Make X/Wayland agnostic scripts for:
-    - [ ] xclip/xsel <-> wl-copy/wl-paste
+  - [ ] xclip/xsel <-> wl-copy/wl-paste
 - [ ] petertriho/nvim-scrollbar
+- [ ] tpope/vim-obsession
 - [ ] fix leap binds
 - [ ] make binds for fzf (replace ctrl-p?)
 - [ ] lazyvim
+- [ ] render markdown
+  - [ ] pull over binds
+  - [ ] check lvim into stow
+- [ ] jupyter?
+- [x] tmux restore correct version of vim
+- [x] move nvims scripts/configs to stow (nvim_skew)
+- [ ] 
+
+<!-- vim: set ts=4 sw=4 tw=0 et :-->

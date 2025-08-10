@@ -427,8 +427,10 @@ tmux_conf_theme_right_separator_sub='\uE0B3'
 set -g pane-border-status bottom
 
 # On ressurrect, restore ssh, yocto build docker interact, screen for serial out, nested tmux sessions
-set -g @resurrect-processes 'ssh "nvim" "vim" "screen" "~docker_interact.sh" "~nested-tmux"'
-
+set -g @resurrect-processes 'ssh screen ~nvim_skew ~nvims ~lvim ~lazyvim ~docker_interact.sh ~nested-tmux'
+#set -g @resurrect-processes '"ssh" "nvims" "lvim" "lazyvim" "nvim" "vim" "screen" "~docker_interact.sh" "~nested-tmux" "bash" "zsh"'
+set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-strategy-nvim 'session'
 
 # -- tpm -----------------------------------------------------------------------
 
