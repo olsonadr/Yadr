@@ -49,7 +49,7 @@ function swupkcc() { swup "$(cc_id $1)" "$2" "$3"; }
 ## Use nvim instead of vim
 alias vim="nvim"
 alias svim="sudo nvim"
-alias lazyvim="NVIM_APPNAME=lazyvim nvim"
+alias lazyvim="nvim_skew lazyvim"
 alias lvim="lazyvim"
 
 # Acroname usb hub control
@@ -125,7 +125,6 @@ function oneline() {
   echo
 }
 
-
 # Silent background process (job that doesnt give output, or DONE message)
 silent_background() {
     #[[ $- =~ m ]] && oldstate="-m" || oldstate="+m"
@@ -135,3 +134,16 @@ silent_background() {
     disown &>/dev/null  # Close STD{OUT,ERR} for silence if job has already completed
     #set "${oldstate}"
 }
+
+## Multiple nvim skews (https://www.youtube.com/watch?v=LkHjJlSgKZY)
+function nvims() {
+    items=("default" "lazyvim" "vanilla" "env")
+    config="$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  --> " --height=50% --layout=reverse --border --exit-0)"
+    if [[ $config == "default" ]]; then
+	config=""
+    fi
+    nvim_skew "${config}" "$@"
+    #NVIM_APPNAME=$config nvim "$@"
+}
+
+#  vim: set ts=8 sw=4 tw=0 et :

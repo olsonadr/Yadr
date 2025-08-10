@@ -100,8 +100,8 @@ ZSH_TMUX_AUTOSTART=true
 # Use vim as default editor
 EDITOR=vim
 
-# Use xterm-256color terminal profile
-TERM=xterm-256color
+## Use xterm-256color terminal profile
+#TERM=xterm-256color
 
 # PATH modifications
 export PATH="/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
@@ -118,8 +118,8 @@ fi
 
 # # Enable my keys
 # source ~/.zkbd/xterm-256color-:0
-# [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" .beginning-of-line
-# [[ -n ${key[End]} ]] && bindkey "${key[End]}" .end-of-line
+[[ -n ${key[Home]} ]] && bindkey "${key[Home]}" .beginning-of-line
+[[ -n ${key[End]} ]] && bindkey "${key[End]}" .end-of-line
 
 ## Fix keyboard layout
 #setxkbmap -option
@@ -145,18 +145,7 @@ if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc' 
 
 [ -f "/home/olsonadr/.ghcup/env" ] && . "/home/olsonadr/.ghcup/env" # ghcup-env
 
-# Multiple nvim skews (https://www.youtube.com/watch?v=LkHjJlSgKZY)
-function nvims() {
-    items=("default" "lazyvim" "vanilla")
-    config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=50% --layout=reverse --border --exit-0)
-    if [[ -z $config ]]; then
-	echo "Nothing selected"
-	return 0
-    elif [[ $config == "default" ]]; then
-	config=""
-    fi
-    NVIM_APPNAME=$config nvim $@
-}
+# Quick access to nvim skew selecter
 bindkey -s ^a "nvims\n"
 
 # Vi mode for tmux (bash/zsh specific *sadge* )

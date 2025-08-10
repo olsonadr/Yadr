@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# nvim_skew:
+#   Run the NVIM_APPNAME given in the first arg.
+#   If it is "default" or "" then NVIM_APPNAME
+#   will be set to "", and if it is "env" then
+#   it will not be modified, preserving whatever
+#   is in the environment.
+
+# Parse args
+case "$1" in
+    default)    skew="" ;;
+    *)          skew="$1" ;;
+esac
+
+# Run nvim
+if [[ "${skew}" != "env" ]]; then
+    NVIM_APPNAME="${skew}" nvim "${@:2}"
+else
+    nvim "${@:2}"
+fi
+
+#  vim: set ts=8 sw=4 tw=0 et :

@@ -7,7 +7,6 @@ alias e='echo'
 alias init_venv='python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt'
 alias ifconfig='ip -c a'
 alias reboot='echo no'
-alias svim="sudo vim"
 alias tmux='TERM=screen-256color-bce tmux -2'
 alias t='tmux'
 alias ghci="ghci -ghci-script ~/.ghc/ghci.conf"
@@ -45,6 +44,8 @@ function swupkcc() { swup "$(cc_id $1)" "$2" "$3"; }
 ## Use nvim instead of vim
 alias vim="nvim"
 alias svim="sudo nvim"
+alias lazyvim="nvim_skews lazyvim"
+alias lvim="lazyvim"
 
 # Acroname usb hub control
 alias usb_hub="/usr/local/usb_hub_software/bin/AcronameHubCLI"
@@ -115,3 +116,16 @@ function oneline() {
   done
   echo
 }
+
+## Multiple nvim skews (https://www.youtube.com/watch?v=LkHjJlSgKZY)
+function nvims() {
+    items=("default" "lazyvim" "vanilla" "env")
+    config="$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  --> " --height=50% --layout=reverse --border --exit-0)"
+    if [[ $config == "default" ]]; then
+	config=""
+    fi
+    nvim_skew "${config}" "$@"
+    #NVIM_APPNAME=$config nvim "$@"
+}
+
+#  vim: set ts=8 sw=4 tw=0 et :
