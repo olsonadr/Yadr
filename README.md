@@ -99,12 +99,13 @@ sudo apt-get -y update && \
 - [ ] Fix libinput gestures
 - [ ] Look into why albert wont show applications sometimes
 - [ ] Make X/Wayland agnostic scripts for:
-  - [ ] xclip/xsel <-> wl-copy/wl-paste
+    - [ ] xclip/xsel <-> wl-copy/wl-paste
 - [ ] petertriho/nvim-scrollbar
 - [ ] tpope/vim-obsession
 - [ ] fix leap binds
 - [ ] make binds for fzf (replace ctrl-p?)
 - [ ] lazyvim
+    - [ ] nvim-surround/mini-surround
 - [ ] render markdown
   - [ ] pull over binds
   - [ ] check lvim into stow
