@@ -113,7 +113,7 @@ sudo apt-get -y update && \
 
 ## Additional References
 
-- [Jetbrains Mono font](https://github.com/JetBrains/JetBrainsMono/releases/latest)
+- [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
 - [Potential Ubuntu Hyprland install script](https://github.com/JaKooLit/Ubuntu-Hyprland/tree/main?tab=readme-ov-file)
 - [i3lock with fingerprint pam on thikpad](https://bacardi55.io/2023/07/07/i3lock-and-fingerprint/)
 - [Updated Kitty install to solve startup lag](https://sw.kovidgoyal.net/kitty/binary/)
@@ -141,6 +141,6 @@ sudo apt-get -y update && \
 - [ ] jupyter?
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)
-- [ ] `<prefix>ctrl+hjkl` for tmux pane navigation?
+- [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
