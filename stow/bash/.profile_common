@@ -1,0 +1,16 @@
+# Config for ".{bash_,z}profile" that is common to all shells
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+## Set GTK vars
+#export GTK_THEME="Yaru-purple-dark"
+
+#  vim: set ts=8 sw=4 tw=0 et ft=sh :
