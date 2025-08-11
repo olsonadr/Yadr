@@ -137,24 +137,24 @@
 ## Colors
 
 - For `MyTokyo Night Dark`, the colors are:
-  - background:`#1A1B26`
-  - black: `#2E334D`
-  - blue: `#7AA2F7`
-  - brightBlack: `#555B75`
-  - brightBlue: `#7AA2F7`
-  - brightCyan: `#7DCFFF`
-  - brightGreen: `#73DACA`
-  - brightPurple: `#AB88EC`
-  - brightRed: `#F7768E`
-  - brightWhite: `#E6E9F5`
-  - brightYellow: `#E0AF68`
-  - cursorColor: `#C0CAF5`
-  - cyan: `#7DCFFF`
-  - foreground: `#C5CAE7`
-  - green: `#73DACA`
-  - name: `MyTokyo Night Dark`
-  - purple: `#AB88EC`
-  - red: `#F7768E`
-  - selectionBackground: `#28344A`
-  - white: `#DDE2FA`
-  - yellow: `#E0AF68`
+  - background: #1A1B26
+  - black: #2E334D
+  - blue: #7AA2F7
+  - brightBlack: #555B75
+  - brightBlue: #7AA2F7
+  - brightCyan: #7DCFFF
+  - brightGreen: #73DACA
+  - brightPurple: #AB88EC
+  - brightRed: #F7768E
+  - brightWhite: #E6E9F5
+  - brightYellow: #E0AF68
+  - cursorColor: #C0CAF5
+  - cyan: #7DCFFF
+  - foreground: #C5CAE7
+  - green: #73DACA
+  - name: MyTokyo Night Dark
+  - purple: #AB88EC
+  - red: #F7768E
+  - selectionBackground: #28344A
+  - white: #DDE2FA
+  - yellow: #E0AF68
