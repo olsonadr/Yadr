@@ -1,3 +1,17 @@
+# Disable omz autoupdates
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+
+## Smarter completion initialization
+## Source: https://scottspence.com/posts/speeding-up-my-zsh-shell
+#autoload -Uz compinit
+#if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+#    compinit
+#else
+#    compinit -C
+#fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -73,6 +87,14 @@ source $ZSH/oh-my-zsh.sh
 
 ## User configuration
 
+# Source common rc
+. "$HOME/.bashrc_common"
+
+# Alias definitions
+if [ -f "$HOME/.zsh_aliases" ]; then
+    . "$HOME/.zsh_aliases"
+fi
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -88,62 +110,16 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-XAUTHORITY=$HOME/.Xauthority
-
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
 # Launch in tmux
 ZSH_TMUX_AUTOSTART=true
 
-# Use vim as default editor
-EDITOR=vim
-
 ## Use xterm-256color terminal profile
 #TERM=xterm-256color
-
-# PATH modifications
-export PATH="/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
-export PATH="${HOME}/.vimpkg/bin:${PATH}"
-export PATH="${HOME}/.local/bin:${PATH}"
-export PATH="${HOME}/.cargo/bin:${PATH}"
-export PATH="${HOME}/bin:${PATH}"
-export PATH="/snap/bin:${PATH}"
-
-# Alias definitions
-if [ -f ~/.zsh_aliases ]; then
-    . ~/.zsh_aliases
-fi
 
 # # Enable my keys
 # source ~/.zkbd/xterm-256color-:0
 [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" .beginning-of-line
 [[ -n ${key[End]} ]] && bindkey "${key[End]}" .end-of-line
-
-## Fix keyboard layout
-#setxkbmap -option
-
-# NVM setup
-export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && silent_background \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# JLink PATH
-export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
-
-# >>> Added by Spyder >>>
-alias spyder=/home/olsonadr/.local/spyder-6/envs/spyder-runtime/bin/spyder
-alias uninstall-spyder=/home/olsonadr/.local/spyder-6/uninstall-spyder.sh
-# <<< Added by Spyder <<<
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/path.zsh.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/completion.zsh.inc'; fi
-
-[ -f "/home/olsonadr/.ghcup/env" ] && . "/home/olsonadr/.ghcup/env" # ghcup-env
 
 # Quick access to nvim skew selecter
 bindkey -s ^a "nvims\n"
@@ -151,5 +127,10 @@ bindkey -s ^a "nvims\n"
 # Vi mode for tmux (bash/zsh specific *sadge* )
 editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
 export EDITOR="$(type -p ${editor_target} | sed -e 's/.* is //g')"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/workspace/external/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/path.zsh.inc"; fi
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc"; fi
 
 #  vim: set ts=8 sw=4 tw=0 noet :
