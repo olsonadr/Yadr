@@ -44,7 +44,6 @@ esac
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
-
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -78,7 +77,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -86,23 +84,6 @@ fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -121,66 +102,26 @@ parse_git_branch() {
 
 unset command_not_found_handle
 
-
 ## User defined definitions
+
+# Source common rc
+. "$HOME/.bashrc_common"
+
+# Alias definitions
+if [ -f "$HOME/.bash_aliases" ]; then
+    . "$HOME/.bash_aliases"
+fi
 
 # PS1 prompt definition
 export PS1="┌─\[\e[1;03;36m\]\u@\h\[\e[0m\]\[\e[1;03;31m\] [\w] \[\e[0m\]\[\033[33m\]\$(parse_git_branch)\[\033[00m\]\n└─╼\[\e[0m\]\[\e[1;03m\]\$\[\e[0m\] "
 
-# PATH modifications
-export PATH="/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
-export PATH="${HOME}/.vimpkg/bin:${PATH}"
-export PATH="${HOME}/.local/bin:${PATH}"
-export PATH="${HOME}/.cargo/bin:${PATH}"
-export PATH="${HOME}/bin:${PATH}"
-export PATH="/snap/bin:${PATH}"
+# Vi mode for tmux (bash/zsh specific *sadge* )
+editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
+export EDITOR="$(type -P ${editor_target})"
 
-## Configure fzf
-#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-#export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
-#
-### Setup Instant History Across Terminals
-### Source: https://unix.stackexchange.com/a/1292
-## Avoid duplicates
-#HISTCONTROL=ignoredups:erasedups
-## When the shell exits, append to the history file instead of overwriting it
-#shopt -s histappend
-## After each command, append to the history file and reread it
-#PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-#
-## Configure nvm
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#if [ -f ${HOME}/.cargo/env ]; then . "$HOME/.cargo/env"; fi
-#
-### Fix keyboard layout
-##setxkbmap -option
-#
-## Misc
-#export XAUTHORITY=$HOME/.Xauthority
-#
-## NVM setup
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#
-## JLink PATH
-#export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
-#
-## >>> Added by Spyder >>>
-#alias spyder=/home/olsonadr/.local/spyder-6/envs/spyder-runtime/bin/spyder
-#alias uninstall-spyder=/home/olsonadr/.local/spyder-6/uninstall-spyder.sh
-## <<< Added by Spyder <<<
-#
-## The next line updates PATH for the Google Cloud SDK.
-#if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/path.bash.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/path.bash.inc'; fi
-#
-## The next line enables shell command completion for gcloud.
-#if [ -f '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc' ]; then . '/home/olsonadr/workspace/external/google-cloud-sdk/completion.bash.inc'; fi
-#
-## Vi mode for tmux (bash/zsh specific *sadge* )
-#editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
-#export EDITOR="$(type -P ${editor_target})"
-#
-##  vim: set ts=8 sw=4 tw=0 noet :
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/workspace/external/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/path.bash.inc"; fi
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/completion.bash.inc"; fi
+
+#  vim: set ts=8 sw=4 tw=0 noet :
