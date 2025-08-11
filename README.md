@@ -33,7 +33,7 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 
 Oneliner to install requirements on ubuntu (as root):
 
-```console
+```bash
 sudo apt-get -y update && \
     (   sudo apt-get install -y software-properties-common ; \
         sudo apt-get install -y python-software-properties ; \
@@ -57,50 +57,50 @@ sudo apt-get -y update && \
 
 1. Clone this repo to the homedir as `~/.dotfiles` and enter the clone
 
-   ```console
+   ```bash
    git clone https://github.com/olsonadr/Yadr.git ~/.dotfiles && cd ~/.dotfiles
    ```
 
 2. Ensure you have cloned all repo submodules
 
-   ```console
+   ```bash
    ./update_submodules.sh
    ```
 
 3. Install ohmyzsh
 
-   ```console
+   ```bash
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
    ```
 
 4. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar
 
-   ```console
+   ```bash
    mv ~/.zshrc{,.default-oh-my-zsh} && mv ~/.bashrc{,.yadr_backup} && mv ~/.config/awesome/rc.lua{,.yadr_backup}
    ```
 
 5. Install Yadr dotfiles
 
-   ```console
+   ```bash
    ./stow_dots.sh
    ```
 
    - Or install only one set of dotfiles by entering the `stow` directory, and using stow directly for any <PROGRAM> (like bash, nvim, tmux, vim, zsh, etc.)
 
-     ```console
+     ```bash
      cd stow && stow -t ${HOME} --no-folding <PROGRAM>
      ```
 
 6. Install (n)vim vundle plugins and themes
 
-   ```console
+   ```bash linenums="$"
    vim -c "PluginInstall"
    nvim -c "PluginInstall"
    ```
 
 7. Install (n)vim autocomplete language server
 
-   ```console
+   ```bash
    sudo apt install mono-complete golang nodejs openjdk-17-jdk openjdk-17-jre npm
    cd ~/.nvim/bundle/YouCompleteMe ; python3 install.py --all ; cd -
    ```
@@ -114,14 +114,16 @@ sudo apt-get -y update && \
 ## Additional References
 
 - [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
-- [Potential Ubuntu Hyprland install script](https://github.com/JaKooLit/Ubuntu-Hyprland/tree/main?tab=readme-ov-file)
+- [Ubuntu Hyprland install script](https://github.com/JaKooLit/Ubuntu-Hyprland/tree/main?tab=readme-ov-file)
 - [i3lock with fingerprint pam on thikpad](https://bacardi55.io/2023/07/07/i3lock-and-fingerprint/)
 - [Updated Kitty install to solve startup lag](https://sw.kovidgoyal.net/kitty/binary/)
 
-## WSL Notes
+## WSL Notes+Issues
 
-- [enable systemd --user for XDG_RUNTIME_DIR errors](https://learn.microsoft.com/en-us/windows/wsl/systemd#code-try-0)
-- [enable systemd in wsl2 (wsl.conf answer)](https://stackoverflow.com/questions/65400999/enable-systemd-in-wsl-2)
+- See [misc/WSLTerminalTheme.md](./misc/WSLTerminalTheme.md) for custom color schemes for the Windows terminal application
+- [Expose cmd.exe to WSL for lazyvim markdown previews](https://github.com/iamcco/markdown-preview.nvim/issues/710)
+- [Enable systemd --user for XDG_RUNTIME_DIR errors](https://learn.microsoft.com/en-us/windows/wsl/systemd#code-try-0)
+- [Enable systemd in wsl2 (wsl.conf answer)](https://stackoverflow.com/questions/65400999/enable-systemd-in-wsl-2)
 
 ## TODOs
 
