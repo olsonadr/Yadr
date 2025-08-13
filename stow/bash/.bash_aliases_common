@@ -32,6 +32,7 @@ alias gsu="git submodule update --init --recursive"
 alias gst="git status"
 alias gd="git diff"
 alias ga="git add"
+alias glg="git log"
 function gg() { git branch | grep "$1" | sed -e 's/^. //'; }
 function ggsw() { git switch $(gg "$1"); }
 
