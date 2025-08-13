@@ -50,7 +50,7 @@ function swupkcc() { swup "$(cc_id $1)" "$2" "$3"; }
 
 ## Use nvim instead of vim
 alias vim="nvim"
-alias svim="sudo nvim"
+alias svim="sudo vim"
 alias lazyvim="nvim_skew lazyvim"
 alias lvim="lazyvim"
 
@@ -160,7 +160,7 @@ function devmem2_bin() { if [[ "$1" = "-h" ]]; then printf "Usage: devmem2_bin <
 # Multiple nvim skews (https://www.youtube.com/watch?v=LkHjJlSgKZY)
 function nvims() {
     items=("default" "lazyvim" "vanilla" "env")
-    config="$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  --> " --height=50% --layout=reverse --border --exit-0)"
+    config="$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config --> " --height=50% --layout=reverse --border --exit-0)"
     if [[ -z $config ]]; then
         echo "No skew selected" >&2
         return 0
