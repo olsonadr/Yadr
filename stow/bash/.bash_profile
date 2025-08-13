@@ -12,3 +12,4 @@ fi
 export PATH="/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:${HOME}/.vimpkg/bin:${PATH}"
 
 #  vim: set ts=8 sw=4 tw=0 et :
+

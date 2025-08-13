@@ -27,7 +27,9 @@ filetype off
 call vundle#begin()
 let g:vundle#bundle_dir = $HOME.'/.'.g:vimdist.'/bundle/'
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'ap/vim-buftabline'
+"Plugin 'bling/vim-bufferline'
+Plugin 'akinsho/bufferline.nvim'
+"Plugin 'ap/vim-buftabline'
 Plugin 'bullets-vim/bullets.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'drewtempelmeyer/palenight.vim'
@@ -35,7 +37,6 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'folke/tokyonight.nvim'
 Plugin 'ggandor/leap.nvim'
 Plugin 'inkarkat/vim-camelcasemotion'
-Plugin 'itchyny/lightline.vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 "Plugin 'justinmk/vim-sneak'
@@ -78,5 +79,8 @@ let g:startify_lists = [
 	    \ { 'type': 'bookmarks',	'header': ['   Bookmarks']      },
 	    \ { 'type': 'commands',	'header': ['   Commands']       },
 	    \ ]
+" Bufferline Settings
+let g:bufferline_solo_highlight = 0
+let g:bufferline_always_show_bufferline = 1
 
 " vim: set ts=8 sw=4 tw=78 et :

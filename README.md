@@ -32,6 +32,9 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 - luarocks
 - build-essential
 - cmake
+- bob
+- fnm
+- lazygit
 
 Oneliner to install requirements on ubuntu (as root):
 
@@ -40,7 +43,6 @@ sudo apt-get -y update && \
     (   sudo apt-get install -y software-properties-common ; \
         sudo apt-get install -y python-software-properties ; \
     ) ; \
-    sudo add-apt-repository -y ppa:neovim-ppa/stable && \
     sudo apt-get -y update && \
     sudo apt install -y cargo curl build-essential cmake fzf git neovim stow wmctrl tmux zsh ydotool && \
     sudo apt install -y awesome awesome-extra fonts-font-awesome brightnessctl dex x11-xserver-utils i3lock scrot imagemagick xautolock fonts-powerline python3-pynvim && \
@@ -50,7 +52,13 @@ sudo apt-get -y update && \
     git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins && \
     sudo usermod -a -G input ${USER} && \
     sudo usermod -a -G video ${USER} && \
-    sudo apt install -y fd-find ripgrep luarocks
+    sudo apt install -y fd-find ripgrep luarocks && \
+    cargo install bob-nvim && bob use latest && \
+    cargo install fnm && fnm install v22 && fnm default v22 && \
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*') && \
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
+    tar xf lazygit.tar.gz lazygit && \
+    sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,tar.gz}
 ```
 
 ### Installation
@@ -146,6 +154,6 @@ sudo apt-get -y update && \
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)
 - [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
-- [ ] nvm lazy loading for plugins
+- [x] nvm lazy loading for plugins
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->

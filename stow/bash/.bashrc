@@ -119,6 +119,9 @@ export PS1="┌─\[\e[1;03;36m\]\u@\h\[\e[0m\]\[\e[1;03;31m\] [\w] \[\e[0m\]\[\
 editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
 export EDITOR="$(type -P ${editor_target})"
 
+# fnm setup
+eval "$(fnm env --shell bash)"
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/workspace/external/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/path.bash.inc"; fi
 # The next line enables shell command completion for gcloud.

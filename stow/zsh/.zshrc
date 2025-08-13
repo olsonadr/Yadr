@@ -1,8 +1,10 @@
-# Disable omz autoupdates
-DISABLE_AUTO_UPDATE="true"
-DISABLE_MAGIC_FUNCTIONS="true"
-DISABLE_COMPFIX="true"
+#zmodload zsh/zprof
 
+## Disable omz autoupdates
+#DISABLE_AUTO_UPDATE="true"
+#DISABLE_MAGIC_FUNCTIONS="true"
+#DISABLE_COMPFIX="true"
+#
 ## Smarter completion initialization
 ## Source: https://scottspence.com/posts/speeding-up-my-zsh-shell
 #autoload -Uz compinit
@@ -128,9 +130,14 @@ bindkey -s ^a "nvims\n"
 editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"
 export EDITOR="$(type -p ${editor_target} | sed -e 's/.* is //g')"
 
+# fnm setup
+eval "$(fnm env --shell zsh)"
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/workspace/external/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/path.zsh.inc"; fi
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc"; fi
+
+#zprof
 
 #  vim: set ts=8 sw=4 tw=0 noet :
