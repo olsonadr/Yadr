@@ -15,6 +15,8 @@ export PATH="${HOME}/.local/bin:${PATH}"
 export PATH="${HOME}/.cargo/bin:${PATH}"
 export PATH="${HOME}/bin:${PATH}"
 export PATH="/snap/bin:${PATH}"
+export PATH="${HOME}/.local/share/bob/nvim-bin:${PATH}"
+
 #export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
 
 # Common aliases
@@ -31,13 +33,6 @@ XAUTHORITY=$HOME/.Xauthority
 
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env" # cargo-env
-
-## nvm setup
-#if [[ -d "$HOME/.nvm" ]]; then
-#    export NVM_DIR="$HOME/.nvm"
-#    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
-#    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#fi
 
 # Pyenv configuration (only if pyenv is installed)
 if command -v pyenv 1>/dev/null 2>&1; then

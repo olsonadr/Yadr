@@ -171,23 +171,4 @@ function nvims() {
     #NVIM_APPNAME=$config nvim "$@"
 }
 
-# Lazy load nvm
-# Source: https://github.com/nvm-sh/nvm/issues/2724#issuecomment-1336497491
-function lazy_load_nvm() {
-    unset -f node nvm
-    if [[ -d "$HOME/.nvm" ]]; then
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    fi
-}
-function node() {
-    lazy_load_nvm
-    node $@
-}
-function nvm() {
-    lazy_load_nvm
-    nvm $@
-}
-
 #  vim: set ts=8 sw=4 tw=0 et ft=sh :
