@@ -30,6 +30,8 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 - fd-find
 - ripgrep
 - luarocks
+- build-essential
+- cmake
 
 Oneliner to install requirements on ubuntu (as root):
 
@@ -40,7 +42,7 @@ sudo apt-get -y update && \
     ) ; \
     sudo add-apt-repository -y ppa:neovim-ppa/stable && \
     sudo apt-get -y update && \
-    sudo apt install -y cargo curl fzf git neovim stow wmctrl tmux zsh ydotool && \
+    sudo apt install -y cargo curl build-essential cmake fzf git neovim stow wmctrl tmux zsh ydotool && \
     sudo apt install -y awesome awesome-extra fonts-font-awesome brightnessctl dex x11-xserver-utils i3lock scrot imagemagick xautolock fonts-powerline python3-pynvim && \
     cargo install --locked rbw
     git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.git && \
