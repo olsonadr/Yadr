@@ -155,5 +155,8 @@ sudo apt-get -y update && \
 - [x] move nvims scripts/configs to stow (nvim_skew)
 - [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 - [x] nvm lazy loading for plugins
+- [ ] nvim-cmp errors
+- [ ] add fallback header (if profile picture not present) on dashboard
+- [ ] familiar sidebar toggle bind
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
