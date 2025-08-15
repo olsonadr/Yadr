@@ -6,7 +6,6 @@
 
 
 # ctrl+space prefix
-
 set -g prefix C-space
 
 
@@ -39,7 +38,7 @@ tmux_conf_new_pane_reconnect_ssh=false
 #   - true
 #   - false (default)
 #   - disabled (do not modify new-session bindings)
-tmux_conf_new_session_prompt=false
+tmux_conf_new_session_prompt=true
 
 
 # -- display -------------------------------------------------------------------
@@ -505,8 +504,13 @@ set -g @continuum-restore 'on'
 # "$@"
 # # /!\ do not remove the previous line
 
+# Use zsh by default
 set-option -g default-shell /usr/bin/zsh
 
 # Fix continuum spawning extra sessions
 run-shell -b ${HOME}/.tmux/plugins/tmux-continuum/continuum.tmux
+
+# Start session numbering in `<prefix>s` at 1
+bind-key s choose-tree -ZsK '#{?#{e|<:#{line},9},#{e|+:1,#{line}},#{?#{e|<:#{line},35},M-#{a:#{e|+:97,#{e|-:#{line},9}}},}}' 
+
 
