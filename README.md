@@ -157,6 +157,9 @@ sudo apt-get -y update && \
 - [x] nvm lazy loading for plugins
 - [ ] nvim-cmp errors
 - [ ] add fallback header (if profile picture not present) on dashboard
-- [ ] familiar sidebar toggle bind
+- [ ] familiar sidebar toggle binds
+- [ ] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
+- [ ] add c and y as mini-surround binds in lazy
+- [ ] remove gray hyphens in lazy
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
