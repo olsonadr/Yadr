@@ -41,7 +41,6 @@ return {
           },
           { pading = 1 },
           { section = "keys", gap = 1, padding = 1 },
-          { pading = 1 },
           function()
             local in_git = Snacks.git.get_root() ~= nil
             return {
@@ -50,8 +49,7 @@ return {
               icon = " ",
               title = "Git Status",
               cmd = "git status --short",
-              height = 5,
-              padding = 1,
+              height = 3,
               ttl = 5 * 60,
             }
           end,
