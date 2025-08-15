@@ -14,7 +14,7 @@ alias signal-desktop="signal-desktop --password-store=gnome-libsecret"
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-function my_screen() { screen -L $1 115200 8N1; }
+alias dur='sudo du -sh --exclude /mnt --exclude /proc --exclude /dev /*'
 
 # Apt
 alias sai="sudo apt install"
@@ -53,6 +53,9 @@ alias vim="nvim"
 alias svim="sudo vim"
 alias lazyvim="nvim_skew lazyvim"
 alias lvim="lazyvim"
+
+# Most common screen config
+function my_screen() { screen -L $1 115200 8N1; }
 
 # Acroname usb hub control
 alias usb_hub="/usr/local/usb_hub_software/bin/AcronameHubCLI"
@@ -135,7 +138,7 @@ function oneline() {
 }
 
 # Silent background process (job that doesnt give output, or DONE message)
-silent_background() {
+function silent_background() {
     #[[ $- =~ m ]] && oldstate="-m" || oldstate="+m"
     #set -m
     #exec 3>&2 2>/dev/null
