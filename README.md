@@ -58,7 +58,9 @@ sudo apt-get -y update && \
     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*') && \
     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
     tar xf lazygit.tar.gz lazygit && \
-    sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,tar.gz}
+    sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,tar.gz} && \
+    curl -fsSL https://pyenv.run | bash && \
+    apt install --assume-yes --no-install-recommends build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base
 ```
 
 ### Installation
@@ -147,19 +149,19 @@ sudo apt-get -y update && \
 - [ ] make binds for fzf (replace ctrl-p?)
 - [ ] lazyvim
   - [ ] nvim-surround/mini-surround
-- [ ] render markdown
+  - [ ] nvim-cmp errors
+  - [ ] add fallback header (if profile picture not present) on dashboard
+  - [ ] familiar sidebar toggle binds
+  - [ ] add c and y as mini-surround binds in lazy
+  - [ ] remove gray hyphens in lazy
+  - [ ] render markdown
   - [ ] pull over binds
-  - [ ] check lvim into stow
-- [ ] jupyter?
+  - [x] check lvim into stow
+  - [ ] jupyter?
+- [ ] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
+- [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)
-- [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 - [x] nvm lazy loading for plugins
-- [ ] nvim-cmp errors
-- [ ] add fallback header (if profile picture not present) on dashboard
-- [ ] familiar sidebar toggle binds
-- [ ] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
-- [ ] add c and y as mini-surround binds in lazy
-- [ ] remove gray hyphens in lazy
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
