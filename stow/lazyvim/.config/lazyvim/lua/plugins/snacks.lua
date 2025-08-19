@@ -4,6 +4,19 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      scroll = {
+        animate = {
+          duration = { step = 10, total = 100 },
+          easing = "linear",
+        },
+        -- faster animation while repeaing after delay
+        animate_repeat = {
+          delay = 50,
+          duration = { step = 3, total = 20 },
+          easing = "linear",
+        },
+      },
+      -- dashboard
       dashboard = {
         preset = {
           --          header = [[
