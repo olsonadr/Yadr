@@ -28,6 +28,7 @@ return {
           },
         },
         sections = {
+          { pading = 1 },
           {
             section = "terminal",
             cmd = "cat ~/.config/profile_ascii_x3.txt ; sleep 0.05",
