@@ -18,6 +18,9 @@ unbind <C-a>
 bind d composite tabprev; tabclose #
 bind D tabclose
 
+" blank new tab page
+set newtab about:blank
+
 " search urls
 set searchurls.googletranslate https://translate.google.com/?op=translate&sl=auto&tl=en&text=
 set searchurls.wikipedia https://en.wikipedia.org/wiki/Special:Search/
