@@ -15,6 +15,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias dur='sudo du -sh --exclude /mnt --exclude /proc --exclude /dev /*'
+alias venv_act='. ./venv/bin/activate'
 
 # Apt
 alias sai="sudo apt install"
@@ -42,10 +43,10 @@ alias ssh_no_hk='ssh -o "StrictHostKeyChecking=no"'
 function s() { ssh root@$1 ${@:2}; }
 function scc() { s $(cc_id $1) ${@:2}; }
 function scpcc_from() { scp root@$(cc_id $1):$2 $3; }
-function scpcc_to() { scp $2 root@$(cc_id $1):$3; } 
-function swup() { ssh root@$1 "cgnx-swupdate && reboot" < $2; }
+function scpcc_to() { scp $2 root@$(cc_id $1):$3; }
+function swup() { ssh root@$1 "cgnx-swupdate && reboot" <$2; }
 function swupcc() { swup "$(cc_id $1)" "$2"; }
-function swupk() { ssh root@$1 "cgnx-swupdate -k $3 && reboot" < $2; }
+function swupk() { ssh root@$1 "cgnx-swupdate -k $3 && reboot" <$2; }
 function swupkcc() { swup "$(cc_id $1)" "$2" "$3"; }
 
 ## Use nvim instead of vim
@@ -59,10 +60,10 @@ function my_screen() { screen -L $1 115200 8N1; }
 
 # Acroname usb hub control
 alias usb_hub="/usr/local/usb_hub_software/bin/AcronameHubCLI"
-function usb_hub_toggle() { usb_hub -p $1 -e 0 && usb_hub -p $1 -e 1 ; }
+function usb_hub_toggle() { usb_hub -p $1 -e 0 && usb_hub -p $1 -e 1; }
 
 # cd into fzf-found dir
-function fcd () {
+function fcd() {
     cd $(dirname $(fzf))
 }
 
@@ -70,11 +71,10 @@ function fcd () {
 function bfind() {
     i=0
     while results=$(find "$@" -mindepth $i -maxdepth $i) && [[ -n $results ]]; do
-	echo "$results"
-	((i++))
+        echo "$results"
+        ((i++))
     done
 }
-
 
 # Display last N lines of input like tail, but cleaning the screen before every update.
 # Example: date; for i in $(seq 1 2000); do echo $i; sleep 0.03; done | ntail 10
@@ -82,7 +82,7 @@ function ntail {
     # ignore anything old
     TAIL_BUFFER=""
     # default to 10 lines of tail output
-    NUM_LINES=$(( ${1:-10} + 1 ))
+    NUM_LINES=$((${1:-10} + 1))
     # gets the current time in milliseconds
     function mstime() {
         date +%s%3N
@@ -100,12 +100,12 @@ function ntail {
         LAST_UPDATE=$(mstime)
         NEEDS_REFRESH=false
     }
-    LAST_UPDATE=$(mstime)   # last time the screen was updated
-    NEEDS_REFRESH=false     # whether to refresh the screen
-    SCREEN_BUFFER_SIZE=0    # number of lines on the screen
+    LAST_UPDATE=$(mstime) # last time the screen was updated
+    NEEDS_REFRESH=false   # whether to refresh the screen
+    SCREEN_BUFFER_SIZE=0  # number of lines on the screen
     while IFS= read -r NEW_LINE; do
         # truncate new line to columns
-        (( ${#NEW_LINE} >= COLUMNS )) && NEW_LINE="${NEW_LINE:0:$COLUMNS}"
+        ((${#NEW_LINE} >= COLUMNS)) && NEW_LINE="${NEW_LINE:0:$COLUMNS}"
         # concatenate new the new line to the buffer
         TAIL_BUFFER="$TAIL_BUFFER$NEW_LINE"$'\n'
         # if last update is greater than 100ms, refresh screen
@@ -114,27 +114,27 @@ function ntail {
         fi
         # refresh screen if needed
         if [ "$NEEDS_REFRESH" = true ]; then print_buffer; fi
-    done < /dev/stdin
+    done </dev/stdin
     # one last refresh for anything leftover
     print_buffer
 }
 
 # One-line command (pipe into this for nice output)
 function oneline() {
-  shopt -s checkwinsize # ensure that COLUMNS is available w/ window size
-  local ws
-  while IFS= read -r line; do
-    if (( ${#line} >= COLUMNS )); then
-      # Moving cursor back to the front of the line so user input doesn't force wrapping
-      printf '\r%s\r' "${line:0:$COLUMNS}"
-    else
-      ws=$(( COLUMNS - ${#line} ))
-      # by writing each line twice, we move the cursor back to position
-      # thus: LF, content, whitespace, LF, content
-      printf '\r%s%*s\r%s' "$line" "$ws" " " "$line"
-    fi
-  done
-  echo
+    shopt -s checkwinsize # ensure that COLUMNS is available w/ window size
+    local ws
+    while IFS= read -r line; do
+        if ((${#line} >= COLUMNS)); then
+            # Moving cursor back to the front of the line so user input doesn't force wrapping
+            printf '\r%s\r' "${line:0:$COLUMNS}"
+        else
+            ws=$((COLUMNS - ${#line}))
+            # by writing each line twice, we move the cursor back to position
+            # thus: LF, content, whitespace, LF, content
+            printf '\r%s%*s\r%s' "$line" "$ws" " " "$line"
+        fi
+    done
+    echo
 }
 
 # Silent background process (job that doesnt give output, or DONE message)
@@ -142,8 +142,8 @@ function silent_background() {
     #[[ $- =~ m ]] && oldstate="-m" || oldstate="+m"
     #set -m
     #exec 3>&2 2>/dev/null
-    { 2>&3 2>/dev/null "$@"& } 3>&2 2>-
-    disown &>/dev/null  # Close STD{OUT,ERR} for silence if job has already completed
+    { 2>&3 2>/dev/null "$@" & } 3>&2 2>-
+    disown &>/dev/null # Close STD{OUT,ERR} for silence if job has already completed
     #set "${oldstate}"
 }
 
@@ -157,8 +157,12 @@ alias uninstall-spyder="$HOME/.local/spyder-6/uninstall-spyder.sh"
 # Devmem2 parsers
 function devmem_check_cc() { scc "$1" devmem2 $2 w | awk '/Read at address/ {print $6}' | sed 's/^0x//' | xargs -I{} echo "obase=2; ibase=16; {}" | bc | xargs -i{} bash -c 'printf "%032s\n" "{}"' | sed 's/ /0/g'; }
 function devmem_check() { s "$1" devmem2 $2 w | awk '/Read at address/ {print $6}' | sed 's/^0x//' | xargs -I{} echo "obase=2; ibase=16; {}" | bc | xargs -i{} bash -c 'printf "%032s\n" "{}"' | sed 's/ /0/g'; }
-function devmem2_bin_print() { echo 'function devmem2_bin() { if [[ "$1" = "-h" ]]; then printf "Usage: devmem2_bin <hex_address> [b|h|w|l] [num_nibbles_to_print]\\n\\nIf \$1 not given, '"'"'w'"'"' assumed (get 1 word or 4 bytes).\\nIf \$2 not given, '"'"'8'"'"' assumed (print 8 nibbles/4 bytes of binary).\\n\\n"; else devmem2 $1 ${2:-w} | tee wow-tmp | awk '"'"'/Read at address/ { print $6 }'"'"' | xargs printf "%0${3:-8}x" | xxd -r -p | xxd -b -c 8 | awk '"'"'{ gsub ("^0*", "", $1) ; gsub (":$", "", $1) ; gsub ("^$", "0", $1) ; printf "BIN "$1":\t" ; for (i=2; i<NF; i++) printf $i" "; print " "}'"'"' >> wow-tmp ; cat wow-tmp ; rm wow-tmp ; fi; }' ; }
-function devmem2_bin() { if [[ "$1" = "-h" ]]; then printf "Usage: devmem2_bin <hex_address> [b|h|w|l] [num_nibbles_to_print]\n\nIf \$1 not given, 'w' assumed (get 1 word or 4 bytes).\nIf \$2 not given, '8' assumed (print 8 nibbles/4 bytes of binary).\n\n"; else devmem2 $1 ${2:-w} | tee wow-tmp | awk '/Read at address/ { print $6 }' | xargs printf "%0${3:-8}x" | xxd -r -p | xxd -b -c 8 | awk '{ gsub ("^0*", "", $1) ; gsub (":$", "", $1) ; gsub ("^$", "0", $1) ; printf "BIN "$1":\t" ; for (i=2; i<NF; i++) printf $i" "; print " "}' >> wow-tmp ; cat wow-tmp ; rm wow-tmp ; fi; }
+function devmem2_bin_print() { echo 'function devmem2_bin() { if [[ "$1" = "-h" ]]; then printf "Usage: devmem2_bin <hex_address> [b|h|w|l] [num_nibbles_to_print]\\n\\nIf \$1 not given, '"'"'w'"'"' assumed (get 1 word or 4 bytes).\\nIf \$2 not given, '"'"'8'"'"' assumed (print 8 nibbles/4 bytes of binary).\\n\\n"; else devmem2 $1 ${2:-w} | tee wow-tmp | awk '"'"'/Read at address/ { print $6 }'"'"' | xargs printf "%0${3:-8}x" | xxd -r -p | xxd -b -c 8 | awk '"'"'{ gsub ("^0*", "", $1) ; gsub (":$", "", $1) ; gsub ("^$", "0", $1) ; printf "BIN "$1":\t" ; for (i=2; i<NF; i++) printf $i" "; print " "}'"'"' >> wow-tmp ; cat wow-tmp ; rm wow-tmp ; fi; }'; }
+function devmem2_bin() { if [[ "$1" = "-h" ]]; then printf "Usage: devmem2_bin <hex_address> [b|h|w|l] [num_nibbles_to_print]\n\nIf \$1 not given, 'w' assumed (get 1 word or 4 bytes).\nIf \$2 not given, '8' assumed (print 8 nibbles/4 bytes of binary).\n\n"; else
+    devmem2 $1 ${2:-w} | tee wow-tmp | awk '/Read at address/ { print $6 }' | xargs printf "%0${3:-8}x" | xxd -r -p | xxd -b -c 8 | awk '{ gsub ("^0*", "", $1) ; gsub (":$", "", $1) ; gsub ("^$", "0", $1) ; printf "BIN "$1":\t" ; for (i=2; i<NF; i++) printf $i" "; print " "}' >>wow-tmp
+    cat wow-tmp
+    rm wow-tmp
+fi; }
 
 # Multiple nvim skews (https://www.youtube.com/watch?v=LkHjJlSgKZY)
 function nvims() {
@@ -168,7 +172,7 @@ function nvims() {
         echo "No skew selected" >&2
         return 0
     elif [[ $config == "default" ]]; then
-	config=""
+        config=""
     fi
     nvim_skew "${config}" "$@"
     #NVIM_APPNAME=$config nvim "$@"
