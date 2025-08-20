@@ -163,5 +163,6 @@ sudo apt-get -y update && \
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)
 - [x] nvm lazy loading for plugins
+- [ ] use `<c-hjkl>` for window navigation in nvimrc
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
