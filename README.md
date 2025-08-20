@@ -58,9 +58,9 @@ sudo apt-get -y update && \
     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*') && \
     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
     tar xf lazygit.tar.gz lazygit && \
-    sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,tar.gz} && \
+    sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,.tar.gz} && \
     curl -fsSL https://pyenv.run | bash && \
-    apt install --assume-yes --no-install-recommends build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base
+    sudo apt install --assume-yes --no-install-recommends build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base
 ```
 
 ### Installation
@@ -88,7 +88,7 @@ sudo apt-get -y update && \
 4. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar
 
    ```bash
-   mv ~/.zshrc{,.default-oh-my-zsh} && mv ~/.bashrc{,.yadr_backup} && mv ~/.config/awesome/rc.lua{,.yadr_backup}
+   mv ~/.zshrc{,.default-oh-my-zsh} ; mv ~/.bashrc{,.yadr_backup} ; mv ~/.config/awesome/rc.lua{,.yadr_backup} ; mv ~/.profile{,.yadr_backup}
    ```
 
 5. Install Yadr dotfiles
@@ -158,7 +158,7 @@ sudo apt-get -y update && \
   - [ ] pull over binds
   - [x] check lvim into stow
   - [ ] jupyter?
-- [ ] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
+- [x] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
 - [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)

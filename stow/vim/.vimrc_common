@@ -17,6 +17,8 @@ source ${HOME}/.vimrc_common_funcs
 " maps
 nnoremap <silent> <localleader>ml :call AppendModeline()<CR>
 "map <silent> <c-f> :call Format()<CR>
+nmap <S-h> :bp<CR>
+nmap <S-l> :bn<CR>
 " imaps
 imap <A-BS> <C-W>
 "inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
