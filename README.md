@@ -186,7 +186,7 @@ sudo apt-get -y update && \
 - [ ] use `<c-hjkl>` for window navigation in nvimrc
 - [ ] add readmes for the rough changes made in each rc subdir
 - kanata
-  - [ ] switch kenkyo arrow layer to vim layout
+  - [x] switch kenkyo arrow layer to vim layout
   - [ ] updata kanata tap-hold timings to reduce errors
   - [ ] autostart kanata on linux
   - [ ] add kanata instructions
