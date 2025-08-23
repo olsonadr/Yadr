@@ -8,6 +8,8 @@ Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh
 - [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
 - [Vundle](https://github.com/VundleVim/Vundle.vim?tab=readme-ov-file)
 - [LazyVim](https://www.lazyvim.org/)
+- [Kanata](https://github.com/jtroo/kanata)
+  - [Kenkyo config](https://github.com/argenkiwi/kenkyo/tree/main)
 
 ## Usage
 
@@ -117,6 +119,8 @@ sudo apt-get -y update && \
    cd ~/.nvim/bundle/YouCompleteMe ; python3 install.py --all ; cd -
    ```
 
+8. Install (and configure) Kanata
+
 ## Next Steps
 
 - See [olsonadr/awful-dots](https://github.com/olsonadr/awful-dots/tree/master)
@@ -149,7 +153,7 @@ sudo apt-get -y update && \
 - [ ] make binds for fzf (replace ctrl-p?)
 - [ ] lazyvim
   - [ ] nvim-surround/mini-surround
-  - [ ] nvim-cmp errors
+  - [ ] nvim-cmp errors on windows wsl
   - [ ] add fallback header (if profile picture not present) on dashboard
   - [ ] familiar sidebar toggle binds
   - [ ] add c and y as mini-surround binds in lazy
@@ -164,5 +168,6 @@ sudo apt-get -y update && \
 - [x] move nvims scripts/configs to stow (nvim_skew)
 - [x] nvm lazy loading for plugins
 - [ ] use `<c-hjkl>` for window navigation in nvimrc
+- [ ] switch kenkyo arrow layer to vim layout
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
