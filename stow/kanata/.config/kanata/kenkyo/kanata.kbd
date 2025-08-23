@@ -102,6 +102,14 @@ lsft  z x c v b n m , . /       up
   [ scrlck
   ] pause
   esc `
+  w up
+  a left
+  s down
+  d right
+  i up
+  j left
+  k down
+  l right
 )
 
 (deflayermap (extend)
