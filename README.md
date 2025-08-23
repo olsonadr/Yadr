@@ -1,6 +1,7 @@
 # Yadr
 
-Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and zsh dev environment.
+Yadr is Yet Another Dotfiles Repo for bootstrapping an nvim, oh-my-tmux, and
+zsh dev environment.
 
 ## Includes
 
@@ -46,23 +47,34 @@ sudo apt-get -y update && \
         sudo apt-get install -y python-software-properties ; \
     ) ; \
     sudo apt-get -y update && \
-    sudo apt install -y cargo curl build-essential cmake fzf git neovim stow wmctrl tmux zsh ydotool && \
-    sudo apt install -y awesome awesome-extra fonts-font-awesome brightnessctl dex x11-xserver-utils i3lock scrot imagemagick xautolock fonts-powerline python3-pynvim && \
+    sudo apt install -y cargo curl build-essential cmake fzf git \
+                        neovim stow wmctrl tmux zsh ydotool && \
+    sudo apt install -y awesome awesome-extra fonts-font-awesome \
+                        brightnessctl dex x11-xserver-utils i3lock \
+                        scrot imagemagick xautolock fonts-powerline \
+                        python3-pynvim && \
     cargo install --locked rbw
-    git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.git && \
-    mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats && \
-    git clone https://github.com/albertlauncher/python.git ~/.local/share/albert/python/plugins && \
+    git clone --recurse-submodules --remote-submodules --depth 1 -j 2 \
+        https://github.com/lcpz/awesome-copycats.git && \
+    mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; \
+        rm -rf awesome-copycats && \
+    git clone https://github.com/albertlauncher/python.git \
+        ~/.local/share/albert/python/plugins && \
     sudo usermod -a -G input ${USER} && \
     sudo usermod -a -G video ${USER} && \
     sudo apt install -y fd-find ripgrep luarocks && \
     cargo install bob-nvim && bob use latest && \
     cargo install fnm && fnm install v22 && fnm default v22 && \
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*') && \
-    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
+    LAZYGIT_VERSION=$(curl -s \
+        "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" \
+        | \grep -Po '"tag_name": *"v\K[^"]*') && \
+    curl -Lo lazygit.tar.gz \
+        "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
     tar xf lazygit.tar.gz lazygit && \
     sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,.tar.gz} && \
     curl -fsSL https://pyenv.run | bash && \
-    sudo apt install --assume-yes --no-install-recommends build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base
+    sudo apt install --assume-yes --no-install-recommends \
+        build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base
 ```
 
 ### Installation
@@ -90,7 +102,8 @@ sudo apt-get -y update && \
 4. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar
 
    ```bash
-   mv ~/.zshrc{,.default-oh-my-zsh} ; mv ~/.bashrc{,.yadr_backup} ; mv ~/.config/awesome/rc.lua{,.yadr_backup} ; mv ~/.profile{,.yadr_backup}
+   mv ~/.zshrc{,.default-oh-my-zsh} ; mv ~/.bashrc{,.yadr_backup}
+   mv ~/.config/awesome/rc.lua{,.yadr_backup} ; mv ~/.profile{,.yadr_backup}
    ```
 
 5. Install Yadr dotfiles
@@ -99,7 +112,9 @@ sudo apt-get -y update && \
    ./stow_dots.sh
    ```
 
-   - Or install only one set of dotfiles by entering the `stow` directory, and using stow directly for any <PROGRAM> (like bash, nvim, tmux, vim, zsh, etc.)
+   - Or install only one set of dotfiles by entering the `stow` directory, and
+     using stow directly for any `<PROGRAM>` (like bash, nvim, tmux, vim, zsh,
+     etc.)
 
      ```bash
      cd stow && stow -t ${HOME} --no-folding <PROGRAM>
@@ -136,7 +151,8 @@ sudo apt-get -y update && \
 
 ## WSL Notes+Issues
 
-- See [misc/WSLTerminalTheme.md](./misc/WSLTerminalTheme.md) for custom color schemes for the Windows terminal application
+- See [misc/WSLTerminalTheme.md](./misc/WSLTerminalTheme.md) for custom color
+  schemes for the Windows terminal application
 - [Expose cmd.exe to WSL for lazyvim markdown previews](https://github.com/iamcco/markdown-preview.nvim/issues/710)
 - [Enable systemd --user for XDG_RUNTIME_DIR errors](https://learn.microsoft.com/en-us/windows/wsl/systemd#code-try-0)
 - [Enable systemd in wsl2 (wsl.conf answer)](https://stackoverflow.com/questions/65400999/enable-systemd-in-wsl-2)
