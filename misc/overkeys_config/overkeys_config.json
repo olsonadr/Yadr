@@ -29,8 +29,8 @@
       "name": "extend",
       "keys": [
       ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "Fmbl", "Shft", "", "Ins", "Home", "↑", "End", "PgUp", "", ""],
-      ["Meta", "Alt", "Shft", "Ctrl", "Menu", "Esc", "←", "↓", "→", "PgDn", ""],
+      ["", "", "Fmbl", "Shft", "", "Ins", "Home", "Esc", "End", "PgUp", "", ""],
+      ["Meta", "Alt", "Shft", "Ctrl", "Menu", "←", "↓", "↑", "→", "PgDn", ""],
       ["Play", "Mute", "Vol-", "Vol+", "", "Tab", "Bspc", "Spc", "Del", "Enter"],
       [" "]
       ]
