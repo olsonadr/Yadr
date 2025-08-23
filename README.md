@@ -169,5 +169,8 @@ sudo apt-get -y update && \
 - [x] nvm lazy loading for plugins
 - [ ] use `<c-hjkl>` for window navigation in nvimrc
 - [ ] switch kenkyo arrow layer to vim layout
+- [ ] add readmes for the rough changes made in each rc subdir
+- [ ] add kanata instructions
+- [ ] updata kanata tap-hold timings to reduce errors
 
 <!-- vim: set ts=4 sw=4 tw=0 et :-->
