@@ -5,8 +5,8 @@
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
 
-# ctrl+space prefix
-set -g prefix C-space
+## ctrl+space prefix
+#set -g prefix C-space
 
 
 # -- nvim color fix ------------------------------------------------------------
@@ -373,7 +373,8 @@ set -g mouse on
 #bind C-[ run -b "tmux save-buffer - | xsel -i -b"
 #bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"
 #bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
-bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
+bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xclip"
+#bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
 bind C-S-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - > ~/nick/clipboard.txt" 
 
 # force Vi mode

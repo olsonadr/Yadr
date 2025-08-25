@@ -8,4 +8,10 @@ return {
       colorscheme = "tokyonight-night",
     },
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      autoformat = false,
+    },
+  },
 }

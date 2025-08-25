@@ -40,8 +40,8 @@ function ggsw() { git switch $(gg "$1"); }
 # SSH
 alias ssh_no_agent='SSH_AUTH_SOCK=/dev/null ssh'
 alias ssh_no_hk='ssh -o "StrictHostKeyChecking=no"'
-function s() { ssh root@$1 ${@:2}; }
-function scc() { s $(cc_id $1) ${@:2}; }
+function s() { ssh root@$1 "${@:2}"; }
+function scc() { s "$(cc_id $1)" "${@:2}"; }
 function scpcc_from() { scp root@$(cc_id $1):$2 $3; }
 function scpcc_to() { scp $2 root@$(cc_id $1):$3; }
 function swup() { ssh root@$1 "cgnx-swupdate && reboot" <$2; }
@@ -55,9 +55,14 @@ alias nxp_make_feature_branch_all="repo sync && repo start"
 alias nxp_switch_to_manifest="repo sync -d"
 alias nxp_source="source common/setup_swis_env.srcme"
 alias nxp_build="cmake --build build -j"
-function nxp_source_all() { pushd ~/data/phml && for repo in nss host_ml_tools models sdk vnv; do cd $repo && . common/setup_swis_env.srcme && cd ..; done; }
-function nxp_build_all() { nxp_source_all && for repo in nss host_ml_tools models sdk vnv; do cmake --build $repo/build --parallel; done; }
-function nxp_automator_setup() { export PYTHONPATH="$VNV_HOME:$MODELS_HOME/models:$HOST_HOME/tests" && cd vnv/ci && source activate_dev_env.sh; }
+function nxp_source_all() {
+    pushd ~/data/phml && for repo in nss host_ml_tools models sdk vnv; do cd $repo && . common/setup_swis_env.srcme && cd ..; done
+    popd
+}
+function nxp_build_all() { for repo in nss host_ml_tools models sdk vnv; do cmake --build $repo/build --parallel; done; }
+function nxp_automator_setup() { export PYTHONPATH="$VNV_HOME:$MODELS_HOME/models:$HOST_HOME/tests" && cd vnv/ci && source activate_dev_env.sh && cd .. && export PATH="$HOME/go/bin:$PATH"; }
+function nxp_smb() { echo "//$(cat /etc/hostname | tr -d "\n")/$(whoami)/$(pwd | sed -e "s,${HOME}/data/,,g" -e "s,/opt/samba/$(whoami)/,,g")/$@" | tr '/' '\\'; }
+function nxp_smb_xclip() { nxp_smb "$@" | xclip; }
 
 ## Use nvim instead of vim
 alias vim="nvim"
