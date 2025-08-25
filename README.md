@@ -168,6 +168,7 @@ sudo apt-get -y update && \
 - [ ] fix leap binds
 - [ ] make binds for fzf (replace ctrl-p?)
 - [ ] lazyvim
+  - [ ] disable smoothscroll, autoformat by default
   - [ ] nvim-surround/mini-surround
   - [ ] nvim-cmp errors on windows wsl
   - [ ] add fallback header (if profile picture not present) on dashboard
