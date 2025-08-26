@@ -56,6 +56,7 @@ elseif g:vimdist == "nvim"
     " nvim specific plugins
     Plugin 'akinsho/bufferline.nvim'
     Plugin 'folke/tokyonight.nvim'
+    Plugin 'folke/which-key.nvim'
     Plugin 'ggandor/leap.nvim'
     Plugin 'shrynx/line-numbers.nvim'
     Plugin 'neovim/nvim-lspconfig'
