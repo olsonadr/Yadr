@@ -56,11 +56,11 @@ alias nxp_switch_to_manifest="repo sync -d"
 alias nxp_source="source common/setup_swis_env.srcme"
 alias nxp_build="cmake --build build -j"
 function nxp_source_all() {
-    pushd ~/data/phml && for repo in nss host_ml_tools models sdk vnv; do cd $repo && . common/setup_swis_env.srcme && cd ..; done
+    pushd ~/data/phml && for repo in nss host_ml_tools models sdk vnv; do pushd $repo && . common/setup_swis_env.srcme && popd ; done
     popd
 }
 function nxp_build_all() { for repo in nss host_ml_tools models sdk vnv; do cmake --build $repo/build --parallel; done; }
-function nxp_automator_setup() { export PYTHONPATH="$VNV_HOME:$MODELS_HOME/models:$HOST_HOME/tests" && cd vnv/ci && source activate_dev_env.sh && cd .. && export PATH="$HOME/go/bin:$PATH"; }
+function nxp_automator_setup() { export PYTHONPATH="$VNV_HOME:$MODELS_HOME/models:$HOST_HOME/tests" && pushd vnv/ci && source activate_dev_env.sh && popd && export PATH="$HOME/go/bin:$PATH"; }
 function nxp_smb() { echo "//$(cat /etc/hostname | tr -d "\n")/$(whoami)/$(pwd | sed -e "s,${HOME}/data/,,g" -e "s,/opt/samba/$(whoami)/,,g")/$@" | tr '/' '\\'; }
 function nxp_smb_xclip() { nxp_smb "$@" | xclip; }
 
