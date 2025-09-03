@@ -168,15 +168,15 @@ sudo apt-get -y update && \
 - [ ] fix leap binds
 - [ ] make binds for fzf (replace ctrl-p?)
 - [ ] lazyvim
-  - [ ] disable smoothscroll, autoformat by default
+  - [x] disable smoothscroll, autoformat by default
   - [ ] nvim-surround/mini-surround
   - [ ] nvim-cmp errors on windows wsl
   - [ ] add fallback header (if profile picture not present) on dashboard
-  - [ ] familiar sidebar toggle binds
+  - [x] familiar sidebar toggle binds
   - [ ] add c and y as mini-surround binds in lazy
-  - [ ] remove gray hyphens in lazy
+  - [x] remove gray hyphens in lazy
   - [ ] render markdown
-  - [ ] pull over binds
+  - [x] pull over binds
   - [x] check lvim into stow
   - [ ] jupyter?
 - [x] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
@@ -192,4 +192,4 @@ sudo apt-get -y update && \
   - [ ] autostart kanata on linux
   - [ ] add kanata instructions
 
-<!-- vim: set ts=4 sw=4 tw=0 et :-->
+<!-- vim: set ts=4 sw=2 tw=0 et :-->
