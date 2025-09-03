@@ -75,35 +75,43 @@ if (has("termguicolors"))
 	set termguicolors
 endif
 
-" " Fix clipboard on X/wayland/WSL
-" if system('uname -r') =~ "microsoft"
-" "  augroup Yank
-" "    autocmd!
-" "    autocmd TextYankPost * :call system('clip.exe ',@")
-" "  augroup END
-" else
-"     let g:clipboard = {
-"         \   'name': 'wl-copy-custom',
-"         \   'copy': {
-"         \      '+': 'wl-copy',
-"         \      '*': 'wl-copy -p',
-"         \    },
-"         \   'paste': {
-"         \      '+': 'wl-paste',
-"         \      '*': 'wl-paste -p',
-"         \   },
-"         \ }
-"     "let g:clipboard = {
-"     "    \   'name': 'xclip-custom',
-"     "    \   'copy': {
-"     "    \      '+': 'xclip -quiet -i -selection clipboard',
-"     "    \      '*': 'xclip -quiet -i -selection primary',
-"     "    \    },
-"     "    \   'paste': {
-"     "    \      '+': 'xclip -o -selection clipboard',
-"     "    \      '*': 'xclip -o -selection primary',
-"     "    \   },
-"     "    \ }
-" endif
+" Fix clipboard on X/wayland/WSL
+let env_tmux=$TMUX
+let env_display=$DISPLAY
+let env_wayland_display=$WAYLAND_DISPLAY
+if system('uname -r') =~ "microsoft"
+ augroup Yank
+   autocmd!
+   autocmd TextYankPost * :call system('clip.exe ',@")
+ augroup END
+elseif len(env_tmux) != 0
+    let g:clipboard = "tmux"
+elseif len(env_display) != 0
+    let g:clipboard = "xclip"
+    " let g:clipboard = {
+    "    \   'name': 'xclip-custom',
+    "    \   'copy': {
+    "    \      '+': 'xclip -quiet -i -selection clipboard',
+    "    \      '*': 'xclip -quiet -i -selection primary',
+    "    \    },
+    "    \   'paste': {
+    "    \      '+': 'xclip -o -selection clipboard',
+    "    \      '*': 'xclip -o -selection primary',
+    "    \   },
+    "    \ }
+elseif len(env_wayland_display) != 0
+    let g:clipboard = 'wl-copy'
+    " let g:clipboard = {
+    "     \   'name': 'wl-copy-custom',
+    "     \   'copy': {
+    "     \      '+': 'wl-copy',
+    "     \      '*': 'wl-copy -p',
+    "     \    },
+    "     \   'paste': {
+    "     \      '+': 'wl-paste',
+    "     \      '*': 'wl-paste -p',
+    "     \   },
+    "     \ }
+endif
 
 " vim: set ts=8 sw=4 tw=78 et :

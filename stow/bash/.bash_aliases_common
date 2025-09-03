@@ -63,6 +63,13 @@ function nxp_build_all() { for repo in nss host_ml_tools models sdk vnv; do cmak
 function nxp_automator_setup() { export PYTHONPATH="$VNV_HOME:$MODELS_HOME/models:$HOST_HOME/tests" && pushd vnv/ci && source activate_dev_env.sh && popd && export PATH="$HOME/go/bin:$PATH"; }
 function nxp_smb() { echo "//$(cat /etc/hostname | tr -d "\n")/$(whoami)/$(pwd | sed -e "s,${HOME}/data/,,g" -e "s,/opt/samba/$(whoami)/,,g")/$@" | tr '/' '\\'; }
 function nxp_smb_xclip() { nxp_smb "$@" | xclip; }
+function nxp_simulator() { "${NSS_BUILD}/install/SWSIM/bin/Simulator" "$@"; }
+function nxp_run_simulator() {
+    local -r app="${1:="$NSS_BUILD/install/SWSIM/samples/tfapp/tfapp.elf"}"
+    local -r xsp_code="${2:="$NSS_BUILD/install/SWSIM/samples/tfapp/tfapp_xsp"}"
+    echo Running: $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -xspcode "${xsp_code}"
+    $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -nspcode "${xsp_code}" 
+}
 
 ## Use nvim instead of vim
 alias vim="nvim"
