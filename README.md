@@ -181,6 +181,7 @@ sudo apt-get -y update && \
   - [ ] jupyter?
   - [ ] enable alt-backspace in command mode
 - [ ] nvim
+  - [ ] hop?
   - [ ] enable ctrl-s for saving
 - [x] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
 - [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
