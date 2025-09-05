@@ -180,6 +180,7 @@ sudo apt-get -y update && \
   - [x] check lvim into stow
   - [ ] jupyter?
   - [ ] enable alt-backspace in command mode
+  - [x] hop?
 - [ ] nvim
   - [ ] hop?
   - [ ] enable ctrl-s for saving
