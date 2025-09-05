@@ -56,7 +56,7 @@ alias nxp_switch_to_manifest="repo sync -d"
 alias nxp_source="source common/setup_swis_env.srcme"
 alias nxp_build="cmake --build build -j"
 function nxp_source_all() {
-    pushd ~/data/phml && for repo in nss host_ml_tools models sdk vnv; do pushd $repo && . common/setup_swis_env.srcme && popd ; done
+    pushd ~/data/phml && for repo in nss host_ml_tools models sdk vnv; do pushd $repo && . common/setup_swis_env.srcme && popd; done
     popd
 }
 function nxp_build_all() { for repo in nss host_ml_tools models sdk vnv; do cmake --build $repo/build --parallel; done; }
@@ -68,7 +68,27 @@ function nxp_run_simulator() {
     local -r app="${1:="$NSS_BUILD/install/SWSIM/samples/tfapp/tfapp.elf"}"
     local -r xsp_code="${2:="$NSS_BUILD/install/SWSIM/samples/tfapp/tfapp_xsp"}"
     echo Running: $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -xspcode "${xsp_code}"
-    $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -nspcode "${xsp_code}" 
+    $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -nspcode "${xsp_code}"
+}
+function nxp_build_and_run_simulator_custom() {
+    local -r model_dir="${1}"
+    local -r flash="${2:-no}"
+    local -r data_dir=~/data/phml/nss/samples/tf2app/cortex/network_data/nick_custom
+    cp "${model_dir}"/*xsp_vela_aligned*.tflite $data_dir && cp "${model_dir}"/*.json $data_dir
+    pushd ~/data/phml/nss || return
+    rm -rf $data_dir && mkdir -p $data_dir
+    cp "${model_dir}"/*{in,out}put*.bin $data_dir
+    cp "${model_dir}"/*xsp_vela_aligned*.tflite $data_dir
+    cp "${model_dir}"/*.json $data_dir
+    sed "$(ls -1 $data_dir/*.json | head -n1 | tr -d '\n')" -r \
+        -e 's,"([^"]+)(\.tflite|\.bin|\.tflite)","nick_custom/\1\2",g' \
+        -e 's/^\{$/[{/g' \
+        -e 's/^\}$/}]/g' \
+        -e 's/^\}]$/    ,"flash": "'"${flash}"'"\n}]/g' \
+        >$data_dir/../nick_custom.json
+    cmake --build build
+    popd || return
+    nxp_run_simulator
 }
 
 ## Use nvim instead of vim

@@ -32,4 +32,7 @@ map("n", "<s-j>", "j", { noremap = true })
 -- Open snacks explorer with familiar <c-\>
 map("n", "<c-\\>", ":lua Snacks.explorer()<CR>", { noremap = true, silent = true })
 
+-- Toggle copilot.lua
+map({ "n" }, "<leader>at", ":Copilot toggle<CR>", { noremap = true, silent = true })
+
 --  vim: set ts=2 sw=2 tw=0 et :

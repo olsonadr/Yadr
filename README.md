@@ -179,12 +179,15 @@ sudo apt-get -y update && \
   - [x] pull over binds
   - [x] check lvim into stow
   - [ ] jupyter?
+  - [ ] enable alt-backspace in command mode
+- [ ] nvim
+  - [ ] enable ctrl-s for saving
 - [x] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
 - [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)
 - [x] nvm lazy loading for plugins
-- [ ] use `<c-hjkl>` for window navigation in nvimrc
+- [x] use `<c-hjkl>` for window navigation in nvimrc
 - [ ] add readmes for the rough changes made in each rc subdir
 - kanata
   - [x] switch kenkyo arrow layer to vim layout
