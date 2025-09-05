@@ -10,8 +10,8 @@ return {
       keys = 'etovxqpdygfblzhckisuran'
     },
     keys = {
-      { "<leader>j", function() require("hop").hint_lines({ direction = require("hop.hint").HintDirection.AFTER_CURSOR }) end, desc = "Hop to line below" },
-      { "<leader>k", function() require("hop").hint_lines({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR }) end, desc = "Hop to line above" },
+      { "<leader>j", mode={"n", "v"}, function() require("hop").hint_lines({ direction = require("hop.hint").HintDirection.AFTER_CURSOR }) end, desc = "Hop to line below" },
+      { "<leader>k", mode={"n", "v"}, function() require("hop").hint_lines({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR }) end, desc = "Hop to line above" },
     },
   },
 }

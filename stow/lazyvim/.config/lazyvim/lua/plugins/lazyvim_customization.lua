@@ -48,24 +48,6 @@ return {
         completeopt = "menu,menuone,noselect",
       }
       opts.mapping = cmp.mapping.preset.insert({
-        -- Override mappings
-        --       ["<tab>"] = function(fallback)
-        --         -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-        --         if cmp.visible() then
-        --           local entry = cmp.get_selected_entry()
-        --           if not entry then
-        --             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        --           end
-        --           cmp.confirm()
-        --         else
-        --           fallback()
-        --         end
-        --       end,
-        --       -- ["<tab>"] = function(fallback)
-        --       --   LazyVim.cmp.map({ "confirm", "snippet_forward", "ai_accept" }, fallback)()
-        --       -- end,
-        -- ["<CR>"] = cmp.config.disable,
-        -- Default mappings
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -100,7 +82,16 @@ return {
     "zbirenbaum/copilot-cmp",
     enabled = false,
   },
-  -- Remove mini-snippets <c-cr> map
+  -- Include bufferline even when only one buffer
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        always_show_bufferline = true,
+      },
+    },
+  },
+  -- TODO: Remove mini-snippets <c-cr> map
 }
 
 --  vim: set ts=8 sw=2 tw=80 et :
