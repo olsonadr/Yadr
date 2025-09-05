@@ -7,6 +7,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.textwidth = 80
 vim.opt.wrap = true
+vim.opt.formatoptions:remove { "c", "r", "o" }
 
 -- Disable autoformat by default
 vim.g.autoformat = false
