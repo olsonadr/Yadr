@@ -61,7 +61,7 @@ function nxp_source_all() {
 }
 function nxp_build_all() { for repo in nss host_ml_tools models sdk vnv; do cmake --build $repo/build --parallel; done; }
 function nxp_automator_setup() { export PYTHONPATH="$VNV_HOME:$MODELS_HOME/models:$HOST_HOME/tests" && pushd vnv/ci && source activate_dev_env.sh && popd && export PATH="$HOME/go/bin:$PATH"; }
-function nxp_smb() { echo "//$(cat /etc/hostname | tr -d "\n")/$(whoami)/$(pwd | sed -e "s,${HOME}/data/,,g" -e "s,/opt/samba/$(whoami)/,,g")/$@" | tr '/' '\\'; }
+function nxp_smb() { echo "//$(cat /etc/hostname | tr -d "\n")/$(whoami)/$(pwd | sed -e "s,${HOME}/data/,,g" -e "s,/opt/samba/$(whoami)/,,g")/$*" | tr '/' '\\'; }
 function nxp_smb_xclip() { nxp_smb "$@" | xclip; }
 function nxp_simulator() { "${NSS_BUILD}/install/SWSIM/bin/Simulator" "$@"; }
 function nxp_run_simulator() {
@@ -91,8 +91,8 @@ function nxp_build_and_run_simulator_custom() {
     nxp_run_simulator
 }
 
-## Use nvim instead of vim
-alias vim="nvim"
+## Use lvim instead of vim
+alias vim="lvim"
 alias svim="sudo vim"
 alias lazyvim="nvim_skew lazyvim"
 alias lvim="lazyvim"

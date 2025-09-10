@@ -14,7 +14,7 @@ local map = vim.keymap.set
 -- Misc
 map({ "n" }, "<localleader>ml", ":call AppendModeline()<CR>", { noremap = true, silent = true })
 --map <silent> <c-f> :call Format()<CR>
-map("i", "<A-BS>", "<C-W>")
+map({ "i", "c" }, "<A-BS>", "<C-W>")
 map("i", "<localleader>cp", "<Esc>:execute 'normal 0vg_\"+y'<CR>")
 
 -- Use jk for esc to quickly exit insert
@@ -26,8 +26,8 @@ vim.cmd('iabbrev date <c-r>=strftime("%F")<CR>')
 vim.cmd("iabbrev program <Esc>mz:execute FileHeading()<CR>`z4j$A")
 vim.cmd("iabbrev function <Esc>mz:execute FunctionHeading()<CR>`zj$A")
 
--- Unbind shift-j
-map("n", "<s-j>", "j", { noremap = true })
+-- -- Unbind shift-j
+-- map("n", "<s-j>", "j", { noremap = true })
 
 -- Open snacks explorer with familiar <c-\>
 map("n", "<c-\\>", ":lua Snacks.explorer()<CR>", { noremap = true, silent = true })

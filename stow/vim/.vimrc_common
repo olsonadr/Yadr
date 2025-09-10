@@ -19,6 +19,12 @@ nnoremap <silent> <localleader>ml :call AppendModeline()<CR>
 "map <silent> <c-f> :call Format()<CR>
 nmap <S-h> :bp<CR>
 nmap <S-l> :bn<CR>
+nmap <C-s> :w<CR>
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+nmap <leader>qq :qa<CR>
 " imaps
 imap <A-BS> <C-W>
 "inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()

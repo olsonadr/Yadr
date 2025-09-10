@@ -74,7 +74,10 @@ sudo apt-get -y update && \
     sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,.tar.gz} && \
     curl -fsSL https://pyenv.run | bash && \
     sudo apt install --assume-yes --no-install-recommends \
-        build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base
+        build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base && \
+    sudo apt install -y python3-jupyter-client python3-pynvim && \
+    wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.24/quarto-1.8.24-linux-amd64.deb && \
+    sudo apt install ./quarto-1.8.24-linux-amd64.deb && rm quarto-1.8.24-linux-amd64.deb
 ```
 
 ### Installation
@@ -163,27 +166,28 @@ sudo apt-get -y update && \
 - [ ] Look into why albert wont show applications sometimes
 - [ ] Make X/Wayland agnostic scripts for:
   - [ ] xclip/xsel <-> wl-copy/wl-paste
-- [ ] petertriho/nvim-scrollbar
+- [x] petertriho/nvim-scrollbar
 - [ ] tpope/vim-obsession
 - [ ] fix leap binds
 - [ ] make binds for fzf (replace ctrl-p?)
 - [ ] lazyvim
   - [x] disable smoothscroll, autoformat by default
-  - [ ] nvim-surround/mini-surround
+  - [x] nvim-surround/mini-surround
   - [ ] nvim-cmp errors on windows wsl
   - [ ] add fallback header (if profile picture not present) on dashboard
   - [x] familiar sidebar toggle binds
-  - [ ] add c and y as mini-surround binds in lazy
+  - [x] ~add c and y as mini-surround binds in lazy~ (portes the other way around)
   - [x] remove gray hyphens in lazy
-  - [ ] render markdown
+  - [x] render markdown
   - [x] pull over binds
   - [x] check lvim into stow
   - [ ] jupyter?
-  - [ ] enable alt-backspace in command mode
+  - [x] enable alt-backspace in command mode
   - [x] hop?
 - [ ] nvim
   - [ ] hop?
-  - [ ] enable ctrl-s for saving
+  - [x] enable ctrl-s for saving
+  - [x] use c+dir for window navigation
 - [x] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
 - [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 - [x] tmux restore correct version of vim
@@ -193,7 +197,7 @@ sudo apt-get -y update && \
 - [ ] add readmes for the rough changes made in each rc subdir
 - kanata
   - [x] switch kenkyo arrow layer to vim layout
-  - [ ] updata kanata tap-hold timings to reduce errors
+  - [x] updata kanata tap-hold timings to reduce errors
   - [ ] autostart kanata on linux
   - [ ] add kanata instructions
 
