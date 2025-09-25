@@ -12,9 +12,9 @@ lsft  z x c v b n m , . /       up
 )
 
 (defvar
-  streak-count 3
-  streak-time 325
-  tap-timeout 200
+  streak-count 4
+  streak-time 100
+  tap-timeout 150
   hold-timeout 500
   chord-timeout 50
 )
@@ -22,10 +22,11 @@ lsft  z x c v b n m , . /       up
 (deftemplate charmod (char mod)
   (switch 
     ((key-timing $streak-count less-than $streak-time)) $char break
-    () (tap-hold-release-timeout $tap-timeout $hold-timeout $char $mod $char) break
+    () (tap-hold-release-timeout $tap-timeout $hold-timeout $char $mod $mod) break
   )
 )
 
+    ;; () (tap-hold-release-timeout $tap-timeout $hold-timeout $char $mod $char) break
 (defvirtualkeys
   shift (multi (layer-switch main) lsft)
   clear (multi (layer-switch main) (on-press release-virtualkey shift))
