@@ -1,0 +1,344 @@
+/* ..........Mine (based on "Half Moon").................. */
+/* NOTE: This is only for some waybar configs */
+/* --- 👍 shared by https://github.com/TomekBobrowicz  👍 --- */
+
+@define-color background #0f1419;
+@define-color foreground #e6e1cf;
+@define-color border #414868;
+@define-color warning #e6b673;
+@define-color gradient1 #95e6cb;
+@define-color gradient2 #59c2ff;
+@define-color gradient3 #d2a6ff;
+@define-color yellow #e6b673;
+@define-color green #b8cc52;
+@define-color blue #59c2ff;
+@define-color red #f07178;
+@define-color gray #6e6a86;
+@define-color orange #ff8f40;
+@define-color white #f3f4f5;
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  min-height: 0;
+  /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
+  font-size: 97%;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+}
+
+window#waybar {
+  /* background-color: rgba(56,57,58,5); */
+  background-color: rgba(26, 27, 38, 0);
+  border-bottom: 1px solid rgba(26, 27, 38, 0);
+  border-radius: 0px 0px 5px 5px;
+  color: @warning;
+  margin: 0;
+  padding: 0;
+}
+
+#waybar.empty,
+#waybar.tiled,
+#waybar.floating {
+  background-color: transparent;
+}
+
+window#waybar.empty,
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+#taskbar,
+#workspaces {
+  background: @background;
+  margin: 0 5px 5px 5px;
+  padding: 4px 4px 2px 4px;
+  border-radius: 0px 0px 15px 15px;
+  border: 0px;
+  font-style: normal;
+  color: @background;
+}
+
+#taskbar button,
+#workspaces button {
+  padding: 0px 5px;
+  margin: 0px 3px 4px 3px;
+  border-radius: 10px 10px 10px 10px;
+  /* border-radius: 0px 0px 10px 10px; */
+  border: 0px;
+  color: @background;
+  background: linear-gradient(45deg, @gradient1, @gradient2, @gradient3);
+  opacity: 0.5;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+
+#taskbar button.active,
+#workspaces button.active {
+  padding: 0px 5px;
+  margin: 0px 3px 4px 3px;
+  /* border-radius: 0px 0px 15px 15px; */
+  border: 0px;
+  color: @background;
+  background: linear-gradient(45deg, @gradient2, @gradient3);
+  opacity: 1;
+  min-width: 40px;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+
+#workspaces button:hover {
+  /* border-radius: 0px 0px 15px 15px; */
+  color: @background;
+  background: linear-gradient(45deg, @gradient2, @gradient3);
+  opacity: 0.8;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+@keyframes gradient_horizontal {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes swiping {
+  0% {
+    background-position: 0% 200%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+tooltip {
+  background: @background;
+  border: 1px solid @gradient3;
+  border-radius: 0px 0px 10px 10px;
+}
+
+tooltip label {
+  color: @white;
+}
+
+#window {
+  color: @foreground;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#temperature,
+#memory {
+  color: @warning;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#custom-light_dark,
+#custom-dot_update,
+#custom-swaync,
+#custom-hypridle,
+#idle_inhibitor,
+#clock {
+  color: @green;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+/*-----Indicators----*/
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+  color: @green;
+}
+
+#bluetooth {
+  color: blue;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#custom-playerctl,
+#power-profiles-daemon,
+#custom-cycle_wall,
+#cpu {
+  color: @white;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#disk {
+  color: @green;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#backlight,
+#battery {
+  color: @red;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#mpris {
+  color: @red;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding-left: 8px;
+  padding-right: 2px;
+}
+
+#backlight {
+  color: white;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#network {
+  color: @orange;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#custom-hyprbindings {
+  color: @gradient3;
+  background: @background;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#tray {
+  color: @foreground;
+  background: @background;
+  border-radius: 0px 0px 15px 0px;
+  margin: 0px 5px 5px 0px;
+  padding: 2px 10px;
+}
+
+#pulseaudio {
+  color: @gradient2;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 0px;
+  padding: 2px 15px;
+}
+
+#pulseaudio.microphone {
+  padding-right: 20px;
+}
+
+#custom-notification {
+  color: @gradient1;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#custom-browser,
+#custom-file_manager,
+#custom-tty,
+#custom-settings {
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+  color: @background;
+  background: linear-gradient(45deg, @gradient1, @gradient2, @gradient3);
+}
+
+#custom-weather {
+  color: @gradient2;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#custom-menu {
+  color: @gradient2;
+  background: @background;
+  border-radius: 0px 15px 15px 0px;
+  margin: 5px 5px 5px 0px;
+  padding: 1px 15px;
+}
+
+#custom-power {
+  color: @gradient3;
+  background: @background;
+  border-radius: 0px 0px 0px 15px;
+  margin: 0 0px 5px 5px;
+  padding: 2px 5px 2px 10px;
+}
+
+#custom-lock {
+  color: red;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#custom-power_vertical,
+#keyboard-state {
+  color: green;
+  background: @background;
+  border-radius: 0px 0px 15px 15px;
+  margin: 0 5px 5px 5px;
+  padding: 2px 15px;
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  animation-name: blink;
+  animation-duration: 3s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  min-width: 0px;
+  min-height: 0px;
+  opacity: 0;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  min-width: 80px;
+  min-height: 5px;
+  border-radius: 0px 0px 5px 0px;
+  background-color: @gray;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+  min-height: 10px;
+  border-radius: 0px 0px 5px 0px;
+  background-color: purple;
+}
+

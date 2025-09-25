@@ -1,18 +1,18 @@
-#zmodload zsh/zprof
+# zmodload zsh/zprof
 
-## Disable omz autoupdates
-#DISABLE_AUTO_UPDATE="true"
-#DISABLE_MAGIC_FUNCTIONS="true"
-#DISABLE_COMPFIX="true"
-#
-## Smarter completion initialization
-## Source: https://scottspence.com/posts/speeding-up-my-zsh-shell
-#autoload -Uz compinit
-#if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
-#    compinit
-#else
-#    compinit -C
-#fi
+# Disable omz autoupdates
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+
+# Smarter completion initialization
+# Source: https://scottspence.com/posts/speeding-up-my-zsh-shell
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+   compinit
+else
+   compinit -C
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -138,6 +138,6 @@ if [ -f "$HOME/workspace/external/google-cloud-sdk/path.zsh.inc" ]; then . "$HOM
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc"; fi
 
-#zprof
+# zprof
 
 #  vim: set ts=8 sw=4 tw=0 noet :
