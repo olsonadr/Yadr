@@ -1,20 +1,37 @@
 /* ..........Mine (based on "Half Moon").................. */
 
+@define-color waybar_bg rgba(20, 30, 30, 0.8);
+
 @define-color background #0f1419;
 @define-color foreground #e6e1cf;
-@define-color yellow #e6b673;
-@define-color green #95e6cb;
-@define-color blue #59c2ff;
-@define-color red #f07178;
-@define-color gray #6e6a86;
-@define-color orange #ff8f40;
-@define-color purple #d2a6ff;
-@define-color white #f3f4f5;
-@define-color gradient1 #95e6cb;
-@define-color gradient2 #59c2ff;
-@define-color gradient3 #d2a6ff;
 
-@define-color waybar_bg rgba(20, 30, 30, 0.8);
+@define-color palette1 #59c2ff;
+@define-color palette2 #95e6cb;
+@define-color palette3 #d2a6ff;
+@define-color palette4 #ff8f40;
+@define-color palette5 #e56d9d;
+
+/* @define-color palette1 #badefc;  */
+/* @define-color palette2 #adb993; */
+/* @define-color palette3 #e56d9d; */
+/* @define-color palette4 #d0d38f; */
+/* @define-color palette5 #f6ca83; */
+
+/* @define-color palette1 #8ea4d2; */
+/* @define-color palette2 #6279b8;  */
+/* @define-color palette3 #49516f;  */
+/* @define-color palette4 #496f5d;  */
+/* @define-color palette5 #4c9f70;  */
+
+/* @define-color palette1 #59c2ff; */
+/* @define-color palette2 #95e6cb; */
+/* @define-color palette3 #d2a6ff; */
+/* @define-color palette4 #ff8f40; */
+/* @define-color palette5 #f07178; */
+
+@define-color gradient1 @palette2;
+@define-color gradient2 @palette1;
+@define-color gradient3 @palette3;
 
 #mpris, #taskbar, #workspaces, #tray, #custom-power, #custom-menu, #window, #memory, #temperature, #custom-light_dark, #bluetooth, #custom-playerctl, #disk, #backlight, #backlight, #network, #custom-hyprbindings, #pulseaudio, #custom-notification, #custom-browser, #custom-weather, #custom-lock, #custom-power_vertical, #keyboard-state, #custom-file_manager, #custom-tty, #custom-settings, #battery, #power-profiles-daemon, #custom-cycle_wall, #cpu, #custom-dot_update, #custom-swaync, #custom-hypridle, #idle_inhibitor, #clock {
   /* border-radius: 0px 0px 15px 15px; */
@@ -135,15 +152,15 @@ tooltip {
 }
 
 tooltip label {
-  color: @white;
+  color: @foreground;
 }
 
 #memory {
-  color: @blue;
+  color: @palette1;
 }
 
 #temperature {
-  color: @orange;
+  color: @palette4;
 }
 
 #custom-light_dark,
@@ -152,47 +169,47 @@ tooltip label {
 #custom-hypridle,
 #idle_inhibitor,
 #clock {
-  color: @white;
+  color: @foreground;
 }
 
 /*-----Indicators----*/
 #custom-hypridle.notactive,
 #idle_inhibitor.activated {
-  color: @green;
+  color: @palette2;
 }
 
 #bluetooth {
-  color: @blue;
+  color: @palette1;
 }
 
 #custom-playerctl,
 #power-profiles-daemon,
 #custom-cycle_wall,
 #cpu {
-  color: @purple;
+  color: @palette3;
 }
 
 #disk {
-  color: @green;
+  color: @palette2;
 }
 
 #backlight,
 #battery {
-  color: @red;
+  color: @palette5;
 }
 
 #mpris {
-  color: @red;
+  color: @palette5;
   padding-left: 8px;
   padding-right: 2px;
 }
 
 #backlight {
-  color: @white;
+  color: @foreground;
 }
 
 #network {
-  color: @orange;
+  color: @palette4;
 }
 
 #custom-hyprbindings {
@@ -245,16 +262,16 @@ tooltip label {
 }
 
 #custom-lock {
-  color: @red;
+  color: @palette5;
 }
 
 #custom-power_vertical,
 #keyboard-state {
-  color: @green;
+  color: @palette2;
 }
 
 #battery.critical:not(.charging) {
-  color: @red;
+  color: @palette5;
   animation-name: blink;
   animation-duration: 3s;
   animation-timing-function: steps(12);
@@ -277,12 +294,12 @@ tooltip label {
   min-width: 80px;
   min-height: 5px;
   border-radius: 0px 0px 5px 0px;
-  background-color: @gray;
+  background-color: @waybar_bg;
 }
 
 #backlight-slider highlight,
 #pulseaudio-slider highlight {
   min-height: 10px;
   border-radius: 0px 0px 5px 0px;
-  background-color: @purple;
+  background-color: @palette3;
 }
