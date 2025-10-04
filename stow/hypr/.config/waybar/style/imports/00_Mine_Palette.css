@@ -1,0 +1,35 @@
+/* ..........Mine Palette.................. */
+
+@define-color waybar_bg rgba(26, 27, 38, 0);
+
+@define-color background #0f1419;
+@define-color foreground #e6e1cf;
+
+@define-color palette1 #59c2ff;
+@define-color palette2 #95e6cb;
+@define-color palette3 #d2a6ff;
+@define-color palette4 #ff8f40;
+@define-color palette5 #e56d9d;
+
+/* @define-color palette1 #badefc;  */
+/* @define-color palette2 #adb993; */
+/* @define-color palette3 #e56d9d; */
+/* @define-color palette4 #d0d38f; */
+/* @define-color palette5 #f6ca83; */
+
+/* @define-color palette1 #8ea4d2; */
+/* @define-color palette2 #6279b8;  */
+/* @define-color palette3 #49516f;  */
+/* @define-color palette4 #496f5d;  */
+/* @define-color palette5 #4c9f70;  */
+
+/* @define-color palette1 #59c2ff; */
+/* @define-color palette2 #95e6cb; */
+/* @define-color palette3 #d2a6ff; */
+/* @define-color palette4 #ff8f40; */
+/* @define-color palette5 #f07178; */
+
+@define-color gradient1 @palette2;
+@define-color gradient2 @palette1;
+@define-color gradient3 @palette3;
+

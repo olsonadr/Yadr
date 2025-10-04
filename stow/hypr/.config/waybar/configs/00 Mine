@@ -1,5 +1,5 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-// ### Mine (based on "TOP Simple") ## //
+// ### Mine (based on "TOP Simple") ### //
 
 {
 "include": [
@@ -17,12 +17,7 @@
 "margin-left": 0,
 "margin-right": 0,
 "margin-top": 0,
-// "margin-bottom": -4,
-// "margin-bottom": 2,
 "margin-bottom": 0,
-// "margin-left": 6,
-// "margin-right": 6,
-// "margin-top": 2,
 
 "modules-left": [ 
 	"tray",
@@ -34,13 +29,13 @@
 "modules-center": [
 	"clock#2",
 	"group/notify_no_drawer",
+	"idle_inhibitor",
 	],
     
 "modules-right": [
-	"idle_inhibitor",
+        "power-profiles-daemon",
         "group/mobo_no_drawer",
 	"battery",
-        "power-profiles-daemon",
         "group/audio_no_drawer", 
 	"custom/power",
 	],
