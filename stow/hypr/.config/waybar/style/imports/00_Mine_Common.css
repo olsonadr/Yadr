@@ -1,0 +1,282 @@
+/* ..........Mine Common Styles (based on "Half Moon").................. */
+
+@import '00_Mine_Palette.css';
+
+#mpris, #taskbar, #workspaces, #tray, #custom-power, #custom-menu, #window, #memory, #temperature, #custom-light_dark, #bluetooth, #custom-playerctl, #disk, #backlight, #backlight, #network, #custom-hyprbindings, #pulseaudio, #custom-notification, #custom-browser, #custom-weather, #custom-lock, #custom-power_vertical, #keyboard-state, #custom-file_manager, #custom-tty, #custom-settings, #battery, #power-profiles-daemon, #custom-cycle_wall, #cpu, #custom-dot_update, #custom-swaync, #custom-hypridle, #idle_inhibitor, #clock, #mobo_no_drawer, #audio_no_drawer {
+  margin: 0 5px 0px 5px;
+  padding: 0px 15px;
+  padding-top: 0px;
+  color: @foreground;
+  background: @background;
+}
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  min-height: 0;
+  /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
+  font-size: 95%;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+}
+
+window#waybar {
+  background-color: @waybar_bg;
+  border-bottom: 1px solid rgba(26, 27, 38, 0);
+  color: @foreground;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  border: 0 solid black;
+}
+
+#window {
+  color: @foreground;
+}
+
+#waybar.empty,
+#waybar.tiled,
+#waybar.floating {
+  background-color: @waybar_bg;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+window#waybar.empty {
+  background-color: @waybar_bg;
+}
+
+#taskbar,
+#workspaces {
+  padding: 4px 4px 1px 4px;
+  border: 0px;
+  font-style: normal;
+  color: @background;
+}
+
+#taskbar button,
+#workspaces button {
+  padding: 0px 5px;
+  margin: 0px 3px 4px 3px;
+  border-radius: 10px 10px 10px 10px;
+  border: 0px;
+  color: @background;
+  background: linear-gradient(45deg, @gradient1, @gradient2, @gradient3);
+  opacity: 0.5;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+
+#taskbar button.active,
+#workspaces button.active {
+  padding: 0px 5px;
+  margin: 0px 3px 4px 3px;
+  border: 0px;
+  color: @background;
+  background: linear-gradient(45deg, @gradient2, @gradient3);
+  opacity: 1;
+  min-width: 40px;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+
+#workspaces button:hover {
+  color: @background;
+  background: linear-gradient(45deg, @gradient2, @gradient3);
+  opacity: 0.8;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+@keyframes gradient_horizontal {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes swiping {
+  0% {
+    background-position: 0% 200%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+tooltip {
+  border: 1px solid @gradient3;
+  border-radius: 0px 0px 10px 10px;
+}
+
+tooltip label {
+  color: @foreground;
+}
+
+
+#mobo_no_drawer {
+  padding: 0;
+}
+#mobo_no_drawer * {
+  margin: 0;
+}
+#memory {
+  color: @palette1;
+}
+#temperature {
+  color: @palette4;
+}
+#cpu {
+  color: @palette3;
+}
+#disk {
+  color: @palette2;
+}
+
+#custom-playerctl,
+#power-profiles-daemon,
+#custom-cycle_wall {
+  color: @palette3;
+}
+
+#custom-light_dark,
+#custom-dot_update,
+#custom-swaync,
+#custom-hypridle,
+#idle_inhibitor,
+#clock {
+  color: @foreground;
+}
+
+/*-----Indicators----*/
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+  color: @palette2;
+}
+
+#bluetooth {
+  color: @palette1;
+}
+
+#backlight,
+#battery {
+  color: @palette5;
+}
+
+#mpris {
+  color: @palette5;
+  padding-left: 8px;
+  padding-right: 2px;
+}
+
+#backlight {
+  color: @foreground;
+}
+
+#network {
+  color: @palette4;
+}
+
+#custom-hyprbindings {
+  color: @gradient3;
+}
+
+#tray {
+  border-radius: 0px 0px 15px 0px;
+  margin: 0px 5px 0px 0px;
+  padding: 2px 10px;
+}
+
+
+#audio_no_drawer {
+  padding: 0;
+}
+#audio_no_drawer * {
+  margin: 0;
+}
+#pulseaudio {
+  color: @gradient2;
+}
+#pulseaudio:not(.microphone) {
+}
+#pulseaudio.microphone {
+  padding-right: 20px;
+}
+#pulseaudio.muted:not(.microphone) {
+  font-size: 125%;
+}
+
+#custom-notification {
+  color: @gradient1;
+}
+
+#custom-browser,
+#custom-file_manager,
+#custom-tty,
+#custom-settings {
+  background: linear-gradient(45deg, @gradient1, @gradient2, @gradient3);
+}
+
+#custom-weather {
+  color: @gradient2;
+}
+
+#custom-menu {
+  color: @gradient2;
+  background: @background;
+  border-radius: 0px 15px 15px 0px;
+  margin: 5px 5px 0px 0px;
+  padding: 1px 15px;
+}
+
+#custom-power {
+  color: @gradient3;
+  background: @background;
+  border-radius: 0px 0px 0px 15px;
+  margin: 0 0px 0px 5px;
+  padding: 2px 10px 3px 5px;
+}
+
+#custom-lock {
+  color: @palette5;
+}
+
+#custom-power_vertical,
+#keyboard-state {
+  color: @palette2;
+}
+
+#battery.critical:not(.charging) {
+  color: @palette5;
+  animation-name: blink;
+  animation-duration: 3s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  min-width: 0px;
+  min-height: 0px;
+  opacity: 0;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  min-width: 80px;
+  min-height: 5px;
+  border-radius: 0px 0px 5px 0px;
+  background-color: @waybar_bg;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+  min-height: 10px;
+  border-radius: 0px 0px 5px 0px;
+  background-color: @palette3;
+}
