@@ -3,9 +3,8 @@
 @import '00_Mine_Palette.css';
 
 #mpris, #taskbar, #workspaces, #tray, #custom-power, #custom-menu, #window, #memory, #temperature, #custom-light_dark, #bluetooth, #custom-playerctl, #disk, #backlight, #backlight, #network, #custom-hyprbindings, #pulseaudio, #custom-notification, #custom-browser, #custom-weather, #custom-lock, #custom-power_vertical, #keyboard-state, #custom-file_manager, #custom-tty, #custom-settings, #battery, #power-profiles-daemon, #custom-cycle_wall, #cpu, #custom-dot_update, #custom-swaync, #custom-hypridle, #idle_inhibitor, #clock, #mobo_no_drawer, #audio_no_drawer {
-  margin: 0 5px 0px 5px;
-  padding: 0px 15px;
-  padding-top: 0px;
+  margin: 0px 3px;
+  padding: 0px 12px;
   color: @foreground;
   background: @background;
 }
@@ -23,9 +22,9 @@ window#waybar {
   background-color: @waybar_bg;
   border-bottom: 1px solid rgba(26, 27, 38, 0);
   color: @foreground;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
-  border: 0 solid black;
+  margin: 0px 0px;
+  padding: 0px 0px;
+  border: 0px solid black;
 }
 
 #window {
@@ -56,9 +55,9 @@ window#waybar.empty {
 
 #taskbar button,
 #workspaces button {
-  padding: 0px 5px;
+  padding: 0px 4px;
   margin: 0px 3px 4px 3px;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 8px 8px;
   border: 0px;
   color: @background;
   background: linear-gradient(45deg, @gradient1, @gradient2, @gradient3);
@@ -68,7 +67,7 @@ window#waybar.empty {
 
 #taskbar button.active,
 #workspaces button.active {
-  padding: 0px 5px;
+  padding: 0px 4px;
   margin: 0px 3px 4px 3px;
   border: 0px;
   color: @background;
@@ -86,28 +85,28 @@ window#waybar.empty {
 }
 @keyframes gradient_horizontal {
   0% {
-    background-position: 0% 50%;
+  background-position: 0% 50%;
   }
   50% {
-    background-position: 100% 50%;
+  background-position: 100% 50%;
   }
 100% {
-    background-position: 0% 50%;
+  background-position: 0% 50%;
   }
 }
 
 @keyframes swiping {
   0% {
-    background-position: 0% 200%;
+  background-position: 0% 200%;
   }
   100% {
-    background-position: 200% 200%;
+  background-position: 200% 200%;
   }
 }
 
 tooltip {
   border: 1px solid @gradient3;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 8px 8px;
 }
 
 tooltip label {
@@ -183,9 +182,10 @@ tooltip label {
 }
 
 #tray {
-  border-radius: 0px 0px 15px 0px;
-  margin: 0px 5px 0px 0px;
-  padding: 2px 10px;
+  border-radius: 0px 0px 12px 0px;
+  margin-left: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 
@@ -225,17 +225,17 @@ tooltip label {
 #custom-menu {
   color: @gradient2;
   background: @background;
-  border-radius: 0px 15px 15px 0px;
-  margin: 5px 5px 0px 0px;
-  padding: 1px 15px;
+  border-radius: 0px 12px 12px 0px;
+  margin: 4px 4px 0px 0px;
+  padding: 1px 12px;
 }
 
 #custom-power {
   color: @gradient3;
   background: @background;
-  border-radius: 0px 0px 0px 15px;
-  margin: 0 0px 0px 5px;
-  padding: 2px 10px 3px 5px;
+  border-radius: 0px 0px 0px 12px;
+  margin-right: 0;
+  padding: 2px 8px 3px 4px;
 }
 
 #custom-lock {
@@ -269,14 +269,14 @@ tooltip label {
 #backlight-slider trough,
 #pulseaudio-slider trough {
   min-width: 80px;
-  min-height: 5px;
-  border-radius: 0px 0px 5px 0px;
+  min-height: 4px;
+  border-radius: 0px 0px 4px 0px;
   background-color: @waybar_bg;
 }
 
 #backlight-slider highlight,
 #pulseaudio-slider highlight {
-  min-height: 10px;
-  border-radius: 0px 0px 5px 0px;
+  min-height: 8px;
+  border-radius: 0px 0px 4px 0px;
   background-color: @palette3;
 }
