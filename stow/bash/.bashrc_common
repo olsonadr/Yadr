@@ -44,6 +44,11 @@ if [[ -d "$HOME/.pyenv" ]]; then
 	eval "$(pyenv init - bash)"
 fi
 
+## Setup brew env
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 ## local-open setup for windows host
 #LOCAL_OPEN_
 
@@ -55,5 +60,8 @@ fi
 #shopt -s histappend
 ## After each command, append to the history file and reread it
 #PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
+## Setup kmk user
+export KMK_USER="r1020325"
 
 #  vim: set ts=8 sw=4 tw=0 noet ft=sh :

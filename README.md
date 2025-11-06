@@ -77,7 +77,10 @@ sudo apt-get -y update && \
         build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base && \
     sudo apt install -y python3-jupyter-client python3-pynvim && \
     wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.24/quarto-1.8.24-linux-amd64.deb && \
-    sudo apt install ./quarto-1.8.24-linux-amd64.deb && rm quarto-1.8.24-linux-amd64.deb
+    sudo apt install ./quarto-1.8.24-linux-amd64.deb && rm quarto-1.8.24-linux-amd64.deb && \
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && \
+    brew install fzf
 ```
 
 ### Installation
