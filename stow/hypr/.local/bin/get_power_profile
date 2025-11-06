@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Cycle between the expected power modes
+BLOCK="${BLOCK:=false}"
+VERBOSE="${VERBOSE:=false}"
+JSON="${JSON:=false}"
+modes=(
+    "power-saver"
+    "balanced"
+    "performance"
+)
+${VERBOSE} && echo "Modes:" "${modes[@]}"
+
+${BLOCK} && until ! pgrep -f cycle_power; do sleep 0.1; done
+curr="$(powerprofilesctl get)"
+${VERBOSE} && echo "Current: ${curr}"
+
+json_output="$(cat << EOF
+{
+    "text": "${curr}",
+    "alt": "${curr}"
+}
+EOF
+)"
+${JSON} && ( echo "${json_output}" | jq --unbuffered --compact-output . ; ) \
+        || echo "${curr}"
+
+#  vim: set ts=8 sw=4 tw=80 et :

@@ -4,7 +4,7 @@
 
 @define-color waybar_bg rgba(26, 27, 38, 0.0);
 
-#mpris, #taskbar, #workspaces, #tray, #custom-power, #custom-menu, #window, #memory, #temperature, #custom-light_dark, #bluetooth, #custom-playerctl, #disk, #backlight, #backlight, #network, #custom-hyprbindings, #pulseaudio, #custom-notification, #custom-browser, #custom-weather, #custom-lock, #custom-power_vertical, #keyboard-state, #custom-file_manager, #custom-tty, #custom-settings, #battery, #power-profiles-daemon, #custom-cycle_wall, #cpu, #custom-dot_update, #custom-swaync, #custom-hypridle, #idle_inhibitor, #clock, #mobo_no_drawer, #audio_no_drawer {
+#mpris, #taskbar, #workspaces, #tray, #custom-power, #custom-menu, #window, #memory, #temperature, #custom-light_dark, #bluetooth, #custom-playerctl, #disk, #backlight, #backlight, #network, #custom-hyprbindings, #pulseaudio, #custom-notification, #custom-browser, #custom-weather, #custom-lock, #custom-power_vertical, #keyboard-state, #custom-file_manager, #custom-tty, #custom-settings, #battery, #battery_and_profile, #custom-my_power_profile, #power-profiles-daemon, #custom-cycle_wall, #cpu, #custom-dot_update, #custom-swaync, #custom-hypridle, #idle_inhibitor, #clock, #mobo_no_drawer, #audio_no_drawer {
   border-radius: 0px 0px 15px 15px;
 }
 

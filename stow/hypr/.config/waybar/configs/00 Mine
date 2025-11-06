@@ -35,7 +35,7 @@
 "modules-right": [
         "power-profiles-daemon",
         "group/mobo_no_drawer",
-	"battery",
+	"group/battery_and_profile",
         "group/audio_no_drawer", 
 	"custom/power",
 	],
