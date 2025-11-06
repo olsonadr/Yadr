@@ -2,7 +2,7 @@
 
 @import '00_Mine_Palette.css';
 
-#mpris, #taskbar, #workspaces, #tray, #custom-power, #custom-menu, #window, #memory, #temperature, #custom-light_dark, #bluetooth, #custom-playerctl, #disk, #backlight, #backlight, #network, #custom-hyprbindings, #pulseaudio, #custom-notification, #custom-browser, #custom-weather, #custom-lock, #custom-power_vertical, #keyboard-state, #custom-file_manager, #custom-tty, #custom-settings, #battery, #power-profiles-daemon, #custom-cycle_wall, #cpu, #custom-dot_update, #custom-swaync, #custom-hypridle, #idle_inhibitor, #clock, #mobo_no_drawer, #audio_no_drawer {
+#mpris, #taskbar, #workspaces, #tray, #custom-power, #custom-menu, #window, #memory, #temperature, #custom-light_dark, #bluetooth, #custom-playerctl, #disk, #backlight, #backlight, #network, #custom-hyprbindings, #pulseaudio, #custom-notification, #custom-browser, #custom-weather, #custom-lock, #custom-power_vertical, #keyboard-state, #custom-file_manager, #custom-tty, #custom-settings, #battery, #custom-my_power_profile, #battery_and_profile, #power-profiles-daemon, #custom-cycle_wall, #cpu, #custom-dot_update, #custom-swaync, #custom-hypridle, #idle_inhibitor, #clock, #mobo_no_drawer, #audio_no_drawer {
   margin: 0px 3px;
   padding: 0px 12px;
   color: @foreground;
@@ -108,11 +108,9 @@ tooltip {
   border: 1px solid @gradient3;
   border-radius: 0px 0px 8px 8px;
 }
-
 tooltip label {
   color: @foreground;
 }
-
 
 #mobo_no_drawer {
   padding: 0;
@@ -121,16 +119,16 @@ tooltip label {
   margin: 0;
 }
 #memory {
-  color: @palette1;
+  color: @palette2;
 }
 #temperature {
   color: @palette4;
 }
 #cpu {
-  color: @palette3;
+  color: @palette1;
 }
 #disk {
-  color: @palette2;
+  color: @palette3;
 }
 
 #custom-playerctl,
@@ -161,6 +159,18 @@ tooltip label {
 #backlight,
 #battery {
   color: @palette5;
+}
+#custom-my_power_profile {
+  color: @palette2;
+}
+#battery_and_profile {
+  padding: 0;
+}
+#battery_and_profile * {
+  margin: 0;
+}
+#battery_and_profile #custom-my_power_profile {
+  padding-right: 4px;
 }
 
 #mpris {

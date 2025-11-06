@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Cycle between the expected power modes
+VERBOSE="${VERBOSE:=false}"
+JSON="${JSON:=false}"
+modes=(
+    "power-saver"
+    "balanced"
+    "performance"
+)
+num_modes="${#modes[@]}"
+
+${VERBOSE} && echo "Modes:" "${modes[@]}"
+
+curr="$(powerprofilesctl get)"
+
+${VERBOSE} && echo "Current: ${curr}"
+
+for i in "${!modes[@]}"; do
+   if [[ "${modes[$i]}" = "${curr}" ]]; then
+       next_i=$(( i + 1 ))
+       ${VERBOSE} && echo "num_modes: $num_modes"
+       ${VERBOSE} && echo "next_i: $next_i"
+       (( num_modes == next_i )) && next_i=0
+       next="${modes[next_i]}"
+       ${VERBOSE} && echo "Setting mode to ${next}"
+       powerprofilesctl set "${next}"
+       text_output="${next}"
+       break
+   fi
+done
+
+json_output="$(cat << EOF
+{
+    "text": "${text_output}",
+    "alt": "${text_output}"
+}
+EOF
+)"
+${JSON} && ( echo "${json_output}" | jq --unbuffered --compact-output . ; ) \
+        || echo "${text_output}"
+
+#  vim: set ts=8 sw=4 tw=80 et :

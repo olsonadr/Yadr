@@ -21,9 +21,8 @@
   "group/mobo_no_drawer": {
 	"orientation": "inherit",
 	"modules": [
-		"temperature",		
+		"temperature",
 		"cpu",
-		"power-profiles-daemon",	
 		"memory",
 		"disk",
 	]
@@ -35,4 +34,32 @@
 		"pulseaudio#microphone",
 	]
   },
+  "custom/my_power_profile_text": {
+    "format": "{}",
+    "exec": "powerprofilesctl get",
+    "interval": "once",
+    "exec-on-event": "sleep 0.5 && powerprofilesctl get",
+	"on-click": "$HOME/.local/bin/cycle_power"
+  },
+  "custom/my_power_profile": {
+    "format": "{icon}",
+    "format-icons": {
+      "default": "... ",
+      "performance": " ",
+      "balanced": " ",
+      "power-saver": " "
+    },
+    "exec": "sleep 0.7 && echo $(JSON=true BLOCK=true $HOME/.local/bin/get_power_profile)",
+	"on-click": "JSON=true $HOME/.local/bin/cycle_power >/dev/null",
+    "return-type": "json",
+    "exec-on-event": "true",
+    "interval": "once"
+  },
+  "group/battery_and_profile": {
+	"orientation": "inherit",
+	"modules": [
+		"custom/my_power_profile",
+		"battery",
+	]
+  }
 }
