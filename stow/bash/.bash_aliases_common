@@ -220,4 +220,36 @@ function nvims() {
     #NVIM_APPNAME=$config nvim "$@"
 }
 
+## KUL tunnel
+function kul_tunnel__start_agent() {
+    (
+	eval `ssh-agent` \
+	    && ln -s "${SSH_AUTH_SOCK}" /tmp/kul_tunnel.sock \
+	    && echo "SSH_AUTH_SOCK=/tmp/kul_tunnel.sock" > /tmp/kul_tunnel.env \
+	    && echo "SSH_AGENT_PID=${SSH_AGENT_PID}" >> /tmp/kul_tunnel.env \
+	    && echo "Agent started" \
+	    ;
+    )
+}
+function kul_tunnel__use_agent() {
+    if [[ ! -e "/tmp/kul_tunnel.sock" ]] || [[ ! -e "/tmp/kul_tunnel.env" ]]; then
+	>&1 echo "ERROR: start agent with kul_tunnel__start_agent"
+	return 1
+    else
+	source /tmp/kul_tunnel.env \
+	    && echo "Using tunnel agent: ${SSH_AUTH_SOCK} ; ${SSH_AGENT_PID}"
+    fi
+}
+function kul_tunnel__renew() {
+    ( kul_tunnel__use_agent && kmk renew ; )
+}
+function kul_tunnel() {
+    ( kul_tunnel__use_agent && ssh kul_tunnel "$@" ; )
+}
+
+# Screenshot with slurp and grim
+function screenshot() { grim -g "$(slurp)" "$@"; }
+# Feed screenshot into tesseract
+function ocr() { args="$*" && screenshot /tmp/screenshot.png && tesseract /tmp/screenshot.png "${args:=stdout}"; }
+
 #  vim: set ts=8 sw=4 tw=0 et ft=sh :
