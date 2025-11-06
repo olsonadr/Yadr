@@ -16,12 +16,15 @@ return {
       panel = { enabled = false },
     },
   },
-  -- Disable inlay hints by default
+  -- lspconfig settings
   {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = {
         enabled = true,
+      },
+      servers = {
+        racket_langserver = {},
       },
     },
   },
@@ -93,7 +96,7 @@ return {
   },
   -- Add surround-style maps for mini.surround
   {
-    "echasnovski/mini.surround",
+    "nvim-mini/mini.surround",
     opts = {
       mappings = {
         -- add = "ys", -- Add surrounding in Normal and Visual modes
@@ -108,6 +111,14 @@ return {
         update_n_lines = "gsN", -- Update `n_lines`
       },
     },
+  },
+  -- conjure for repl support in racket
+  {
+    "Olical/conjure",
+    ft = { "racket", "scheme" },
+    lazy = true,
+    init = function()
+    end,
   },
   -- TODO: Remove mini-snippets <c-cr> map
 }
