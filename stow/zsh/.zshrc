@@ -138,6 +138,10 @@ if [ -f "$HOME/workspace/external/google-cloud-sdk/path.zsh.inc" ]; then . "$HOM
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc"; fi
 
+# Disable nomatch option by default (non-matching glob behavior)
+# Source: https://unix.stackexchange.com/a/589533
+setopt no_nomatch
+
 # zprof
 
 #  vim: set ts=8 sw=4 tw=0 noet :

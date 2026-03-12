@@ -1,5 +1,14 @@
 -- For customization of plugins installed by lazyvim or lazyvim extras
 
+-- Source - https://stackoverflow.com/a/4991602
+local function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
+
+-- Check if certain plugins should be disabled on this host
+local enable_copilot = file_exists("~/.no-copilot")
+
 return {
   -- Configure LazyVim colorscheme
   {
@@ -44,7 +53,11 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    dependencies = { "sourcegraph/sg.nvim" },
     opts = function(_, opts)
+      -- Enable cody
+      table.insert(opts.sources, 1, { name = "cody" })
+      -- Default
       local cmp = require("cmp")
       local auto_select = false
       opts.completion = {
@@ -120,6 +133,45 @@ return {
     init = function()
     end,
   },
+  -- Disable copilot plugins if flagfile found in home dir
+  {
+    "zbirenbaum/copilot.lua",
+    enabled = enable_copilot,
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    enabled = enable_copilot,
+  },
+  -- Cody support
+  {
+    "sourcegraph/sg.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    opts = {},
+  },
+  -- Alternative Cody support
+  {
+    "guillemaru/codyassist",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("codyassist").setup()
+      vim.keymap.set("v", "<leader>aq", function()
+        local variable = {}
+        variable.args = "Explain this code:"
+        require("codyassist").QuestionWithSelection(variable)
+      end, { noremap = true, silent = true, desc = "Ask Cody about selection" })
+      vim.keymap.set("n", "<leader>ae", function()
+        require("codyassist").EnableRepo()
+      end, { noremap = true, silent = true, desc = "Enable using Cody context repo" })
+      vim.keymap.set("n", "<leader>ad", function()
+        require("codyassist").DisableRepo()
+      end, { noremap = true, silent = true, desc = "Disable using Cody context repo" })
+      vim.keymap.set("n", "<leader>at", function()
+        require("codyassist").ToggleChatWindow()
+      end, { noremap = true, silent = true, desc = "Toggle window with Cody's answer" })
+    end,
+  }
   -- TODO: Remove mini-snippets <c-cr> map
 }
 

@@ -145,6 +145,8 @@ return {
         --  { section = "keys" },
         --},
       },
+    -- Setup picker to show hidden files by default
     },
   },
 }
+--  vim: set ts=8 sw=2 tw=80 et :

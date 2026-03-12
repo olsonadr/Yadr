@@ -64,4 +64,6 @@ fi
 ## Setup kmk user
 export KMK_USER="r1020325"
 
+## Source dark evil file if it exists
+[[ -e "${HOME}/.bashrc_hidden" ]] && . "$HOME/.bashrc_hidden"
 #  vim: set ts=8 sw=4 tw=0 noet ft=sh :
