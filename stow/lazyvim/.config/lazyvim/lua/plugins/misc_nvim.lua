@@ -60,11 +60,27 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
+  -- nvim-treesitter: pin version to avoid regression
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    -- commit = "f7955203bb16eed15f9e0fbf7e39b86e0de96b47",
+  },
   -- jupytext.nvim: converting to/from ipynb
   {
-    'goerz/jupytext.nvim',
-    version = '0.2.0',
-    opts = {},  -- see Options
-  }
+    "goerz/jupytext.nvim",
+    version = "0.2.0",
+    opts = {},
+  },
+  -- colorful-winsep.nvim: colorful borders around active window
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    config = true,
+    event = { "WinLeave" },
+    opts = {
+      animate = { enabled = false }
+    }
+  },
 }
 --  vim: set ts=8 sw=2 tw=80 et :

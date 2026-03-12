@@ -252,4 +252,7 @@ function screenshot() { grim -g "$(slurp)" "$@"; }
 # Feed screenshot into tesseract
 function ocr() { args="$*" && screenshot /tmp/screenshot.png && tesseract /tmp/screenshot.png "${args:=stdout}"; }
 
+# export SRC_ENDPOINT="https://sourcegraph.sw.nxp.com"
+# export SRC_ACCESS_TOKEN=""
+
 #  vim: set ts=8 sw=4 tw=0 et ft=sh :
