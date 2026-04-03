@@ -53,7 +53,7 @@ sudo apt-get -y update && \
                         brightnessctl dex x11-xserver-utils i3lock \
                         scrot imagemagick xautolock fonts-powerline \
                         python3-pynvim && \
-    cargo install --locked rbw
+    cargo install --locked rbw; \
     git clone --recurse-submodules --remote-submodules --depth 1 -j 2 \
         https://github.com/lcpz/awesome-copycats.git && \
     mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; \
@@ -79,7 +79,7 @@ sudo apt-get -y update && \
     wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.24/quarto-1.8.24-linux-amd64.deb && \
     sudo apt install ./quarto-1.8.24-linux-amd64.deb && rm quarto-1.8.24-linux-amd64.deb && \
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && \
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
     brew install fzf
 ```
 
