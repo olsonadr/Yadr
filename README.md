@@ -53,7 +53,7 @@ sudo apt-get -y update && \
                         brightnessctl dex x11-xserver-utils i3lock \
                         scrot imagemagick xautolock fonts-powerline \
                         python3-pynvim && \
-    cargo install --locked rbw
+    cargo install --locked rbw; \
     git clone --recurse-submodules --remote-submodules --depth 1 -j 2 \
         https://github.com/lcpz/awesome-copycats.git && \
     mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; \
