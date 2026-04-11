@@ -2,6 +2,15 @@
 
 return {
   {
+    "folke/which-key.nvim",
+    opts = {
+      spec = {
+        ["<leader>ud"] = { name = " Diagnostics (Global)" },
+        ["<leader>uD"] = { name = " Diagnostics (Buffer)" },
+      },
+    },
+  },
+  {
     "folke/snacks.nvim",
     opts = {
       scroll = {
@@ -145,6 +154,276 @@ return {
         --  { section = "keys" },
         --},
       },
+      -- Show hidden files by default in mini explorer
+      picker = {
+        sources = {
+          explorer = { hidden = true },
+        },
+      },
     },
+    keys = {
+      { "<leader>ud", enabled = false },
+      {
+        "<leader>ud",
+        function()
+          Snacks.toggle.toggles["diags"]:toggle()
+        end,
+        silent = false,
+        desc = "Toggle diagnostics globally",
+      },
+      { "<leader>uD", enabled = false },
+      {
+        "<leader>uD",
+        function()
+          Snacks.toggle.toggles["diags_buf"]:toggle()
+        end,
+        silent = false,
+        desc = "Toggle diagnostics in current buffer",
+      },
+    },
+    -- custom toggles
+    init = function()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "VeryLazy",
+        callback = function()
+          -- -- Find original dim one by <leader>uD and disable it
+          -- print("Before removing dim toggle:")
+          -- for i, toggle in ipairs(Snacks.toggle.toggles) do
+          --   if toggle.opts.name == "Dimming" then
+          --     table.remove(Snacks.toggle.toggles, i)
+          --     break
+          --   end
+          -- end
+          -- Mine
+          Snacks.toggle
+            .diagnostics({ id = "diags", name = " Diagnostics (Global)" })
+            :map("<leader>ud")
+            :_wk("<leader>ud", "n")
+          Snacks.toggle
+            .new({
+              id = "diags_buf",
+              name = " Diagnostics (Buffer)",
+              set = function(state)
+                vim.diagnostic.enable(state, { bufnr = 0 })
+              end,
+              get = function()
+                return vim.diagnostic.is_enabled({ bufnr = 0 })
+              end,
+              which_key = true,
+              -- wk_desc = "Toggle diagnostics in current buffer",
+            })
+            :map("<leader>uD")
+            :_wk("<leader>uD", "n")
+          Snacks.toggle
+            .new({
+              id = "diags_buf",
+              name = " Diagnostics (Buffer)",
+              set = function(state)
+                vim.diagnostic.enable(state, { bufnr = 0 })
+              end,
+              get = function()
+                return vim.diagnostic.is_enabled({ bufnr = 0 })
+              end,
+              which_key = true,
+              -- wk_desc = "Toggle diagnostics in current buffer",
+            })
+            :map("<leader>uud")
+          Snacks.toggle
+            .new({
+              id = "dim",
+              name = "󰱊 Dimming",
+              get = function()
+                return Snacks.dim.enabled
+              end,
+              set = function(state)
+                if state then
+                  Snacks.dim.enable()
+                else
+                  Snacks.dim.disable()
+                end
+              end,
+            })
+            :map("<leader>uM")
+          -- Remove original uD toggle mapping
+          -- Snacks.toggle.dim():map("<leader>uD", { enabled = false })
+          -- :map(
+          --   "<leader>uD",
+          --   { enabled = false }
+          -- )
+          -- require('which-key').add({
+          --   ["<leader>ud"] = { name = " Diagnostics (Global)" },
+          --   ["<leader>uD"] = { name = " Diagnostics (Buffer)" },
+          -- })
+          -- Reddit's
+          Snacks.toggle.option("spell", { name = "󰓆 Spell Checking" }):map("<leader>uus")
+          Snacks.toggle.option("wrap", { name = "󰖶 Wrap Long Lines" }):map("<leader>uuw")
+          Snacks.toggle.option("list", { name = "󱁐 List (Visible Whitespace)" }):map("<leader>uul")
+          -- Snacks.toggle.diagnostics({ name = " Diagnostics" }):map("<leader>uuD")
+          Snacks.toggle.treesitter({ name = " Treesitter Highlighting" }):map("<leader>uut")
+
+          Snacks.toggle
+            .new({
+              id = "diag_virtual_text",
+              name = " Diagnostics Virtual Text",
+              get = function()
+                return vim.diagnostic.config().virtual_text ~= false
+              end,
+              set = function(state)
+                require("tiny-inline-diagnostic").toggle()
+                if state then
+                  vim.diagnostic.config({ virtual_text = { prefix = "", spacing = 2 } })
+                else
+                  vim.diagnostic.config({ virtual_text = false })
+                end
+              end,
+            })
+            :map("<leader>uuv")
+
+          Snacks.toggle
+            .new({
+              id = "git_blame",
+              name = " Git Blame",
+              get = function()
+                return require("gitsigns.config").config.current_line_blame
+              end,
+              set = function(state)
+                require("gitsigns").toggle_current_line_blame(state)
+              end,
+            })
+            :map("<leader>uub")
+
+          Snacks.toggle
+            .new({
+              id = "git_sign_column",
+              name = " Git Sign Column",
+              get = function()
+                return require("gitsigns.config").config.signcolumn
+              end,
+              set = function(state)
+                require("gitsigns").toggle_signs(state)
+              end,
+            })
+            :map("<leader>uug")
+
+          Snacks.toggle
+            .new({
+              id = "number",
+              name = " Line Numbers",
+              get = function()
+                return vim.wo.number
+              end,
+              set = function(state)
+                if state then
+                  vim.wo.relativenumber = false
+                end
+                vim.wo.number = state
+              end,
+            })
+            :map("<leader>uun")
+
+          Snacks.toggle
+            .new({
+              id = "relativenumber",
+              name = " Relative Line Numbers",
+              get = function()
+                return vim.wo.relativenumber
+              end,
+              set = function(state)
+                if state then
+                  vim.wo.number = false
+                end
+                vim.wo.relativenumber = state
+              end,
+            })
+            :map("<leader>uuN")
+
+          Snacks.toggle
+            .new({
+              id = "format_on_save",
+              name = "󰊄 Format on Save (global)",
+              get = function()
+                return not vim.g.disable_autoformat
+              end,
+              set = function(state)
+                vim.g.disable_autoformat = not state
+              end,
+            })
+            :map("<leader>uuf")
+
+          Snacks.toggle
+            .new({
+              id = "format_on_save_buffer",
+              name = "󰊄 Format on Save (buffer)",
+              get = function()
+                return not vim.b.disable_autoformat
+              end,
+              set = function(state)
+                vim.b.disable_autoformat = not state
+              end,
+            })
+            :map("<leader>uuF")
+
+          Snacks.toggle
+            .new({
+              id = "copilot",
+              name = " Copilot",
+              get = function()
+                return require("copilot-status").is_enabled()
+              end,
+              set = function(state)
+                if state then
+                  vim.cmd("Copilot enable")
+                else
+                  vim.cmd("Copilot disable")
+                end
+              end,
+            })
+            :map("<leader>uuc")
+
+          Snacks.toggle
+            .new({
+              id = "dim",
+              name = "󰱊 Dimming",
+              get = function()
+                return Snacks.dim.enabled
+              end,
+              set = function(state)
+                if state then
+                  Snacks.dim.enable()
+                else
+                  Snacks.dim.disable()
+                end
+              end,
+            })
+            :map("<leader>uum")
+
+          Snacks.toggle
+            .new({
+              id = "inline_hints",
+              name = " LSP Inline Hints",
+              get = vim.lsp.inlay_hint.is_enabled,
+              set = function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+              end,
+            })
+            :map("<leader>uui")
+
+          Snacks.toggle
+            .new({
+              id = "inline_hints_end",
+              name = " LSP Inline Hints at Line End",
+              get = function()
+                return vim.g.snacks_toggle_lsp_hints_end
+              end,
+              set = function()
+                require("lsp-endhints").toggle()
+                vim.g.snacks_toggle_lsp_hints_end = not vim.g.snacks_toggle_lsp_hints_end
+              end,
+            })
+            :map("<leader>uuI")
+        end,
+      })
+    end,
   },
 }
+--  vim: set ts=8 sw=2 tw=80 et :

@@ -8,8 +8,8 @@
 ## ctrl+space prefix
 #set -g prefix C-space
 
-# clear c-b alt prefix
-set -g prefix C-a
+# # clear c-b alt prefix
+# set -g prefix C-a
 
 # -- nvim color fix ------------------------------------------------------------
 #set -g default-terminal "screen-256color"

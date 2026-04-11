@@ -13,7 +13,6 @@ local map = vim.keymap.set
 
 -- Misc
 map({ "n" }, "<localleader>ml", ":call AppendModeline()<CR>", { noremap = true, silent = true })
---map <silent> <c-f> :call Format()<CR>
 map({ "i", "c" }, "<A-BS>", "<C-W>")
 map("i", "<localleader>cp", "<Esc>:execute 'normal 0vg_\"+y'<CR>")
 
@@ -31,8 +30,5 @@ vim.cmd("iabbrev function <Esc>mz:execute FunctionHeading()<CR>`zj$A")
 
 -- Open snacks explorer with familiar <c-\>
 map("n", "<c-\\>", ":lua Snacks.explorer()<CR>", { noremap = true, silent = true })
-
--- Toggle copilot.lua
-map({ "n" }, "<leader>at", ":Copilot toggle<CR>", { noremap = true, silent = true })
 
 --  vim: set ts=2 sw=2 tw=0 et :

@@ -6,7 +6,7 @@
   "$HOME/.config/waybar/Modules",
   "$HOME/.config/waybar/ModulesWorkspaces",
   "$HOME/.config/waybar/ModulesCustom",
-  "$HOME/.config/waybar/UserModules",
+  "$HOME/.config/waybar/UserModules"
   ],
 "layer": "top", 
 "position": "top", 
@@ -23,13 +23,13 @@
 	"tray",
 	"hyprland/workspaces#rw",
 	"hyprland/window",  
-	"mpris", 
+	"mpris" 
 	],
     
 "modules-center": [
 	"clock#2",
 	"group/notify_no_drawer",
-	"idle_inhibitor",
+	"idle_inhibitor"
 	],
     
 "modules-right": [
@@ -37,7 +37,7 @@
         "group/mobo_no_drawer",
 	"group/battery_and_profile",
         "group/audio_no_drawer", 
-	"custom/power",
-	],
+	"custom/power"
+	]
 }
 

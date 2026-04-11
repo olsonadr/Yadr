@@ -1,4 +1,4 @@
--- For misc nvim plugins
+-- For misc nvim plugins (nvim/lvim)
 
 return {
   -- hop: like easymotion but without the buffer modification issues
@@ -43,28 +43,36 @@ return {
       },
     },
   },
-  -- molten: jupyter support
+  -- -- Indentation Highlighting
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   ---@module "ibl"
+  --   ---@type ibl.config
+  --   opts = {},
+  -- },
+  -- Rainbow Highlighting
   {
-    "benlubas/molten-nvim",
-    version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
-    build = ":UpdateRemotePlugins",
-    init = function()
-      vim.g.molten_output_win_max_height = 12
-    end,
-  },
-  -- quarto-nvim: jupyter lsp
-  {
-    "quarto-dev/quarto-nvim",
-    dependencies = {
-      "jmbuhr/otter.nvim",
-      "nvim-treesitter/nvim-treesitter",
+    "HiPhish/rainbow-delimiters.nvim",
+    keys = {
+      {
+        "<leader>uW",
+        function()
+          require("rainbow-delimiters").toggle(0)
+        end,
+        desc = "Toggle Rainbow Delimiters",
+      },
     },
   },
-  -- jupytext.nvim: converting to/from ipynb
   {
-    'goerz/jupytext.nvim',
-    version = '0.2.0',
-    opts = {},  -- see Options
-  }
+    "pappasam/vim-keywordprg-commands",
+    init = function()
+      vim.g.vim_keywordprg_commands = {
+        DefEng = "dict -d wn %s",
+        Pydoc = { "python3 -m pydoc %s", "rst" },
+        SynEng = "dict -d moby-thesaurus %s",
+      }
+    end,
+  },
 }
 --  vim: set ts=8 sw=2 tw=80 et :

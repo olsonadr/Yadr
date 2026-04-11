@@ -17,6 +17,9 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Dear god use bash glob behavior
+setopt NONOMATCH
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -123,8 +126,8 @@ ZSH_TMUX_AUTOSTART=true
 [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" .beginning-of-line
 [[ -n ${key[End]} ]] && bindkey "${key[End]}" .end-of-line
 
-# Quick access to nvim skew selecter
-bindkey -s ^a "nvims\n"
+# # Quick access to nvim skew selecter
+# bindkey -s ^a "nvims\n"
 
 # Vi mode for tmux (bash/zsh specific *sadge* )
 editor_target="$(which nvim 1>&/dev/null && echo "nvim" || echo "vim")"

@@ -21,6 +21,11 @@ export PATH="${HOME}/Documents/flutter/flutter/bin:${PATH}"
 
 #export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
 
+# Common secrets
+if [ -f "$HOME/.bashrc_secrets" ]; then
+	. "$HOME/.bashrc_secrets"
+fi
+
 # Common aliases
 if [ -f "$HOME/.bash_aliases_common" ]; then
 	. "$HOME/.bash_aliases_common"
@@ -63,5 +68,8 @@ fi
 
 ## Setup kmk user
 export KMK_USER="r1020325"
+
+## Android SDK location
+export ANDROID_HOME=~/Android/Sdk
 
 #  vim: set ts=8 sw=4 tw=0 noet ft=sh :
