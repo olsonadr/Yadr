@@ -1,0 +1,3 @@
+{
+  "Box": { "prefix": "b", "body": "Box::new($1)" }
+}

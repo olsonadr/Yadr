@@ -39,7 +39,7 @@ zsh dev environment.
 - fnm
 - lazygit
 
-Oneliner to install requirements on ubuntu (as root):
+One-liner to install requirements on ubuntu (as root):
 
 ```bash
 sudo apt-get -y update && \
@@ -62,7 +62,7 @@ sudo apt-get -y update && \
         ~/.local/share/albert/python/plugins && \
     sudo usermod -a -G input ${USER} && \
     sudo usermod -a -G video ${USER} && \
-    sudo apt install -y fd-find ripgrep luarocks && \
+    sudo apt install -y dict fd-find ripgrep luarocks && \
     cargo install bob-nvim && bob use latest && \
     cargo install fnm && fnm install v22 && fnm default v22 && \
     LAZYGIT_VERSION=$(curl -s \
@@ -80,7 +80,8 @@ sudo apt-get -y update && \
     sudo apt install ./quarto-1.8.24-linux-amd64.deb && rm quarto-1.8.24-linux-amd64.deb && \
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && \
-    brew install fzf
+    brew install fzf && \
+    curl -fsSL https://tailscale.com/install.sh | sh
 ```
 
 ### Installation

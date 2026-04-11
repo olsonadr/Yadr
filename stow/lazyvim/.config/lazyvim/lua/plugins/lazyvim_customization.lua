@@ -13,9 +13,17 @@ return {
     "zbirenbaum/copilot.lua",
     opts = {
       suggestion = { enabled = true },
-      panel = { enabled = false },
+      panel = { enabled = true },
+    },
+    keys = {
+      { "<leader>at", "<cmd>Copilot toggle<cr>", desc = "Toggle Copilot" },
     },
   },
+  -- TODO: remove C-L mapping from CopilotChat which clears the chat window
+  -- Plugin:
+  -- ● CopilotChat.nvim 15.9ms  <leader>aa
+  --     url    https://github.com/CopilotC-Nvim/CopilotChat.nvim
+  { "CopilotC-Nvim/CopilotChat.nvim", opts = {} },
   -- lspconfig settings
   {
     "neovim/nvim-lspconfig",
@@ -64,7 +72,8 @@ return {
           fallback()
         end,
         ["<tab>"] = function(fallback)
-          return LazyVim.cmp.map({ "snippet_forward", "ai_accept" }, fallback)()
+          return LazyVim.cmp.map({ "ai_accept", "snippet_forward" }, fallback)()
+          -- return LazyVim.cmp.map({ "snippet_forward", "ai_accept" }, fallback)()
         end,
       })
     end,
@@ -84,6 +93,13 @@ return {
   {
     "zbirenbaum/copilot-cmp",
     enabled = false,
+  },
+  -- Disable copilot-chat auto insert mode
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    opts = {
+      auto_insert_mode = false,
+    },
   },
   -- Include bufferline even when only one buffer
   {
@@ -112,15 +128,11 @@ return {
       },
     },
   },
-  -- conjure for repl support in racket
   {
-    "Olical/conjure",
-    ft = { "racket", "scheme" },
-    lazy = true,
-    init = function()
-    end,
+    "linux-cultist/venv-selector.nvim",
+    branch = "main",
+    opts = {},
   },
-  -- TODO: Remove mini-snippets <c-cr> map
 }
 
 --  vim: set ts=8 sw=2 tw=80 et :

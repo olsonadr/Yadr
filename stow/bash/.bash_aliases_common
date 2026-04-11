@@ -16,6 +16,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias dur='sudo du -sh --exclude /mnt --exclude /proc --exclude /dev /*'
 alias venv_act='. ./venv/bin/activate'
+alias fix_touchpad='sudo modprobe -r i2c_hid;sudo modprobe i2c_hid;sudo modprobe -r psmouse;sudo modprobe psmouse'
 
 # Apt
 alias sai="sudo apt install"
@@ -251,5 +252,11 @@ function kul_tunnel() {
 function screenshot() { grim -g "$(slurp)" "$@"; }
 # Feed screenshot into tesseract
 function ocr() { args="$*" && screenshot /tmp/screenshot.png && tesseract /tmp/screenshot.png "${args:=stdout}"; }
+
+if [[ -n "${GITHUB_API_KEY}" ]]; then
+    function github_file_fetcher() {
+        fetcher --alwaysUseAuth --auth="${GITHUB_API_KEY}" --url="$1"
+    }
+fi
 
 #  vim: set ts=8 sw=4 tw=0 et ft=sh :

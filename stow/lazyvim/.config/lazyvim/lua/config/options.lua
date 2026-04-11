@@ -7,7 +7,8 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.textwidth = 80
 vim.opt.wrap = true
-vim.opt.formatoptions:remove { "c", "r", "o" }
+vim.opt.formatoptions:remove({ "c", "r", "o" })
+vim.opt.colorcolumn = "81"
 
 -- Disable autoformat by default
 vim.g.autoformat = false
@@ -30,14 +31,14 @@ if vim.fn.system("uname -r"):lower():find("microsoft") then
       vim.fn.system("clip.exe", vim.fn.getreg('"'))
     end,
   })
--- elseif vim.env.XDG_SESSION_TYPE == "tty" then
---   vim.g.clipboard = "OSC52"
-elseif #vim.env.TMUX > 0 then
+elseif vim.env.TMUX and #vim.env.TMUX > 0 then
   vim.g.clipboard = "tmux"
-elseif #vim.env.DISPLAY > 0 then
-  vim.g.clipboard = "xclip"
+elseif vim.env.XDG_SESSION_TYPE == "tty" then
+  vim.g.clipboard = "OSC52"
 elseif #vim.env.WAYLAND_DISPLAY > 0 then
   vim.g.clipboard = "wl-copy"
+elseif #vim.env.DISPLAY > 0 then
+  vim.g.clipboard = "xclip"
 end
 
 --  vim: set ts=8 sw=4 tw=80 et :

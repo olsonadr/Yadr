@@ -161,8 +161,8 @@ lsft  z x c v b n m , . /       up
 )
 
 (defchords fbr $chord-timeout
-  (,  ) [
-  (  .) (t! charmod ] ralt)
+  (,  ) ,
+  (  .) (t! charmod . ralt)
   (, .) ret
 )
 
