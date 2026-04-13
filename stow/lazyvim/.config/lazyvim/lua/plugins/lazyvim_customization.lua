@@ -7,8 +7,8 @@ local function file_exists(name)
 end
 
 -- Check if certain plugins should be disabled on this host
-local enable_copilot = file_exists("~/.no-copilot")
-local enable_cody = file_exists("~/.no-cody")
+local enable_copilot = not file_exists(vim.fn.expand("$HOME/.no-copilot"))
+local enable_cody = not file_exists(vim.fn.expand("$HOME/.no-cody"))
 
 return {
   -- Configure LazyVim colorscheme
