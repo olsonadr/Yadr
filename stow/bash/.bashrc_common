@@ -76,3 +76,7 @@ export ANDROID_HOME=~/Android/Sdk
 [[ -e "${HOME}/.bashrc_hidden" ]] && . "$HOME/.bashrc_hidden"
 
 #  vim: set ts=8 sw=4 tw=0 noet ft=sh :
+
+export PATH=/home/olsonadr/bin:$PATH
+
+[[ -e "/home/olsonadr/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/olsonadr/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh"
