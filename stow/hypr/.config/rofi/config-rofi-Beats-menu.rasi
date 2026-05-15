@@ -1,4 +1,4 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+/* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */
 /* Main config Rofi Beats Config menu */
 
 @import "~/.config/rofi/config.rasi"  
@@ -30,7 +30,7 @@ listview {
   fixed-columns: false;
   scrollbar: false;
   colums: 1;
-  lines: 3;
+  lines: 4;
   spacing: 6px;
   cycle: true;
 }
