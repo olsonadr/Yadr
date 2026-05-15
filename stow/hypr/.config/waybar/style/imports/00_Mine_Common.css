@@ -164,6 +164,11 @@ tooltip label {
 #custom-my_power_profile {
   color: @palette2;
 }
+#battery_and_profile #power-profiles-daemon {
+  /* padding-left: 2px; */
+  padding-right: 0px;
+  color: @palette2;
+}
 #battery_and_profile {
   padding: 0;
 }
