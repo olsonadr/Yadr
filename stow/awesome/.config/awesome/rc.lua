@@ -179,7 +179,7 @@ awful.spawn.with_shell(
     'syndaemon -i 0.5 -t -K -R ; ' ..
     'xss-lock --transfer-sleep-lock -- ' .. scrlocker ..
     -- end commands
-    'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
+    'if command -v dex-autostart >/dev/null 2>&1; then dex-autostart --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"; elif command -v dex >/dev/null 2>&1; then dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"; fi' -- https://github.com/jceb/dex
 )
 
 -- }}}

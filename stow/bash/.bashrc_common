@@ -77,6 +77,6 @@ export ANDROID_HOME=~/Android/Sdk
 
 #  vim: set ts=8 sw=4 tw=0 noet ft=sh :
 
-export PATH=/home/olsonadr/bin:$PATH
+export PATH="${HOME}/bin:${PATH}"
 
-[[ -e "/home/olsonadr/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/olsonadr/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh"
+[[ -e "${HOME}/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "${HOME}/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh"

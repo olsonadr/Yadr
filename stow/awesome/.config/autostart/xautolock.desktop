@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=xautolock -time 7 -locker lock &
+Exec=sh -lc 'command -v xautolock >/dev/null 2>&1 && exec xautolock -time 7 -locker lock'
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
