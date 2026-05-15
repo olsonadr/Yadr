@@ -127,4 +127,6 @@ if [ -f "$HOME/workspace/external/google-cloud-sdk/path.bash.inc" ]; then . "$HO
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/workspace/external/google-cloud-sdk/completion.bash.inc"; fi
 
+. "$HOME/.cargo/env"
+
 #  vim: set ts=8 sw=4 tw=0 noet :
