@@ -2,6 +2,7 @@ import os
 import subprocess
 import time
 import traceback
+from pathlib import Path
 
 from collections import namedtuple
 from albert import *
@@ -36,7 +37,7 @@ _sim_key_mapping = {
 }
 
 _sort_maps = {}
-_current_user = os.getlogin()
+_home_dir = Path.home()
 
 
 class Plugin(PluginInstance, TriggerQueryHandler):
@@ -71,14 +72,14 @@ for root, dirs, files in os.walk("/usr/share/icons"):
         _icons.setdefault(_app_name, [])
         _icons[_app_name].append(f'file:{file_path}')
 
-for root, dirs, files in os.walk(f"/home/{_current_user}/.local/share/icons"):
+for root, dirs, files in os.walk(str(_home_dir / ".local/share/icons")):
     for file_name in files:
         file_path = os.path.join(root, file_name)
         _app_name = file_name.replace(".svg", "").replace(".png", "")
         _icons.setdefault(_app_name, [])
         _icons[_app_name].append(f'file:{file_path}')
 
-for root, dirs, files in os.walk(f"/home/{_current_user}/.local/share/JetBrains/Toolbox/apps/"):
+for root, dirs, files in os.walk(str(_home_dir / ".local/share/JetBrains/Toolbox/apps/")):
     for file_name in files:
         file_path = os.path.join(root, file_name)
         _app_name = file_name.replace(".svg", "").replace(".png", "")

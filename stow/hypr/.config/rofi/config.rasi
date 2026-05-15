@@ -28,4 +28,4 @@
 
 //@theme "/home/olsonadr/.local/share/rofi/themes/KooL_style-10-Fancy.rasi"
 
-@theme "/home/olsonadr/.local/share/rofi/themes/KooL_style-4.rasi"
+@theme "~/.local/share/rofi/themes/KooL_style-4.rasi"
