@@ -58,7 +58,8 @@
   "group/battery_and_profile": {
 	"orientation": "inherit",
 	"modules": [
-		"custom/my_power_profile",
+	        // "custom/my_power_profile",
+                "power-profiles-daemon",
 		"battery",
 	]
   }

@@ -33,7 +33,7 @@
 	],
     
 "modules-right": [
-        "power-profiles-daemon",
+//        "power-profiles-daemon",
         "group/mobo_no_drawer",
 	"group/battery_and_profile",
         "group/audio_no_drawer", 
