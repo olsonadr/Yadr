@@ -18,11 +18,41 @@ alias dur='sudo du -sh --exclude /mnt --exclude /proc --exclude /dev /*'
 alias venv_act='. ./venv/bin/activate'
 alias fix_touchpad='sudo modprobe -r i2c_hid;sudo modprobe i2c_hid;sudo modprobe -r psmouse;sudo modprobe psmouse'
 
-# Apt
-alias sai="sudo apt install"
-alias saiy="sudo apt install -y"
-alias sau="sudo apt update"
-alias sauy="sudo apt update -y"
+function _pkg_manager() {
+    if command -v apt >/dev/null 2>&1; then
+        printf 'apt'
+    elif command -v dnf >/dev/null 2>&1; then
+        printf 'dnf'
+    elif command -v pacman >/dev/null 2>&1; then
+        printf 'pacman'
+    else
+        return 1
+    fi
+}
+
+function sai() {
+    case "$(_pkg_manager)" in
+        apt) sudo apt install "$@" ;;
+        dnf) sudo dnf install "$@" ;;
+        pacman) sudo pacman -S --needed "$@" ;;
+    esac
+}
+
+function saiy() {
+    sai "$@"
+}
+
+function sau() {
+    case "$(_pkg_manager)" in
+        apt) sudo apt update ;;
+        dnf) sudo dnf upgrade --refresh ;;
+        pacman) sudo pacman -Syu ;;
+    esac
+}
+
+function sauy() {
+    sau "$@"
+}
 
 # Git
 alias gc="git commit"
