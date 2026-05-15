@@ -96,5 +96,10 @@ return {
       animate = { enabled = false }
     }
   },
+  -- diffview: view git diffs in a nice way
+  {
+    "sindrets/diffview.nvim",
+    -- cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+  }
 }
 --  vim: set ts=8 sw=2 tw=80 et :

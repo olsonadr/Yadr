@@ -1,5 +1,5 @@
-#!/bin/bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
+#!/usr/bin/env bash
+# /* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */  #
 # A bash script designed to run only once dotfiles installed
 
 # THIS SCRIPT CAN BE DELETED ONCE SUCCESSFULLY BOOTED!! And also, edit ~/.config/hypr/configs/Settings.conf
@@ -10,15 +10,22 @@
 # Variables
 scriptsDir=$HOME/.config/hypr/scripts
 wallpaper=$HOME/.config/hypr/wallpaper_effects/.wallpaper_current
-waybar_style="$HOME/.config/waybar/style/[Extra] Modern-Combined - Transparent.css"
+waybar_style="$HOME/.config/waybar/style/[Extra] Neon Circuit.css"
 kvantum_theme="catppuccin-mocha-blue"
 color_scheme="prefer-dark"
 gtk_theme="Flat-Remix-GTK-Blue-Dark"
 icon_theme="Flat-Remix-Blue-Dark"
 cursor_theme="Bibata-Modern-Ice"
 
-swww="swww img"
-effect="--transition-bezier .43,1.19,1,.4 --transition-fps 30 --transition-type grow --transition-pos 0.925,0.977 --transition-duration 1"
+if command -v awww >/dev/null 2>&1; then
+    WWW="awww"
+    DAEMON="awww-daemon"
+else
+    WWW="swww"
+    DAEMON="swww-daemon"
+fi
+swww="$WWW img"
+effect="--transition-bezier .43,1.19,1,.4 --transition-fps 30 --transition-type grow --transition-pos 0.925,0.977 --transition-duration 2"
 
 # Check if a marker file exists.
 if [ ! -f "$HOME/.config/hypr/.initial_startup_done" ]; then
@@ -26,7 +33,7 @@ if [ ! -f "$HOME/.config/hypr/.initial_startup_done" ]; then
     # Initialize wallust and wallpaper
 	if [ -f "$wallpaper" ]; then
 		wallust run -s $wallpaper > /dev/null 
-		swww query || swww-daemon && $swww $wallpaper $effect
+		$WWW query || $DAEMON && $swww $wallpaper $effect
 	    "$scriptsDir/WallustSwww.sh" > /dev/null 2>&1 & 
 	fi
      

@@ -11,8 +11,18 @@ window {
 
 /* ---- Mainbox ---- */
 mainbox {
-  children:
-    [ "inputbar", "listview"];
+  children: [ "inputbar", "listview"];
+  // children: [ "inputbar", "message", "listview" ];
+}
+
+/* ---- Custombox ---- */
+/* Override custombox to ensure listview is visible for themes that use it */
+custombox {
+  spacing:                     0px;
+  background-color:            inherit;
+  text-color:                  inherit;
+  orientation:                 vertical;
+  children:                    [ "listview" ];
 }
 
 /* ---- Entry input ---- */
@@ -21,24 +31,36 @@ entry {
   placeholder: " ⬇️  Select Which Rofi Theme wanted to apply";
 }
 
-/* ---- Listview ---- */
-listview {
-  columns: 2;
-  lines: 7;
-  fixed-height: false;
-  margin: 10px;
-  scrollbar: true;
-  spacing: 6px;
-  cycle: true;
-}
+// /* ---- Listview ---- */
+// listview {
+//   columns: 2;
+//   lines: 7;
+//   fixed-height: false;
+//   margin: 10px;
+//   scrollbar: true;
+//   spacing: 6px;
+//   cycle: true;
+// }
+//
+// /* ---- Elements ---- */
+// element-icon {
+//   size: 0%;
+// }
+// element-text {
+//   horizontal-align: 0.0;
+//   vertical-align: 0.5;
+//   margin: 0px;
+//   padding: 0px;
+// }
+//
+// /* ---- Message ---- */
+// message {
+//   padding: 10px;
+//   border-radius: 10px;
+//   background-color: inherit;
+// }
 
-/* ---- Elements ---- */
-element-icon {
-  size: 0%;
-}
-element-text {
-  horizontal-align: 0.0;
-  vertical-align: 0.5;
-  margin: 0px;
-  padding: 0px;
+textbox {
+  text-color: inherit;
+  background-color: inherit;
 }

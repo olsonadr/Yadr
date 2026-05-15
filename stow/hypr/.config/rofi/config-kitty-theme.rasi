@@ -1,4 +1,4 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+/* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */
 /* Oh My ZSH Theme */
 
 @import "~/.config/rofi/config.rasi"  
@@ -32,7 +32,7 @@ inputbar {
 
 entry {
   expand: true;
-  placeholder: " 🐾  Search / Choose Kitty theme";
+  placeholder: " 🐾  Choose Kitty theme: Enter to Preview; CTRL S to Apply";
 }
 
 /* ---- Listview ---- */
