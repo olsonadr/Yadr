@@ -39,50 +39,9 @@ zsh dev environment.
 - fnm
 - lazygit
 
-One-liner to install requirements on ubuntu (as root):
+Bootstrap is now driven by scripts and per-distro manifests instead of a single Ubuntu-only one-liner. The main entrypoint is [scripts/bootstrap.sh](scripts/bootstrap.sh), which autodetects or accepts a distro name and installs the matching package set from [configs/bootstrap/distros](configs/bootstrap/distros).
 
-```bash
-sudo apt-get -y update && \
-    (   sudo apt-get install -y software-properties-common ; \
-        sudo apt-get install -y python-software-properties ; \
-    ) ; \
-    sudo apt-get -y update && \
-    sudo apt install -y cargo curl build-essential cmake fzf git \
-                        neovim stow wmctrl tmux zsh ydotool && \
-    sudo apt install -y awesome awesome-extra fonts-font-awesome \
-                        brightnessctl dex x11-xserver-utils i3lock \
-                        scrot imagemagick xautolock fonts-powerline \
-                        python3-pynvim && \
-    cargo install --locked rbw; \
-    git clone --recurse-submodules --remote-submodules --depth 1 -j 2 \
-        https://github.com/lcpz/awesome-copycats.git && \
-    mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; \
-        rm -rf awesome-copycats && \
-    git clone https://github.com/albertlauncher/python.git \
-        ~/.local/share/albert/python/plugins && \
-    sudo usermod -a -G input ${USER} && \
-    sudo usermod -a -G video ${USER} && \
-    sudo apt install -y dict fd-find ripgrep luarocks && \
-    cargo install bob-nvim && bob use latest && \
-    cargo install fnm && fnm install v22 && fnm default v22 && \
-    LAZYGIT_VERSION=$(curl -s \
-        "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" \
-        | \grep -Po '"tag_name": *"v\K[^"]*') && \
-    curl -Lo lazygit.tar.gz \
-        "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
-    tar xf lazygit.tar.gz lazygit && \
-    sudo install lazygit -D -t /usr/local/bin/ && rm lazygit{,.tar.gz} && \
-    curl -fsSL https://pyenv.run | bash && \
-    sudo apt install --assume-yes --no-install-recommends \
-        build-essential libcurl4-openssl-dev libssl-dev libxml2-dev r-base && \
-    sudo apt install -y python3-jupyter-client python3-pynvim && \
-    wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.24/quarto-1.8.24-linux-amd64.deb && \
-    sudo apt install ./quarto-1.8.24-linux-amd64.deb && rm quarto-1.8.24-linux-amd64.deb && \
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && \
-    brew install fzf && \
-    curl -fsSL https://tailscale.com/install.sh | sh
-```
+To create a stow selection config interactively, use [scripts/stow_config_wizard.sh](scripts/stow_config_wizard.sh). Example presets live in [configs/stow](configs/stow).
 
 ### Installation
 
@@ -94,54 +53,61 @@ sudo apt-get -y update && \
    git clone https://github.com/olsonadr/Yadr.git ~/.dotfiles && cd ~/.dotfiles
    ```
 
-2. Ensure you have cloned all repo submodules
+2. Run the bootstrap script for your distro
+
+  ```bash
+  ./scripts/bootstrap.sh --distro auto --stow-config ./configs/stow/desktop.conf
+  ```
+
+  You can also choose a different stow config or generate one with the wizard.
+
+Or, if you are doing the steps manually, without the bootstap script, follow these steps (instead of step 2 above):
+3. Ensure you have cloned all repo submodules if you are doing the steps manually
 
    ```bash
    ./update_submodules.sh
    ```
 
-3. Install ohmyzsh
+4. Install ohmyzsh if you are not using the bootstrap script
 
    ```bash
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
    ```
 
-4. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar
+5. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar if you are not using the bootstrap script
 
    ```bash
    mv ~/.zshrc{,.default-oh-my-zsh} ; mv ~/.bashrc{,.yadr_backup}
    mv ~/.config/awesome/rc.lua{,.yadr_backup} ; mv ~/.profile{,.yadr_backup}
    ```
 
-5. Install Yadr dotfiles
+6. Install Yadr dotfiles
 
    ```bash
    ./stow_dots.sh
    ```
 
-   - Or install only one set of dotfiles by entering the `stow` directory, and
-     using stow directly for any `<PROGRAM>` (like bash, nvim, tmux, vim, zsh,
-     etc.)
+  - Or install only one set of dotfiles by using a stow config file, or by entering the `stow` directory and using stow directly for any `<PROGRAM>` (like bash, nvim, tmux, vim, zsh, etc.)
 
      ```bash
      cd stow && stow -t ${HOME} --no-folding <PROGRAM>
      ```
 
-6. Install (n)vim vundle plugins and themes
+7. Install (n)vim vundle plugins and themes
 
    ```bash linenums="$"
    vim -c "PluginInstall"
    nvim -c "PluginInstall"
    ```
 
-7. Install (n)vim autocomplete language server
+8. Install (n)vim autocomplete language server
 
    ```bash
    sudo apt install mono-complete golang nodejs openjdk-17-jdk openjdk-17-jre npm
    cd ~/.nvim/bundle/YouCompleteMe ; python3 install.py --all ; cd -
    ```
 
-8. Install (and configure) Kanata
+9. Install (and configure) Kanata
 
 ## Next Steps
 
