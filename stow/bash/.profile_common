@@ -10,7 +10,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
 ## Set GTK vars
 #export GTK_THEME="Yaru-purple-dark"
-
 #  vim: set ts=8 sw=4 tw=0 et ft=sh :
