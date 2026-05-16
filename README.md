@@ -134,6 +134,7 @@ Or, if you are doing the steps manually, without the bootstap script, follow the
 
 - [ ] Fix hypr animations
 - [ ] Fix hypr notification style
+- [ ] Fix zsh startup speed
 - [ ] Fix libinput gestures
 - [ ] Look into why albert wont show applications sometimes
 - [ ] Make X/Wayland agnostic scripts for:
