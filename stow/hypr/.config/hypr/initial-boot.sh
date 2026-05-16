@@ -15,7 +15,7 @@ kvantum_theme="catppuccin-mocha-blue"
 color_scheme="prefer-dark"
 gtk_theme="Flat-Remix-GTK-Blue-Dark"
 icon_theme="Flat-Remix-Blue-Dark"
-cursor_theme="Bibata-Modern-Ice"
+cursor_theme="Bibata-Modern-Classic"
 
 if command -v awww >/dev/null 2>&1; then
     WWW="awww"
