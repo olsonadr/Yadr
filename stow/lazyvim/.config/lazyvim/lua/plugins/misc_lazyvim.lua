@@ -4,6 +4,7 @@ return {
   -- conjure for repl support in racket
   {
     "Olical/conjure",
+    enable = false,
     ft = { "racket", "scheme" },
     lazy = true,
     init = function() end,
@@ -11,6 +12,7 @@ return {
   -- molten: jupyter support
   {
     "benlubas/molten-nvim",
+    enable = false,
     version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
     build = ":UpdateRemotePlugins",
     init = function()
@@ -20,19 +22,15 @@ return {
   -- quarto-nvim: jupyter lsp
   {
     "quarto-dev/quarto-nvim",
+    enable = false,
     dependencies = {
       "jmbuhr/otter.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
   },
-  -- jupytext.nvim: converting to/from ipynb
-  {
-    "goerz/jupytext.nvim",
-    version = "0.2.0",
-    opts = {}, -- see Options
-  },
   {
     "ariedov/android-nvim",
+    enable = false,
     config = function()
       -- vim.g.android_sdk = "~/Library/Android/sdk"
       require("android-nvim").setup()
@@ -40,6 +38,7 @@ return {
   },
   {
     "nvim-flutter/flutter-tools.nvim",
+    enable = false,
     lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -47,14 +46,10 @@ return {
     },
     config = true,
   },
-  -- Devcontainer support
-  {
-    "https://codeberg.org/esensar/nvim-dev-container",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-  },
   -- RiscV
   {
     "henry-hsieh/riscv-asm-vim",
+    enable = false,
     ft = { "riscv_asm" },
   },
   -- Open files from terminal
@@ -65,6 +60,26 @@ return {
     lazy = false,
     priority = 1001,
   },
+  -- Alt copilot
+  {
+    "olimorris/codecompanion.nvim",
+    enabled = false,
+    version = "^19.0.0",
+    opts = {
+      interactions = {
+        chat = {
+          adapter = {
+            name = "copilot",
+            model = "gpt-4.1",
+          },
+        },
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+  }
 }
 
 --  vim: set ts=8 sw=2 tw=80 et :

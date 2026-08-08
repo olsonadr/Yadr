@@ -17,6 +17,7 @@ alias l='ls -CF'
 alias dur='sudo du -sh --exclude /mnt --exclude /proc --exclude /dev /*'
 alias venv_act='. ./venv/bin/activate'
 alias fix_touchpad='sudo modprobe -r i2c_hid;sudo modprobe i2c_hid;sudo modprobe -r psmouse;sudo modprobe psmouse'
+alias complete-tailscale='source <(tailscale completion zsh)'
 
 function _pkg_manager() {
     if command -v apt >/dev/null 2>&1; then
