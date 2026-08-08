@@ -84,13 +84,14 @@ return {
   -- jupytext.nvim: converting to/from ipynb
   {
     "goerz/jupytext.nvim",
+    enable = false,
     version = "0.2.0",
     opts = {},
   },
   -- colorful-winsep.nvim: colorful borders around active window
   {
     "nvim-zh/colorful-winsep.nvim",
-    config = true,
+    config = false,
     event = { "WinLeave" },
     opts = {
       animate = { enabled = false }

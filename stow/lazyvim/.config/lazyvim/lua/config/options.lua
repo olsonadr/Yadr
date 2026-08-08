@@ -2,13 +2,14 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 
 -- Misc
-vim.opt.tabstop = 8
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.textwidth = 80
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.textwidth = 79
+vim.opt.colorcolumn = "80"
 vim.opt.wrap = true
 vim.opt.formatoptions:remove({ "c", "r", "o" })
-vim.opt.colorcolumn = "81"
 
 -- Disable autoformat by default
 vim.g.autoformat = false
@@ -40,5 +41,8 @@ elseif #vim.env.WAYLAND_DISPLAY > 0 then
 elseif #vim.env.DISPLAY > 0 then
   vim.g.clipboard = "xclip"
 end
+
+-- Load global venv by default
+-- vim.g.python3_host_prog = vim.fn.expand('~/.venv/bin/python3')
 
 --  vim: set ts=8 sw=4 tw=80 et :

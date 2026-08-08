@@ -15,13 +15,13 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 ## Set GTK vars
 #export GTK_THEME="Yaru-purple-dark"
 
-if [ -f ~/.config/gnome-keyring.tpm2 ]
-then
-    if ! [ -S /run/user/$UID/keyring/control ]
-    then
-      gnome-keyring-daemon --start --components=secrets
-    fi
-    sudo -u tss /usr/bin/clevis-decrypt-tpm2 < .config/gnome-keyring.tpm2 | ~/.local/bin/unlock.py
-fi
+# if [ -f ~/.config/gnome-keyring.tpm2 ]
+# then
+#     if ! [ -S /run/user/$UID/keyring/control ]
+#     then
+#       gnome-keyring-daemon --start --components=secrets
+#     fi
+#     sudo -u tss /usr/bin/clevis-decrypt-tpm2 < .config/gnome-keyring.tpm2 | ~/.local/bin/unlock.py
+# fi
 
 #  vim: set ts=8 sw=4 tw=0 et ft=sh :
