@@ -14,6 +14,7 @@ end
 -- Check if certain plugins should be disabled on this host
 local enable_copilot = not file_exists(vim.fn.expand("$HOME/.no-copilot"))
 local enable_cody = not file_exists(vim.fn.expand("$HOME/.no-cody"))
+local enable_codecompanion = not file_exists(vim.fn.expand("$HOME/.no-codecompanion"))
 
 return {
   -- Configure LazyVim colorscheme
@@ -26,6 +27,7 @@ return {
   -- Enable completions
   {
     "zbirenbaum/copilot.lua",
+    enabled = enable_copilot,
     opts = {
       suggestion = { enabled = true },
       panel = { enabled = true },
@@ -38,7 +40,9 @@ return {
   -- Plugin:
   -- ● CopilotChat.nvim 15.9ms  <leader>aa
   --     url    https://github.com/CopilotC-Nvim/CopilotChat.nvim
-  { "CopilotC-Nvim/CopilotChat.nvim", opts = {} },
+  { "CopilotC-Nvim/CopilotChat.nvim", opts = {},
+    enabled = enable_copilot,
+  },
   -- lspconfig settings
   {
     "neovim/nvim-lspconfig",
@@ -70,6 +74,8 @@ return {
     opts = function(_, opts)
       -- Enable cody
       table.insert(opts.sources, 1, { name = "cody" })
+      -- Enable codecompanion
+      table.insert(opts.sources, 1, { name = "codecompanion" })
       -- Default
       local cmp = require("cmp")
       local auto_select = false
@@ -115,6 +121,7 @@ return {
   -- Disable copilot-chat auto insert mode
   {
     "CopilotC-Nvim/CopilotChat.nvim",
+    enabled = enable_copilot,
     opts = {
       auto_insert_mode = false,
     },
@@ -240,6 +247,52 @@ return {
         glob_flag = "--iglob", -- case insensitive globs
         glob_separator = "%s%-%-", -- query separator pattern (lua): ' --'
       },
+    },
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    enabled = enable_codecompanion,
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+      -- "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      interactions = {
+        chat = {
+          adapter = "cline_cli",
+          model = "claude-opus-5"
+          -- model = "claude-sonnet-5"
+          -- model = "claude-sonnet-4-6"
+          -- model = "claude-sonnet-4-20250514"
+        },
+        inline = {
+          adapter = "cline_cli",
+        },
+      },
+      strategies = {
+        chat = { adapter = "cline_cli" },
+      },
+      adapters = {
+        acp = {
+          cline_cli = function()
+        return require("codecompanion.adapters").extend("cline_cli", {
+          commands = {
+            default = { "vero", "--acp" },
+          },
+          defaults = {
+            -- auth_method = "cline-api-key",
+            -- timeout = 20000, -- 20 seconds
+          },
+          -- env = { cline_API_KEY = "cmd:op read op://personal/Gemini/credential --no-newline" },
+        })
+      end,
+        },
+      },
+    },
+    keys = {
+      { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanionActions" },
+      { "<leader>ai", "<cmd>CodeCompanion<cr>", desc = "CodeCompanion" },
+      -- { "<leader>ac", "<cmd>CodeCompanionCLI<cr>", desc = "CodeCompanionCLI" },
     },
   },
 }

@@ -105,7 +105,7 @@ function main() {
   install_pyenv
   install_quarto
   install_homebrew_and_fzf
-  install_tailscale
+  #install_tailscale
 
   install_repo_submodules
   prepare_shell_backups

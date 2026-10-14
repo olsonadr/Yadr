@@ -8,8 +8,8 @@ let mapleader = " "
 " Sources "
 "========="
 "source $VIMRUNTIME/defaults.vim
-source ${HOME}/.vimrc_common_plugins
-source ${HOME}/.vimrc_common_funcs
+source ~/.vimrc_common_plugins
+source ~/.vimrc_common_funcs
 
 "============"
 " Maps/Binds "

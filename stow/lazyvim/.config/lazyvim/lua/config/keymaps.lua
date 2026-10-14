@@ -31,4 +31,10 @@ vim.cmd("iabbrev function <Esc>mz:execute FunctionHeading()<CR>`zj$A")
 -- Open snacks explorer with familiar <c-\>
 map("n", "<c-\\>", ":lua Snacks.explorer()<CR>", { noremap = true, silent = true })
 
+-- Copy current file path
+map("n", "<localleader>cp", function()
+  local reg = vim.v.register
+  vim.fn.setreg(reg, vim.fn.expand("%"))
+end, { desc = "Copy current file path to register" })
+
 --  vim: set ts=2 sw=2 tw=0 et :
