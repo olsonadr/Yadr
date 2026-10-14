@@ -60,26 +60,26 @@ return {
     lazy = false,
     priority = 1001,
   },
-  -- Alt copilot
-  {
-    "olimorris/codecompanion.nvim",
-    enabled = false,
-    version = "^19.0.0",
-    opts = {
-      interactions = {
-        chat = {
-          adapter = {
-            name = "copilot",
-            model = "gpt-4.1",
-          },
-        },
-      },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-  }
+  -- -- Alt copilot
+  -- {
+  --   "olimorris/codecompanion.nvim",
+  --   enabled = false,
+  --   version = "^19.0.0",
+  --   opts = {
+  --     interactions = {
+  --       chat = {
+  --         adapter = {
+  --           name = "copilot",
+  --           model = "gpt-4.1",
+  --         },
+  --       },
+  --     },
+  --   },
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  -- }
 }
 
 --  vim: set ts=8 sw=2 tw=80 et :

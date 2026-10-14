@@ -8,6 +8,7 @@ alias ifconfig='ip -c a'
 alias reboot='echo no'
 alias tmux='TERM=screen-256color-bce tmux -2'
 alias t='tmux'
+alias ta='tmux attach'
 alias ghci="ghci -ghci-script ~/.ghc/ghci.conf"
 alias fzfb="bfind | fzf"
 alias signal-desktop="signal-desktop --password-store=gnome-libsecret"

@@ -1,5 +1,6 @@
 -- nvim lua startup commands
 
-require'lspconfig'.protols.setup{}
+-- require'lspconfig'.protols.setup{}
+vim.lsp.enable('protols')
 
 --  vim: set ts=8 sw=4 tw=0 noet :
