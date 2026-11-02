@@ -47,6 +47,30 @@ return {
       servers = {
         racket_langserver = {},
         marksman = { mason = false },
+        texlab = {
+          settings = {
+            texlab = {
+              auxDirectory = ".",
+              bibtexFormatter = "texlab",
+              compiler = {
+                executable = "latexmk",
+                args = {
+                  "-pdf",
+                  "-interaction=nonstopmode",
+                  "-synctex=1",
+                  "-shell-escape",
+                  "-latexoption=-shell-escape",
+                  "%f",
+                },
+                onSave = false,
+              },
+              -- forwardSearch = {
+              --   executable = "zathura",
+              --   args = { "--synctex-forward", "%l:1:%f", "%p" },
+              -- },
+            },
+          },
+        },
       },
     },
   },
