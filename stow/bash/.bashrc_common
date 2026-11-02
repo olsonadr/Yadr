@@ -73,10 +73,11 @@ export KMK_USER="r1020325"
 export ANDROID_HOME=~/Android/Sdk
 
 ## Source dark evil file if it exists
-[[ -e "${HOME}/.bashrc_hidden" ]] && . "$HOME/.bashrc_hidden"
-
-#  vim: set ts=8 sw=4 tw=0 noet ft=sh :
+[[ -e "${HOME}/.bashrc_secrets" ]] && . "$HOME/.bashrc_secrets"
 
 export PATH="${HOME}/bin:${PATH}"
 
 [[ -e "${HOME}/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "${HOME}/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh"
+
+# opencode
+export PATH=/home/olsonadr/.opencode/bin:$PATH

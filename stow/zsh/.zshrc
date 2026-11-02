@@ -146,5 +146,3 @@ if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc" ]; then .
 setopt no_nomatch
 
 # zprof
-
-#  vim: set ts=8 sw=4 tw=0 noet :
