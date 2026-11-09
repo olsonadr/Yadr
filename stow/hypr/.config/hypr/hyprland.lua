@@ -1,0 +1,5 @@
+require("lua.settings")
+require("lua.animations")
+require("lua.rules")
+require("lua.binds")
+require("lua.startup")
