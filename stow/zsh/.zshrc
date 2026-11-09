@@ -3,16 +3,49 @@
 # Disable omz autoupdates
 DISABLE_AUTO_UPDATE="true"
 DISABLE_MAGIC_FUNCTIONS="true"
-DISABLE_COMPFIX="true"
 
-# Smarter completion initialization
-# Source: https://scottspence.com/posts/speeding-up-my-zsh-shell
-autoload -Uz compinit
-if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
-   compinit
-else
-   compinit -C
-fi
+# NOTE: the variable Oh-My-Zsh actually tests is ZSH_DISABLE_COMPFIX, not
+# DISABLE_COMPFIX (see oh-my-zsh.sh). With the wrong name set, OMZ still ran
+# compaudit, which stats every file in all 111 fpath entries - about 230k
+# failed stat() calls and ~1.9 s on every interactive shell start.
+ZSH_DISABLE_COMPFIX="true"
+
+# Completion init is intentionally NOT done here.
+#
+# Oh-My-Zsh runs compinit itself (see oh-my-zsh.sh) and it *deletes* the dump
+# file whenever the dump lacks its own metadata lines. So any compinit we run
+# before sourcing oh-my-zsh.sh is wasted work: OMZ throws that dump away and
+# rebuilds it from scratch, giving two full ~1 s compinit runs per shell.
+# Letting OMZ be the single owner of the dump takes startup 2.5 s -> 0.5 s.
+# The old code here also used BSD/macOS "stat -f '%Sm'", which on GNU/Linux
+# means "filesystem info", always errored, and so always took the slow path.
+
+# Keep fpath (and PATH) free of duplicates for the rest of this shell.
+#
+# This matters more than it looks. Oh-My-Zsh records the fpath it saw into the
+# completion dump as an "#omz fpath:" metadata line, and on every start it
+# compares that line against the current fpath. Because fpath was accumulating
+# duplicate entries (111 entries, only 48 unique - each OMZ plugin dir appeared
+# five times), the comparison never matched, so OMZ deleted the dump and ran a
+# full compinit on EVERY shell start. Deduplicating fpath here, before
+# oh-my-zsh.sh is sourced, makes the metadata stable, so the dump is cached and
+# reused. Measured effect: 2.1 s -> 0.27 s per interactive shell.
+#
+# Only mark the *array* forms unique, and do not touch FPATH. Naming FPATH here
+# turns it into an exported tied variable, which leaks into child shells and
+# comes back in a different order - that reorders fpath, so the "#omz fpath:"
+# comparison fails again and the dump is rebuilt forever.
+typeset -U path fpath
+
+# Add Homebrew's completion directory here, BEFORE oh-my-zsh.sh is sourced.
+#
+# "brew shellenv" (run later, further down this file) prepends this same dir
+# and exports FPATH. Doing it after OMZ meant the fpath recorded in the
+# completion dump never matched the fpath of the next shell, so OMZ deleted the
+# dump and ran a full compinit every time. Putting it in up front makes the
+# recorded metadata stable and the dump reusable.
+[[ -d /home/linuxbrew/.linuxbrew/share/zsh/site-functions ]] \
+	&& fpath=(/home/linuxbrew/.linuxbrew/share/zsh/site-functions $fpath)
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -88,12 +121,54 @@ ZSH_THEME="agnoster_custom"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(fzf git git-extras debian tmux screen history extract colorize web-search docker)
 
+# Keep OMZ's completion dump in one predictable place. OMZ caches it and only
+# rebuilds when its fpath/revision metadata changes, so warm starts are fast.
+ZSH_COMPDUMP="$HOME/.zcompdump"
+
 source $ZSH/oh-my-zsh.sh
 
 ## User configuration
 
 # Source common rc
 . "$HOME/.bashrc_common"
+
+# Pyenv init (zsh flavour). PYENV_ROOT and the shim PATH entry are set in
+# .bashrc_common; only the shell specific "pyenv init" output is handled here.
+#
+# "pyenv init" is a shell script that itself spawns several subshells: it
+# accounted for 53 of the 84 forks in an interactive shell start, about one
+# second of wall time. Its output only changes when pyenv itself is upgraded,
+# so cache the generated snippet and source the cache. The cache is regenerated
+# automatically whenever the pyenv binary is newer than the cache.
+#
+# Note "- --no-rehash zsh": the shell flavour must match the running shell
+# (passing "bash" under zsh forked yet another subshell), and --no-rehash
+# avoids rebuilding the shim directory on every start. Run "pyenv rehash" by
+# hand after installing a new Python or entrypoint.
+if [[ -n "$PYENV_ROOT" ]]; then
+	_pyenv_cache="$HOME/.cache/pyenv-init.zsh"
+	if [[ ! -s "$_pyenv_cache" ]] || [[ "$PYENV_ROOT/bin/pyenv" -nt "$_pyenv_cache" ]]; then
+		mkdir -p "$(dirname "$_pyenv_cache")"
+		pyenv init - --no-rehash zsh > "$_pyenv_cache" 2>/dev/null
+	fi
+	. "$_pyenv_cache"
+	unset _pyenv_cache
+fi
+
+## Setup brew env
+# Drop the fpath/FPATH lines from "brew shellenv".
+#
+# Those lines re-prepend brew's site-functions directory and export FPATH.
+# Both are harmful here: Oh-My-Zsh has already recorded the fpath it saw into
+# the completion dump, and re-prepending changes the ORDER, so OMZ's verbatim
+# comparison failed on the next start and it deleted the dump and ran a full
+# compinit every single time. Exporting FPATH additionally leaked the
+# reordering into every child shell. The brew completion dir is already put on
+# fpath earlier in this file, before oh-my-zsh.sh, so completions still work.
+# Measured: 1.2 s -> ~0.2 s per interactive shell.
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | grep -v -i 'fpath')"
+fi
 
 # Alias definitions
 if [ -f "$HOME/.zsh_aliases" ]; then
@@ -144,6 +219,14 @@ if [ -f "$HOME/workspace/external/google-cloud-sdk/completion.zsh.inc" ]; then .
 # Disable nomatch option by default (non-matching glob behavior)
 # Source: https://unix.stackexchange.com/a/589533
 setopt no_nomatch
+
+# Deduplicate PATH, preserving order, and drop entries that do not exist.
+# Without this, PATH accumulated 21 entries (7 nonexistent, 2 duplicated), and
+# every command lookup had to stat each one - ~230k failed stat() calls per
+# interactive shell start. Keep this last, after everything else touched PATH.
+typeset -U path            # dedupe the path array in place
+path=( ${^path}(N-/) )     # keep only entries that exist as directories
+export PATH
 
 # zprof
 
