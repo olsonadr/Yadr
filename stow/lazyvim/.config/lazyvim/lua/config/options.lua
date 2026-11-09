@@ -32,10 +32,10 @@ if vim.fn.system("uname -r"):lower():find("microsoft") then
       vim.fn.system("clip.exe", vim.fn.getreg('"'))
     end,
   })
-elseif vim.env.TMUX and #vim.env.TMUX > 0 then
-  vim.g.clipboard = "tmux"
-elseif vim.env.XDG_SESSION_TYPE == "tty" then
-  vim.g.clipboard = "OSC52"
+-- elseif vim.env.TMUX and #vim.env.TMUX > 0 then
+--   vim.g.clipboard = "tmux"
+-- elseif vim.env.XDG_SESSION_TYPE == "tty" then
+--   vim.g.clipboard = "OSC52"
 elseif #vim.env.WAYLAND_DISPLAY > 0 then
   vim.g.clipboard = "wl-copy"
 elseif #vim.env.DISPLAY > 0 then

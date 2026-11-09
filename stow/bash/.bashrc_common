@@ -18,6 +18,7 @@ export PATH="/snap/bin:${PATH}"
 export PATH="${HOME}/.local/share/bob/nvim-bin:${PATH}"
 export PATH="${HOME}/go/bin:${PATH}"
 export PATH="${HOME}/Documents/flutter/flutter/bin:${PATH}"
+export PATH="${HOME}/.opencode/bin:${PATH}"
 
 #export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
 
@@ -73,7 +74,7 @@ export KMK_USER="r1020325"
 export ANDROID_HOME=~/Android/Sdk
 
 ## Source dark evil file if it exists
-[[ -e "${HOME}/.bashrc_hidden" ]] && . "$HOME/.bashrc_hidden"
+[[ -e "${HOME}/.bashrc_secrets" ]] && . "$HOME/.bashrc_secrets"
 
 [[ -e "${HOME}/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "${HOME}/lib/oracle-cli/lib/python3.12/site-packages/oci_cli/bin/oci_autocomplete.sh"
 [[ -d /usr/local/go/bin ]] && export PATH="$PATH:/usr/local/go/bin"
@@ -88,5 +89,3 @@ export ANDROID_HOME=~/Android/Sdk
 # zsh branch used array assignment and a glob qualifier, which bash cannot even
 # parse, so the whole file had to be kept parseable by both shells. The logic
 # now lives at the end of ~/.bashrc and ~/.zshrc instead.
-
-#  vim: set ts=8 sw=4 tw=0 noet ft=sh :
