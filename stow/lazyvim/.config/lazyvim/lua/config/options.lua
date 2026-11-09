@@ -45,4 +45,7 @@ end
 -- Load global venv by default
 -- vim.g.python3_host_prog = vim.fn.expand('~/.venv/bin/python3')
 
+-- Disable scrollbar v2 mirgration message
+vim.g.scrollbar_v2_notice = false
+
 --  vim: set ts=8 sw=4 tw=80 et :

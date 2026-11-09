@@ -98,20 +98,35 @@ function nxp_smb() { echo "//$(cat /etc/hostname | tr -d "\n")/$(whoami)/$(pwd |
 function nxp_smb_xclip() { nxp_smb "$@" | xclip; }
 function nxp_simulator() { "${NSS_BUILD}/install/SWSIM/bin/Simulator" "$@"; }
 function nxp_run_simulator() {
-    local -r app="${1:="$NSS_BUILD/install/SWSIM/samples/tfapp/tfapp.elf"}"
-    local -r xsp_code="${2:="$NSS_BUILD/install/SWSIM/samples/tfapp/tfapp_xsp"}"
+    local -r app="${1:-"$NSS_BUILD/install/SWSIM/bin/tfapp3_xsp.elf"}"
+    local -r xsp_code="${2:-"$NSS_BUILD/install/SWSIM/bin/regular_xsp.elf"}"
     echo Running: $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -xspcode "${xsp_code}"
-    $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -nspcode "${xsp_code}"
+    $NSS_BUILD/install/SWSIM/bin/Simulator -a "${app}" -xspcode "${xsp_code}"
 }
 function nxp_build_and_run_simulator_custom() {
-    local -r model_dir="${1}"
+    local -r model_arg="${1}"
     local -r flash="${2:-no}"
-    local -r data_dir=~/data/phml/nss/samples/tf2app/cortex/network_data/nick_custom
-    cp "${model_dir}"/*xsp_vela_aligned*.tflite $data_dir && cp "${model_dir}"/*.json $data_dir
+    local -r data_dir=~/data/phml/nss/samples/tf3app/network_data/nick_custom
+    local model_dir model_pattern
+    if [[ -d "${model_arg}" ]]; then
+        model_dir="${model_arg}"
+        model_pattern='*xsp_vela_aligned*.tflite'
+        if [[ -z "$(find "${model_dir}" -maxdepth 1 -name "${model_pattern}" -print -quit)" ]]; then
+            echo "Error: no ${model_pattern} model found in '${model_dir}'" >&2
+            return 1
+        fi
+    elif [[ -f "${model_arg}" ]]; then
+        # Single model file given directly
+        model_dir="$(dirname "${model_arg}")"
+        model_pattern="$(basename "${model_arg}")"
+    else
+        echo "Error: '${model_arg}' is neither an existing directory nor an existing file" >&2
+        return 1
+    fi
     pushd ~/data/phml/nss || return
     rm -rf $data_dir && mkdir -p $data_dir
     cp "${model_dir}"/*{in,out}put*.bin $data_dir
-    cp "${model_dir}"/*xsp_vela_aligned*.tflite $data_dir
+    find "${model_dir}" -maxdepth 1 -name "${model_pattern}" -exec cp {} "$data_dir" \;
     cp "${model_dir}"/*.json $data_dir
     sed "$(ls -1 $data_dir/*.json | head -n1 | tr -d '\n')" -r \
         -e 's,"([^"]+)(\.tflite|\.bin|\.tflite)","nick_custom/\1\2",g' \
@@ -127,7 +142,8 @@ function nxp_build_and_run_simulator_custom() {
 ## Use lvim instead of vim
 alias vim="lvim"
 alias svim="sudo vim"
-alias lazyvim="nvim_skew lazyvim"
+alias lazyvim="NVIM_APPNAME=lazyvim nvim"
+# alias lazyvim="nvim_skew lazyvim"
 alias lvim="lazyvim"
 
 # Most common screen config
@@ -294,4 +310,34 @@ fi
 # export SRC_ENDPOINT="https://sourcegraph.sw.nxp.com"
 # export SRC_ACCESS_TOKEN=""
 
-#  vim: set ts=8 sw=4 tw=0 et ft=sh :
+# DU some director(ies) and see output as it comes in
+dus() {
+    local count=0
+    local accumulated=()
+    local dir res sorted_output i
+    for dir in "$@"; do
+        if [ -d "$dir" ]; then
+            res=$(du -sh "$dir" 2>/dev/null)
+            if [ -n "$res" ]; then
+                accumulated+=("$res")
+                # Roll the terminal cursor back up over previously printed rows
+                if [ $count -gt 0 ]; then printf "\e[%dA" "$count"; fi
+                sorted_output=$(printf "%s\n" "${accumulated[@]}" | sort -hr)
+                count=$(printf "%s\n" "$sorted_output" | grep -c '^')
+                # Safely split and print the sorted lines without subshell artifacts
+                # Zsh handles IFS field splitting natively using (@f) expansion flag
+                if [ -n "$ZSH_VERSION" ]; then
+                    for line in ${(f)sorted_output}; do
+                        printf "%s\e[K\n" "$line"
+                    done
+                else
+                    while IFS= read -r line; do
+                        printf "%s\e[K\n" "${line}"
+                    done <<< "${sorted_output}"
+                fi
+            fi
+        fi
+    done
+}
+alias cdsweep="cd `pwd`"
+alias cddocker="cd `pwd`"

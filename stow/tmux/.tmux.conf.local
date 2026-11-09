@@ -8,12 +8,13 @@
 ## ctrl+space prefix
 #set -g prefix C-space
 
-# # clear c-b alt prefix
-# set -g prefix C-a
+# clear c-b alt prefix
+set -g prefix C-a
 
 # -- nvim color fix ------------------------------------------------------------
 #set -g default-terminal "screen-256color"
-set -g default-terminal "tmux-256color"
+# set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-256color"
 set -ga terminal-overrides ",*256col*:Tc"
 
 # -- windows & pane creation ---------------------------------------------------
@@ -375,14 +376,20 @@ set -g mouse on
 #bind C-[ run -b "tmux save-buffer - | xsel -i -b"
 #bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"
 #bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
-bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xclip"
 #bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
-bind C-S-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - > ~/nick/clipboard.txt" 
+bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xclip"
+bind C-S-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - > ~/nick/clipboard.txt"
+# bind C-] run -b "\"\$TMUX_PROGRAM\" -S \${TMUX_SOCKET} save-buffer - | xclip"
+# bind C-S-] run -b "\"\$TMUX_PROGRAM\" -S \${TMUX_SOCKET} save-buffer - > ~/nick/clipboard.txt"
+# bind C-] run -b "$TMUX_PROGRAM  -S ${TMUX_SOCKET} save-buffer - | xclip"
+# bind C-S-] run -b "\"\$TMUX_PROGRAM\" -S \${TMUX_SOCKET} save-buffer - > ~/nick/clipboard.txt"
+# bind C-] run -b "${TMUX_PROGRAM} save-buffer - | xclip"
+# bind C-S-] run -b "\"\$TMUX_PROGRAM\" save-buffer - > ~/nick/clipboard.txt"
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
-#set -g status-keys vi
-#set -g mode-keys vi
+set -g status-keys vi
+set -g mode-keys vi
 
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2

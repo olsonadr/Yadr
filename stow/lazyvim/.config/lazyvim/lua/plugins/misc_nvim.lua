@@ -32,15 +32,15 @@ return {
   {
     "petertriho/nvim-scrollbar",
     opts = {
-      show_in_active_only = true,
-      handlers = {
+      providers = {
         cursor = true,
         diagnostic = true,
-        search = false, -- Requires hlslens
-        gitsigns = false, -- Requires gitsigns
-        handle = true,
-        viewport = true,
+        search = true, -- Requires hlslens
+        gitsigns = true, -- Requires gitsigns
       },
+      scrollbar = {
+        visibility = "active",
+      }
     },
   },
   -- -- Indentation Highlighting
@@ -80,6 +80,14 @@ return {
     lazy = false,
     build = ":TSUpdate",
     -- commit = "f7955203bb16eed15f9e0fbf7e39b86e0de96b47",
+    opts = {
+      indent = {
+        enable = true,
+        disable = {
+          "markdown",-- indentation at bullet points is worse
+        },
+      },
+    },
   },
   -- jupytext.nvim: converting to/from ipynb
   {
