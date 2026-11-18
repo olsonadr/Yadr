@@ -12,7 +12,7 @@ alias ta='tmux attach'
 alias ghci="ghci -ghci-script ~/.ghc/ghci.conf"
 alias fzfb="bfind | fzf"
 alias signal-desktop="signal-desktop --password-store=gnome-libsecret"
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias dur='sudo du -sh --exclude /mnt --exclude /proc --exclude /dev /*'
@@ -70,8 +70,9 @@ alias gst="git status"
 alias gd="git diff"
 alias ga="git add"
 alias glg="git log"
+alias gsw="git switch"
 function gg() { git branch | grep "$1" | sed -e 's/^. //'; }
-function ggsw() { git switch $(gg "$1"); }
+function ggsw() { git switch "$(gg "$1")"; }
 
 # SSH
 alias ssh_no_agent='SSH_AUTH_SOCK=/dev/null ssh'
@@ -141,6 +142,12 @@ function nxp_build_and_run_simulator_custom() {
     popd || return
     nxp_run_simulator
 }
+function do_container() { ws_dir="$(realpath --relative-to="$PWD" /workspace)" && devcontainer exec --workspace-folder $ws_dir bash -c "$(cat <<EOF
+cd $PWD
+$*
+EOF
+)"; }
+alias build_container="do_container "'"'". ./common/setup_swis_env.srcme && cmake --build build"'"'""
 
 ## Use lvim instead of vim
 alias vim="lvim"
@@ -342,5 +349,101 @@ dus() {
         fi
     done
 }
-alias cdsweep="cd `pwd`"
-alias cddocker="cd `pwd`"
+
+# Functions to move and leave a symlink behind
+mvabs() {
+    local opts=()
+    local src=""
+    local dest=""
+    
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            --*)
+                opts+=("$1")
+                ;;
+            --)
+                shift
+                for arg in "$@"; do
+                    if [ -z "$src" ]; then src="$arg"
+                    elif [ -z "$dest" ]; then dest="$arg"
+                    else echo "Usage: mvabs [ln_options] <source> <destination>"; return 1; fi
+                done
+                break
+                ;;
+            -*)
+                opts+=("$1")
+                ;;
+            *)
+                if [ -z "$src" ]; then src="$1"
+                elif [ -z "$dest" ]; then dest="$1"
+                else echo "Usage: mvabs [ln_options] <source> <destination>"; return 1; fi
+                ;;
+        esac
+        shift
+    done
+
+    if [ -z "$src" ] || [ -z "$dest" ]; then
+        echo "Usage: mvabs [ln_options] <source> <destination>"
+        return 1
+    fi
+
+    src="${src%/}"
+    dest="${dest%/}"
+
+    mv "$src" "$dest" || return 1
+
+    if [ -d "$dest" ] && [ "$(basename "$src")" != "$(basename "$dest")" ]; then
+        dest="$dest/$(basename "$src")"
+    fi
+
+    ln -s "${opts[@]}" "$(realpath "$dest")" "$src"
+}
+mvrel() {
+    local opts=()
+    local src=""
+    local dest=""
+    
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            --*)
+                opts+=("$1")
+                ;;
+            --)
+                shift
+                for arg in "$@"; do
+                    if [ -z "$src" ]; then src="$arg"
+                    elif [ -z "$dest" ]; then dest="$arg"
+                    else echo "Usage: mvrel [ln_options] <source> <destination>"; return 1; fi
+                done
+                break
+                ;;
+            -*)
+                opts+=("$1")
+                ;;
+            *)
+                if [ -z "$src" ]; then src="$1"
+                elif [ -z "$dest" ]; then dest="$1"
+                else echo "Usage: mvrel [ln_options] <source> <destination>"; return 1; fi
+                ;;
+        esac
+        shift
+    done
+
+    if [ -z "$src" ] || [ -z "$dest" ]; then
+        echo "Usage: mvrel [ln_options] <source> <destination>"
+        return 1
+    fi
+
+    src="${src%/}"
+    dest="${dest%/}"
+
+    mv "$src" "$dest" || return 1
+
+    if [ -d "$dest" ] && [ "$(basename "$src")" != "$(basename "$dest")" ]; then
+        dest="$dest/$(basename "$src")"
+    fi
+
+    ln -sr "${opts[@]}" "$dest" "$src"
+}
+
+alias nsx=nxp_smb_xclip

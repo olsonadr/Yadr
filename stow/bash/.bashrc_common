@@ -89,3 +89,8 @@ export ANDROID_HOME=~/Android/Sdk
 # zsh branch used array assignment and a glob qualifier, which bash cannot even
 # parse, so the whole file had to be kept parseable by both shells. The logic
 # now lives at the end of ~/.bashrc and ~/.zshrc instead.
+
+# Prevent ctrl+s/ctrl+q behavior
+if [[ $- == *i* ]]; then
+    stty -ixon
+fi
