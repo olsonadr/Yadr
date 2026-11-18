@@ -16,6 +16,8 @@ Options:
   -d, --default MODE     Default selection mode: include or exclude
   -i, --include NAME     Include a stow package
   -e, --exclude NAME     Exclude a stow package
+  -m, --mirror DIR       Also stow into this mirror dir (default: .stow_mirror, gitignored)
+      --no-mirror        Do not maintain the mirror dir
   -h, --help             Show this help text
 
 The config file can define:
@@ -42,6 +44,7 @@ readonly script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1
 readonly stow_dir="${script_dir}/stow"
 
 stow_config_file=""
+mirror_dir="${script_dir}/.stow_mirror"
 selection_mode="include"
 declare -a cli_includes=()
 declare -a cli_excludes=()
@@ -68,6 +71,15 @@ while (($#)); do
       [[ $# -ge 2 ]] || { echo "Missing package name after $1" >&2; exit 1; }
       cli_excludes+=("$2")
       shift 2
+      ;;
+    -m|--mirror)
+      [[ $# -ge 2 ]] || { echo "Missing dir after $1" >&2; exit 1; }
+      mirror_dir="$2"
+      shift 2
+      ;;
+    --no-mirror)
+      mirror_dir=""
+      shift
       ;;
     -h|--help)
       usage
@@ -158,6 +170,14 @@ pushd "$stow_dir" >/dev/null
 
 log "Running: stow ${stow_opts[*]} ${passthrough_args[*]} ${selected_packages[*]}"
 stow "${stow_opts[@]}" "${passthrough_args[@]}" "${selected_packages[@]}"
+
+# Mirror: stow the same selection into a dir inside this repo, so the full set
+# of links can be inspected (and deployed elsewhere, see scripts/dots_remote.sh).
+if [[ -n "$mirror_dir" ]]; then
+  mkdir -p "$mirror_dir"
+  log "Mirroring into: ${mirror_dir}"
+  stow --target="$mirror_dir" --no-folding "${passthrough_args[@]}" "${selected_packages[@]}"
+fi
 
 popd >/dev/null
 log "Leaving: ${stow_dir}"

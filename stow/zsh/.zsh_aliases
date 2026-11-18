@@ -1,6 +1,0 @@
-# ~/.zsh_aliases: sourced to populate aliases/functions for non-login shells.
-
-# Misc
-alias zrc="source ~/.zshrc"
-
-#  vim: set ts=8 sw=4 tw=0 et :
