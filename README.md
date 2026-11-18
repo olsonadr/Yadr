@@ -157,12 +157,10 @@ Or, if you are doing the steps manually, without the bootstap script, follow the
   - [ ] jupyter?
   - [x] enable alt-backspace in command mode
   - [x] hop?
-- [ ] nvim
-  - [ ] hop?
+- [x] nvim
   - [x] enable ctrl-s for saving
   - [x] use c+dir for window navigation
 - [x] use `<s-h>` and `<s-l>` for buffer navigation in nvimrc
-- [ ] `<prefix>ctrl+hjkl` for tmux pane expanding?
 - [x] tmux restore correct version of vim
 - [x] move nvims scripts/configs to stow (nvim_skew)
 - [x] nvm lazy loading for plugins
@@ -174,4 +172,8 @@ Or, if you are doing the steps manually, without the bootstap script, follow the
   - [ ] autostart kanata on linux
   - [ ] add kanata instructions
 
-<!-- vim: set ts=4 sw=2 tw=0 et :-->
+## Shell layout, mirror, and temp deploys
+
+`.stow_mirror/` (gitignored link mirror),
+`~/.shell_{rcs,aliases}/{common,bash,zsh}.d/` split by stow package, and
+`scripts/dots_remote.sh` for temporary ssh/docker/dir deploys.
