@@ -39,9 +39,14 @@ zsh dev environment.
 - fnm
 - lazygit
 
-Bootstrap is now driven by scripts and per-distro manifests instead of a single Ubuntu-only one-liner. The main entrypoint is [scripts/bootstrap.sh](scripts/bootstrap.sh), which autodetects or accepts a distro name and installs the matching package set from [configs/bootstrap/distros](configs/bootstrap/distros).
+Bootstrapping can be done using scripts and per-distro manifests. The main
+entrypoint is [scripts/bootstrap.sh](scripts/bootstrap.sh), which autodetects
+or accepts a distro name and installs the matching package set from
+[configs/bootstrap/distros](configs/bootstrap/distros).
 
-To create a stow selection config interactively, use [scripts/stow_config_wizard.sh](scripts/stow_config_wizard.sh). Example presets live in [configs/stow](configs/stow).
+To create a stow selection config interactively, use
+[scripts/stow_config_wizard.sh](scripts/stow_config_wizard.sh). Example presets
+can be found in [configs/stow](configs/stow).
 
 ### Installation
 
@@ -55,59 +60,64 @@ To create a stow selection config interactively, use [scripts/stow_config_wizard
 
 2. Run the bootstrap script for your distro
 
-  ```bash
-  ./scripts/bootstrap.sh --distro auto --stow-config ./configs/stow/desktop.conf
-  ```
+   ```bash
+   ./scripts/bootstrap.sh --distro auto --stow-config ./configs/stow/desktop.conf
+   ```
 
-  You can also choose a different stow config or generate one with the wizard.
+   You can also choose a different stow config or generate one with the wizard.
 
-Or, if you are doing the steps manually, without the bootstap script, follow these steps (instead of step 2 above):
-3. Ensure you have cloned all repo submodules if you are doing the steps manually
+Or, if you are doing the steps manually, without the bootstap script, follow
+these steps (instead of step 2 above):
+
+1. Clone all repo submodules if you are doing the steps manually
 
    ```bash
    ./update_submodules.sh
    ```
 
-4. Install ohmyzsh if you are not using the bootstrap script
+2. Install ohmyzsh if you are not using the bootstrap script
 
    ```bash
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
    ```
 
-5. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar if you are not using the bootstrap script
+3. Backup (or remove) the default `.bashrc`, `.zshrc`, and similar if you are
+   not using the bootstrap script
 
    ```bash
    mv ~/.zshrc{,.default-oh-my-zsh} ; mv ~/.bashrc{,.yadr_backup}
    mv ~/.config/awesome/rc.lua{,.yadr_backup} ; mv ~/.profile{,.yadr_backup}
    ```
 
-6. Install Yadr dotfiles
+4. Install Yadr dotfiles
 
    ```bash
    ./stow_dots.sh
    ```
 
-  - Or install only one set of dotfiles by using a stow config file, or by entering the `stow` directory and using stow directly for any `<PROGRAM>` (like bash, nvim, tmux, vim, zsh, etc.)
+- Or install only one set of dotfiles by using a stow config file, or by
+  entering the `stow` directory and using stow directly for any `<PROGRAM>`
+  (like bash, nvim, tmux, vim, zsh, etc.)
 
-     ```bash
-     cd stow && stow -t ${HOME} --no-folding <PROGRAM>
-     ```
+  ```bash
+  cd stow && stow -t ${HOME} --no-folding <PROGRAM>
+  ```
 
-7. Install (n)vim vundle plugins and themes
+1. Install (n)vim vundle plugins and themes
 
    ```bash linenums="$"
    vim -c "PluginInstall"
    nvim -c "PluginInstall"
    ```
 
-8. Install (n)vim autocomplete language server
+2. Install (n)vim autocomplete language server
 
    ```bash
    sudo apt install mono-complete golang nodejs openjdk-17-jdk openjdk-17-jre npm
    cd ~/.nvim/bundle/YouCompleteMe ; python3 install.py --all ; cd -
    ```
 
-9. Install (and configure) Kanata
+3. Install (and configure) Kanata
 
 ## Next Steps
 
