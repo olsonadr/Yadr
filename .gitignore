@@ -1,2 +1,5 @@
 Session.vim
 .stow_mirror/
+private_dots/
+.scratch/
+config.sh

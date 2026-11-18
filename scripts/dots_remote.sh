@@ -9,9 +9,9 @@
 #
 # Usage: dots_remote.sh [-p PKG]... [-b BINFILE]... [-P PREFIX] [-n] TARGET
 #   TARGET: ssh://[user@]host | docker://CONTAINER | dir:///some/path
-#   -p PKG  stow package (repeatable; default: shell_common bash zsh vim nvim tmux)
+#   -p PKG  stow package from stow/ or private_dots/ (repeatable; default: shell_common bash zsh vim nvim tmux)
 #   -b FILE local executable (static/portable build) to copy into PREFIX/bin
-#   -P DIR  prefix on target (default: .dots_tmp, relative to target $HOME)
+#   -P DIR  prefix on target (default: .dots_tmp relative to target $HOME; absolute paths allowed)
 #   -n      dry run: only list the files that would be sent
 #   --clean remove the prefix on the target instead of deploying
 # Then on the target:  ~/.dots_tmp/enter [bash|zsh]
@@ -32,16 +32,20 @@ case "$target" in
   dir://*)    d="${target#dir://}"; run() { HOME="$d" sh -c "$*"; } ;;
   *) echo "bad TARGET: $target" >&2; exit 1 ;;
 esac
-dest='"$HOME"/'"$prefix"
+if [[ "$prefix" == /* ]]; then dest="'$prefix'"; else dest='"$HOME"/'"'$prefix'"; fi
 if ((clean)); then run "rm -rf $dest" && echo "removed $prefix"; exit 0; fi
 
 # Stage: stow chosen packages into a private temp dir, dereference links, tar.
 stage="$(mktemp -d)"; trap 'rm -rf "$stage"' EXIT
-stow -d "$here/stow" -t "$stage" --no-folding "${pkgs[@]}" >/dev/null
+for pk in "${pkgs[@]}"; do
+  for root in "$here/stow" "$here/private_dots"; do
+    [[ -d "$root/$pk" ]] && stow -d "$root" -t "$stage" --no-folding --ignore='secrets\.vars' "$pk" >/dev/null
+  done
+done
 mkdir -p "$stage/bin"
 for b in "${bins[@]}"; do cp -L "$b" "$stage/bin/"; done
 # Never ship secrets / bak files / dirs unrelated to shell+editor config
-find "$stage" \( -name '*.bak*' -o -name '.bashrc_secrets' \) -delete
+find "$stage" \( -name '*.bak*' -o -name '.bashrc_secrets' -o -name 'secrets.env' \) -delete
 cat > "$stage/enter" <<'EOS'
 #!/bin/sh
 # Start a shell using ONLY the temporary dotfiles; real ~ dotfiles untouched.
@@ -54,4 +58,4 @@ EOS
 chmod +x "$stage/enter"
 if ((dry)); then (cd "$stage" && find . \( -type f -o -type l \) | sort); exit 0; fi
 tar -chf - -C "$stage" . | run "mkdir -p $dest && tar -xf - -C $dest"
-echo "deployed [${pkgs[*]}] to $target:$prefix  ->  run: \$HOME/$prefix/enter [bash|zsh]"
+echo "deployed [${pkgs[*]}] to $target:$prefix  ->  run: $([[ "$prefix" == /* ]] && echo "$prefix" || echo "\$HOME/$prefix")/enter [bash|zsh]"
