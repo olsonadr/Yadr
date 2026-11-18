@@ -24,8 +24,8 @@ set newtab about:blank
 " search urls
 set searchurls.googletranslate https://translate.google.com/?op=translate&sl=auto&tl=en&text=
 set searchurls.wikipedia https://en.wikipedia.org/wiki/Special:Search/
-set searchurls.me https://redir.nicholasolson.dev/%s1%s[2:]
-"set searchurls.me https://%s.nicholasolson.dev/%s[2:]
+" personal search urls live in a private file (from the secret repo)
+source ~/.tridactylrc.local
 set searchurls.play https://play.google.com/store/apps/details?id=
 
 " search aliases

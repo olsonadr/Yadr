@@ -5,7 +5,7 @@
 # trying to init/update my secret dotfiles submodule.
 
 # Global constants
-declare -ar secret_submodules=( "stow/secret" )
+declare -ar secret_submodules=( "private_dots" )  # private_dots is gitignored here; its own submodules are updated separately
 
 # Function to display help text
 display_help() {
@@ -40,6 +40,11 @@ if ! ${try_secret_submodules}; then
     done
 fi
 readonly update_opts
+
+# Private dots (own repo with submodules; only with -f and if present)
+if ${try_secret_submodules} && [[ -d private_dots/.git || -f private_dots/.git ]]; then
+    git -C private_dots submodule update --init --recursive
+fi
 
 # Update submodules
 readonly update_command="git ${update_opts} submodule update --init --recursive"

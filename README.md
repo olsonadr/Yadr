@@ -140,6 +140,53 @@ these steps (instead of step 2 above):
 - [Enable systemd --user for XDG_RUNTIME_DIR errors](https://learn.microsoft.com/en-us/windows/wsl/systemd#code-try-0)
 - [Enable systemd in wsl2 (wsl.conf answer)](https://stackoverflow.com/questions/65400999/enable-systemd-in-wsl-2)
 
+## Dots usage (stow, config, secrets, private repos, deploys)
+
+**Stow.** `./stow_dots.sh [-c stowconf] [-i PKG] [-e PKG] [-p PRIVATE_DIR] [-s
+SECRETS_FILE] [--no-mirror] [-- stow-opts]`. Stows `stow/*` plus the packages
+in `private_dots/`. Use `-- -D` to unstow. Every run also:
+
+1. mirrors the links into `.stow_mirror/` (gitignored; `ls -R` it to see the
+   full link set),
+2. merges secrets (below), and
+3. writes flattened configs to `.scratch/combined/` (gitignored; diff against
+   other people's `.bashrc`, `.vimrc`, ...).
+
+**Config.** `cp config.sh.tpl config.sh` (gitignored, plain bash) and edit:
+package selection, stow target, mirror, private dir, secrets file, combine. CLI
+options override it.
+
+**`.d` layout.** Configs are split into small files that a loader sources in
+filename order (`NN-name`; `common.d` + `<shell|vim|nvim>.d` are merged; a
+leading `_` or `.bak`/`.off` suffix disables a file). Any stow package can add
+files, so tools/orgs contribute independently:
+
+| Dir                                     | Loaded by                                          | Debug                |
+| --------------------------------------- | -------------------------------------------------- | -------------------- |
+| `~/.shell_rcs/{common,bash,zsh}.d/`     | `~/.bashrc`, `~/.zshrc` (via `~/.shell_loader.sh`) | `SHELL_LOAD_DEBUG=1` |
+| `~/.shell_aliases/{common,bash,zsh}.d/` | `common.d/60-aliases.sh`                           | `SHELL_LOAD_DEBUG=1` |
+| `~/.vimrc.d/{common,vim,nvim}.d/`       | `~/.vimrc_common`                                  | `VIMRC_D_DEBUG=1`    |
+| `~/.tmux.d/*.conf`                      | `~/.tmux.conf.local`                               |                      |
+
+**Private repos.** `private_dots/` (gitignored here; a separate repo) holds
+submodules `nxp`, `cognex`, `kul`, `secret`, each a stow package. Select per
+machine with `CFG_PRIVATE_INCLUDE/EXCLUDE`. `./update_submodules.sh -f` updates
+it too.
+
+**Secrets.** A package that needs credentials ships `secrets.vars` (`VAR` =
+required, `?VAR` = optional; never stowed). Each stow merges all manifests into
+`~/.config/dots/secrets.env` (mode 600, sourced by the shell). Existing values
+are never removed; each missing required variable is warned about. To keep
+values in your private repo set `CFG_SECRETS_TRACKED_FILE` (or `-s
+secret/secrets.env`); the env file becomes a link to it.
+
+**Temporary deploy (ssh/docker/dir).** `./scripts/dots_remote.sh [-p PKG]...
+[-b BINARY]... [-P PREFIX] [-n] TARGET` with `TARGET` = `ssh://host`,
+`docker://container` or `dir:///path`. Ships only the chosen packages to one
+prefix (default `~/.dots_tmp`), never touching existing dotfiles or secrets. On
+the target run `~/.dots_tmp/enter [bash|zsh]`; undo with `--clean`; preview
+with `-n`. `-b` copies portable binaries (nvim, tmux) into the prefix's `bin/`.
+
 ## TODOs
 
 - [ ] Fix hypr animations
@@ -181,9 +228,3 @@ these steps (instead of step 2 above):
   - [x] updata kanata tap-hold timings to reduce errors
   - [ ] autostart kanata on linux
   - [ ] add kanata instructions
-
-## Shell layout, mirror, and temp deploys
-
-`.stow_mirror/` (gitignored link mirror),
-`~/.shell_{rcs,aliases}/{common,bash,zsh}.d/` split by stow package, and
-`scripts/dots_remote.sh` for temporary ssh/docker/dir deploys.

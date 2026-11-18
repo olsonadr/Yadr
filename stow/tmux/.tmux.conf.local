@@ -358,88 +358,16 @@ tmux_conf_theme_clock_style="24"
 tmux_conf_copy_to_os_clipboard=true
 
 
-# -- user customizations -------------------------------------------------------
-# this is the place to override or undo settings
+# -- user customizations: split into ~/.tmux.d/*.conf (ordered by filename) --------
+# NOTE: tmux_conf_* variables below must stay in THIS file (oh-my-tmux parses it as shell)
+source-file -q ~/.tmux.d/*.conf
 
-# increase history size
-set -g history-limit 10000
-
-# start with mouse mode enabled
-set -g mouse on
-
-# Selection with mouse should copy to clipboard right away, in addition to the default action.
-#unbind -n -Tcopy-mode-vi MouseDragEnd1Pane
-#bind -Tcopy-mode-vi MouseDragEnd1Pane send -X copy-selection-and-cancel\; run "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"
-#bind -Tcopy-mode-vi MouseDragEnd1Pane send -X copy-selection-and-cancel\; run "tmux save-buffer - | xclip -i -sel clipboard > /dev/null"
-
-# Copy most recent copy buffer to clipboard
-#bind C-[ run -b "tmux save-buffer - | xsel -i -b"
-#bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"
-#bind C-[ run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
-#bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"
-bind C-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xclip"
-bind C-S-] run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - > ~/nick/clipboard.txt"
-# bind C-] run -b "\"\$TMUX_PROGRAM\" -S \${TMUX_SOCKET} save-buffer - | xclip"
-# bind C-S-] run -b "\"\$TMUX_PROGRAM\" -S \${TMUX_SOCKET} save-buffer - > ~/nick/clipboard.txt"
-# bind C-] run -b "$TMUX_PROGRAM  -S ${TMUX_SOCKET} save-buffer - | xclip"
-# bind C-S-] run -b "\"\$TMUX_PROGRAM\" -S \${TMUX_SOCKET} save-buffer - > ~/nick/clipboard.txt"
-# bind C-] run -b "${TMUX_PROGRAM} save-buffer - | xclip"
-# bind C-S-] run -b "\"\$TMUX_PROGRAM\" save-buffer - > ~/nick/clipboard.txt"
-
-# force Vi mode
-#   really you should export VISUAL or EDITOR environment variable, see manual
-set -g status-keys vi
-set -g mode-keys vi
-
-# replace C-b by C-a instead of using both prefixes
-# set -gu prefix2
-# unbind C-a
-# unbind C-b
-# set -g prefix C-a
-# bind C-a send-prefix
-
-# if you don't want Oh my tmux! to alter a binding, use #!important
-# bind c new-window -c '#{pane_current_path}' #!important
-
-# move status line to top
-#set -g status-position top
-
-# Pane title stuff
-#set -g pane-border-status bottom
-
-# use lowercase | for split too
-bind \\ split-window -h
-
-# Binds to switch panes using Alt-arrow/hjkl without prefix
-bind -n M-Left select-pane -L
-bind -n M-Right select-pane -R
-bind -n M-Up select-pane -U
-bind -n M-Down select-pane -D
-bind -n M-h select-pane -L
-bind -n M-l select-pane -R
-bind -n M-k select-pane -U
-bind -n M-j select-pane -D
-
-# Binds to switch windows using Ctrl-Alt-arrow without prefix
-bind -n C-M-Left previous-window
-bind -n C-M-Right next-window
-bind -n C-M-h previous-window
-bind -n C-M-l next-window
 
 # Powerline fonts
 tmux_conf_theme_left_separator_main='\uE0B0'
 tmux_conf_theme_left_separator_sub='\uE0B1'
 tmux_conf_theme_right_separator_main='\uE0B2'
 tmux_conf_theme_right_separator_sub='\uE0B3'
-
-# Pane title stuff
-set -g pane-border-status bottom
-
-# On ressurrect, restore ssh, yocto build docker interact, screen for serial out, nested tmux sessions
-set -g @resurrect-processes 'ssh screen ~nvim_skew ~nvims ~lvim ~lazyvim ~docker_interact.sh ~nested-tmux'
-#set -g @resurrect-processes '"ssh" "nvims" "lvim" "lazyvim" "nvim" "vim" "screen" "~docker_interact.sh" "~nested-tmux" "bash" "zsh"'
-set -g @resurrect-strategy-vim 'session'
-set -g @resurrect-strategy-nvim 'session'
 
 # -- tpm -----------------------------------------------------------------------
 
