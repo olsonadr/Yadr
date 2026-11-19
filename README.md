@@ -181,8 +181,10 @@ values in your private repo set `CFG_SECRETS_TRACKED_FILE` (or `-s
 secret/secrets.env`); the env file becomes a link to it.
 
 **Temporary deploy (ssh/docker/dir).** `./scripts/dots_remote.sh [-p PKG]...
-[-b BINARY]... [-P PREFIX] [-n] TARGET` with `TARGET` = `ssh://host`,
-`docker://container` or `dir:///path`. Ships only the chosen packages to one
+[-b BINARY]... [-P PREFIX] [-n] TARGET` with `TARGET` = `ssh://[user@]host`,
+`docker://[user@]container` (any user, e.g. `docker://dev@mybox`; default is the
+container's default user, and the prefix goes in that user's `$HOME`) or
+`dir:///path`. Ships only the chosen packages to one
 prefix (default `~/.dots_tmp`), never touching existing dotfiles or secrets. On
 the target run `~/.dots_tmp/enter [bash|zsh]`; undo with `--clean`; preview
 with `-n`. `-b` copies portable binaries (nvim, tmux) into the prefix's `bin/`.

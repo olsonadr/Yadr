@@ -8,7 +8,8 @@
 # overwritten or masked, and removing the prefix removes everything.
 #
 # Usage: dots_remote.sh [-p PKG]... [-b BINFILE]... [-P PREFIX] [-n] TARGET
-#   TARGET: ssh://[user@]host | docker://CONTAINER | dir:///some/path
+#   TARGET: ssh://[user@]host | docker://[user@]CONTAINER | dir:///some/path
+#           (docker user: defaults to the container's default user; $HOME is that user's)
 #   -p PKG  stow package from stow/ or private_dots/ (repeatable; default: shell_common bash zsh vim nvim tmux)
 #   -b FILE local executable (static/portable build) to copy into PREFIX/bin
 #   -P DIR  prefix on target (default: .dots_tmp relative to target $HOME; absolute paths allowed)
@@ -28,7 +29,9 @@ while (($#)); do case "$1" in
 # run CMD on the target, reading a tar stream (or nothing) on stdin
 case "$target" in
   ssh://*)    h="${target#ssh://}"; run() { ssh "$h" "$@"; } ;;
-  docker://*) c="${target#docker://}"; run() { docker exec -i "$c" sh -c "$*"; } ;;
+  docker://*) c="${target#docker://}"; du=()
+              if [[ "$c" == *@* ]]; then du=(-u "${c%%@*}"); c="${c#*@}"; fi
+              run() { docker exec -i "${du[@]}" "$c" sh -c "$*"; } ;;
   dir://*)    d="${target#dir://}"; run() { HOME="$d" sh -c "$*"; } ;;
   *) echo "bad TARGET: $target" >&2; exit 1 ;;
 esac
@@ -57,5 +60,5 @@ esac
 EOS
 chmod +x "$stage/enter"
 if ((dry)); then (cd "$stage" && find . \( -type f -o -type l \) | sort); exit 0; fi
-tar -chf - -C "$stage" . | run "mkdir -p $dest && tar -xf - -C $dest"
+tar -chf - -C "$stage" . | run "mkdir -p $dest && tar -xf - --no-same-owner --no-same-permissions -C $dest"
 echo "deployed [${pkgs[*]}] to $target:$prefix  ->  run: $([[ "$prefix" == /* ]] && echo "$prefix" || echo "\$HOME/$prefix")/enter [bash|zsh]"
