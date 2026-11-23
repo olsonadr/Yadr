@@ -77,13 +77,18 @@ local themes = {
 }
 
 local chosen_theme = themes[11]
+--local modkey       = "Mod4"
+--local altkey       = "Mod1"
+--local modkey       = "Mod1"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "gnome-terminal"
+--local altkey       = "Mod4"
+--local terminal     = "gnome-terminal"
+local terminal     = "kitty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local browser      = "firefox"
+local browser      = "brave-browser"
 local scrlocker    = "lock"
 
 awful.util.terminal = terminal
