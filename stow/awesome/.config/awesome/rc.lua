@@ -93,8 +93,43 @@ local scrlocker    = "lock"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }
+local dwindle_split_factors = setmetatable({}, { __mode = "k" })
+local resizable_dwindle = { name = "dwindle" }
+
+function resizable_dwindle.arrange(params)
+    local clients = params.clients
+    local area = params.workarea
+    local x, y, width, height = area.x, area.y, area.width, area.height
+
+    for index, c in ipairs(clients) do
+        if index == #clients then
+            params.geometries[c] = {
+                x = x, y = y, width = width, height = height,
+            }
+        else
+            local horizontal = index % 2 == 1
+            local axis = horizontal and "horizontal" or "vertical"
+            local factors = dwindle_split_factors[c] or {}
+            local ratio = math.max(0.1, math.min(0.9, factors[axis] or 0.5))
+            dwindle_split_factors[c] = factors
+
+            if (horizontal and width < 2) or (not horizontal and height < 2) then
+                params.geometries[c] = { x = x, y = y, width = width, height = height }
+            elseif horizontal then
+                local split = math.max(1, math.min(width - 1, math.floor(width * ratio)))
+                params.geometries[c] = { x = x, y = y, width = split, height = height }
+                x, width = x + split, width - split
+            else
+                local split = math.max(1, math.min(height - 1, math.floor(height * ratio)))
+                params.geometries[c] = { x = x, y = y, width = width, height = split }
+                y, height = y + split, height - split
+            end
+        end
+    end
+end
+
 awful.layout.layouts = {
-    awful.layout.suit.spiral.dwindle,
+    resizable_dwindle,
     awful.layout.suit.tile,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
@@ -176,6 +211,33 @@ end
 
 run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
 awful.spawn.with_shell("systemctl --user start kanata.service")
+
+local function start_touchegg()
+    awful.spawn.easy_async_with_shell("command -v touchegg >/dev/null 2>&1", function(_, _, _, exit_code)
+        if exit_code ~= 0 then
+            naughty.notify({
+                title = "Touchpad gestures unavailable",
+                text = "Install touchegg to enable Awesome touchpad gestures.",
+            })
+            return
+        end
+
+        awful.spawn.easy_async_with_shell(
+            "systemctl --user import-environment DISPLAY XAUTHORITY XDG_SESSION_TYPE && " ..
+            "systemctl --user start touchegg.service",
+            function(_, stderr, _, start_exit_code)
+                if start_exit_code ~= 0 then
+                    naughty.notify({
+                        title = "Could not start Touchégg",
+                        text = stderr ~= "" and stderr or "Check touchegg.service logs.",
+                    })
+                end
+            end
+        )
+    end)
+end
+
+start_touchegg()
 
 -- This function implements the XDG autostart specification
 awful.spawn.with_shell(
@@ -455,7 +517,10 @@ globalkeys = mytable.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey,           }, "space", function ()
-                  if client.focus then awful.client.floating.toggle(client.focus) end
+                  if client.focus then
+                      client.focus.floating = not client.focus.floating
+                      client.focus:raise()
+                  end
               end, {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
@@ -721,9 +786,8 @@ end
 
 local function toggle_dwindle()
     local tag = awful.tag.selected()
-    local dwindle = awful.layout.suit.spiral.dwindle or awful.layout.suit.spiral
     if tag then
-        tag.layout = tag.layout == dwindle and awful.layout.suit.tile or dwindle
+        tag.layout = tag.layout == resizable_dwindle and awful.layout.suit.tile or resizable_dwindle
     end
 end
 
@@ -740,11 +804,79 @@ local function toggle_floating_layout()
 end
 
 local function resize_focused(dx, dy)
-    if client.focus then client.focus:relative_move(0, 0, dx, dy) end
+    local c = client.focus
+    if not c then return end
+
+    if c.floating then
+        c:relative_move(0, 0, dx, dy)
+        return
+    end
+
+    local tag = c.screen.selected_tag
+    if not tag then return end
+
+    if tag.layout == resizable_dwindle then
+        local clients = awful.client.tiled(c.screen)
+        local index
+        for i, tiled_client in ipairs(clients) do
+            if tiled_client == c then
+                index = i
+                break
+            end
+        end
+        if not index then return end
+
+        local horizontal = dx ~= 0
+        local split_index
+        for i = index, 1, -1 do
+            if (i % 2 == 1) == horizontal then
+                split_index = i
+                break
+            end
+        end
+        if not split_index then return end
+
+        local splitter = clients[split_index]
+        local factors = dwindle_split_factors[splitter] or {}
+        local axis = horizontal and "horizontal" or "vertical"
+        local delta = (horizontal and dx or dy) > 0 and 0.04 or -0.04
+        if split_index < index then delta = -delta end
+        factors[axis] = math.max(0.1, math.min(0.9, (factors[axis] or 0.5) + delta))
+        dwindle_split_factors[splitter] = factors
+        awful.layout.arrange(c.screen)
+        return
+    end
+
+    local tile_layouts = {
+        [awful.layout.suit.tile] = true,
+        [awful.layout.suit.tile.left] = true,
+        [awful.layout.suit.tile.right] = true,
+        [awful.layout.suit.tile.top] = true,
+        [awful.layout.suit.tile.bottom] = true,
+    }
+    if not tile_layouts[tag.layout] then return end
+
+    if dx ~= 0 then
+        local delta = dx > 0 and 0.025 or -0.025
+        if c ~= awful.client.getmaster(c.screen) then delta = -delta end
+        awful.tag.incmwfact(delta, tag)
+    end
+    if dy ~= 0 then
+        awful.client.incwfact(dy > 0 and 0.05 or -0.05, c)
+    end
 end
 
 local function swap_focused(direction)
-    if client.focus then awful.client.swap.bydirection(direction) end
+    local c = client.focus
+    if not c then return end
+    if c.floating then
+        local delta = 50
+        local x = direction == "left" and -delta or direction == "right" and delta or 0
+        local y = direction == "up" and -delta or direction == "down" and delta or 0
+        c:relative_move(x, y, 0, 0)
+    else
+        awful.client.swap.bydirection(direction, c)
+    end
 end
 
 local function toggle_sticky()
