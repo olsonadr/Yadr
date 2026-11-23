@@ -87,9 +87,7 @@ local function bind(key, action, argument, options)
     hl.bind(key, make_dispatcher(action, argument), options)
 end
 
---bind("CTRL + ALT + Delete", "exec", "hyprctl dispatch 'hl.dispatch("+'"exit"'+")'", nil)
---bind("CTRL + ALT + Delete", "exec", "hyprctl dispatch exit 0", nil)
-hl.bind("CTRL + ALT + Delete", make_dispatcher("exec", "hyprctl dispatch 'hl.dsp.exit()'"), options)
+bind("CTRL + ALT + Delete", "exit", "", nil)
 bind("SUPER + Q", "killactive", "", nil)
 bind("SUPER + SHIFT + Q", "exec", "$scriptsDir/KillActiveProcess.sh", nil)
 bind("CTRL + ALT + L", "exec", "$scriptsDir/LockScreen.sh", nil)

@@ -1228,7 +1228,7 @@ local window_rules = {
     {
         match = {
             class = "^([Ss]team)$",
-            title = "^((?![Ss]team).*|[Ss]team [Ss]ettings)$",
+            title = "^([^Ss].*|[Ss][^t].*|[Ss]t[^e].*|[Ss]te[^a].*|[Ss]tea[^m].*|[Ss]team [Ss]ettings)$",
         },
         float = true,
         name = "legacy-window-158",

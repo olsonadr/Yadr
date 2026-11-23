@@ -19,6 +19,4 @@ fi
 # source common profile
 . "$HOME/.profile_common"
 
-. "$HOME/.cargo/env"
-
 #  vim: set ts=8 sw=4 tw=0 et :

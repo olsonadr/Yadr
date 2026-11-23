@@ -229,7 +229,7 @@ return {
   {
     "lervag/vimtex",
     lazy = false, -- VimTeX must load on startup for proper callback/inverse search functionality
-    opts = function()
+    init = function()
       vim.g.vimtex_compiler_latexmk = {
         options = {
           "-pdf",
