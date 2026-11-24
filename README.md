@@ -143,8 +143,15 @@ these steps (instead of step 2 above):
 ## Dots usage (stow, config, secrets, private repos, deploys)
 
 **Stow.** `./stow_dots.sh [-c stowconf] [-i PKG] [-e PKG] [-p PRIVATE_DIR] [-s
-SECRETS_FILE] [--no-mirror] [-- stow-opts]`. Stows `stow/*` plus the packages
-in `private_dots/`. Use `-- -D` to unstow. Every run also:
+SECRETS_FILE] [--no-mirror] [--conflicts prompt|backup|overwrite|fail]
+[-- stow-opts]`. Stows `stow/*` plus the packages in `private_dots/`. Use `-- -D`
+to unstow. On conflicts, the default interactive prompt shows short text diffs
+and matching/different MD5 checksums, then lets you back up and replace, replace
+without a backup, inspect the diff/checksum, or apply an action to all remaining
+conflicts. Backups are kept next to the original with a `.stow-backup.TIMESTAMP`
+suffix. For non-interactive use, choose `--conflicts backup` or
+`--conflicts overwrite` explicitly; bootstrap's `--yes` mode backs up conflicts.
+Every run also:
 
 1. mirrors the links into `.stow_mirror/` (gitignored; `ls -R` it to see the
    full link set),

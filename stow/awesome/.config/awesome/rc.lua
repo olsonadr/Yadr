@@ -378,9 +378,6 @@ local function move_focused_to_tag(delta, follow)
 end
 
 globalkeys = mytable.join(
-    -- Destroy all notifications
-    awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,
-              {description = "destroy all notifications", group = "hotkeys"}),
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
     awful.key({ altkey }, "p", function() os.execute("screenshot") end,
@@ -499,9 +496,9 @@ globalkeys = mytable.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Control", "Alt" }, "r", awesome.restart,
+    awful.key({ modkey, "Control", altkey }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ "Control", "Alt" }, "Delete", quit_awesome,
+    awful.key({ "Control", altkey }, "Delete", quit_awesome,
               {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey, altkey    }, "Page_Up", function () awful.tag.incmwfact( 0.05)         end,
@@ -715,7 +712,7 @@ clientkeys = mytable.join(
             c:raise()
         end ,
         {description = "(un)maximize vertically", group = "client"}),
-    awful.key({ modkey, "Control", "Alt" }, "m",
+    awful.key({ modkey, "Control", altkey }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
@@ -972,9 +969,9 @@ globalkeys = mytable.join(globalkeys,
         {description = "toggle sticky client group", group = "client"}),
     awful.key({ modkey, "Control" }, "Tab", function () awful.client.focus.byidx(1) end,
         {description = "cycle active client", group = "client"}),
-    awful.key({ "Alt" }, "Tab", function () awful.client.focus.byidx(1) end,
+    awful.key({ altkey }, "Tab", function () awful.client.focus.byidx(1) end,
         {description = "cycle windows", group = "client"}),
-    awful.key({ "Alt", "Shift" }, "Tab", function () awful.client.focus.byidx(-1) end,
+    awful.key({ altkey, "Shift" }, "Tab", function () awful.client.focus.byidx(-1) end,
         {description = "cycle windows backwards", group = "client"}),
     awful.key({ modkey, "Shift" }, "n", function () naughty.destroy_all_notifications() end,
         {description = "dismiss notifications", group = "notifications"}),
@@ -995,18 +992,18 @@ globalkeys = mytable.join(globalkeys,
     awful.key({ modkey, "Shift" }, "Return", function ()
         awful.screen.focused().quake:toggle()
     end, {description = "toggle dropdown terminal", group = "launcher"}),
-    awful.key({ modkey, "Alt" }, "r", awesome.restart,
+    awful.key({ modkey, altkey }, "r", awesome.restart,
         {description = "refresh Awesome", group = "awesome"}),
-    awful.key({ modkey, "Alt" }, "e", function ()
+    awful.key({ modkey, altkey }, "e", function ()
         launch_rofi("-show drun -modi drun,filebrowser,run,window")
     end, {description = "emoji launcher", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "g", toggle_dwindle,
         {description = "toggle game layout", group = "layout"}),
-    awful.key({ modkey, "Alt" }, "l", toggle_dwindle,
+    awful.key({ modkey, altkey }, "l", toggle_dwindle,
         {description = "change layout", group = "layout"}),
     awful.key({ modkey }, "v", show_clipboard,
         {description = "clipboard menu", group = "launcher"}),
-    awful.key({ modkey, "Alt" }, "v", show_clipboard,
+    awful.key({ modkey, altkey }, "v", show_clipboard,
         {description = "clipboard menu", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", function ()
         awful.spawn.with_shell(os.getenv("HOME") .. "/.config/hypr/scripts/RofiThemeSelector.sh")
@@ -1014,15 +1011,15 @@ globalkeys = mytable.join(globalkeys,
     awful.key({ modkey, "Control", "Shift" }, "r", function ()
         awful.spawn.with_shell(os.getenv("HOME") .. "/.config/hypr/scripts/RofiThemeSelector-modified.sh")
     end, {description = "select Rofi theme", group = "launcher"}),
-    awful.key({ modkey, "Alt" }, "space", toggle_floating_layout,
+    awful.key({ modkey, altkey }, "space", toggle_floating_layout,
         {description = "toggle all-floating layout", group = "layout"}),
-    awful.key({ modkey, "Alt" }, "b", function ()
+    awful.key({ modkey, altkey }, "b", function ()
         launch_rofi("-show drun -modi drun,filebrowser,run,window")
     end, {description = "Awesome layout menu", group = "launcher"}),
     awful.key({ modkey, "Control" }, "b", function ()
         launch_rofi("-show drun -modi drun,filebrowser,run,window")
     end, {description = "Awesome style menu", group = "launcher"}),
-    awful.key({ modkey, "Control", "Alt" }, "b", toggle_bars,
+    awful.key({ modkey, "Control", altkey }, "b", toggle_bars,
         {description = "toggle Awesome bars", group = "awesome"}),
     awful.key({ modkey, "Shift" }, "m", function ()
         awful.spawn.with_shell(os.getenv("HOME") .. "/.config/hypr/UserScripts/RofiBeats.sh")
@@ -1040,20 +1037,20 @@ globalkeys = mytable.join(globalkeys,
     end, {description = "search keybindings", group = "awesome"}),
     awful.key({ modkey, "Shift" }, "a", toggle_dwindle,
         {description = "toggle animation layout", group = "layout"}),
-    awful.key({ modkey, "Alt" }, "c", function () awful.spawn("qalculate-gtk") end,
+    awful.key({ modkey, altkey }, "c", function () awful.spawn("qalculate-gtk") end,
         {description = "calculator", group = "launcher"}),
-    awful.key({ "Control", "Alt" }, "p", show_power_menu,
+    awful.key({ "Control", altkey }, "p", show_power_menu,
         {description = "power menu", group = "system"}),
-    awful.key({ "Control", "Alt" }, "l", function ()
+    awful.key({ "Control", altkey }, "l", function ()
         awful.spawn.with_shell("loginctl lock-session")
     end, {description = "lock screen", group = "system"}),
-    awful.key({ modkey, "Alt" }, "Left", function () swap_focused("left") end,
+    awful.key({ modkey, altkey }, "Left", function () swap_focused("left") end,
         {description = "swap window left", group = "client"}),
-    awful.key({ modkey, "Alt" }, "Right", function () swap_focused("right") end,
+    awful.key({ modkey, altkey }, "Right", function () swap_focused("right") end,
         {description = "swap window right", group = "client"}),
-    awful.key({ modkey, "Alt" }, "Up", function () swap_focused("up") end,
+    awful.key({ modkey, altkey }, "Up", function () swap_focused("up") end,
         {description = "swap window up", group = "client"}),
-    awful.key({ modkey, "Alt" }, "Down", function () swap_focused("down") end,
+    awful.key({ modkey, altkey }, "Down", function () swap_focused("down") end,
         {description = "swap window down", group = "client"}),
     awful.key({ modkey, "Control" }, "Left", function () swap_focused("left") end,
         {description = "move window left", group = "client"}),
@@ -1156,13 +1153,13 @@ globalkeys = mytable.join(globalkeys,
     screenshot_key({ modkey, "Shift" }, "Print", "-s", "select screenshot area"),
     screenshot_key({ modkey, "Control" }, "Print", "-d 5", "delayed screenshot"),
     screenshot_key({ modkey, "Control", "Shift" }, "Print", "-d 10", "delayed screenshot"),
-    screenshot_key({ "Alt" }, "Print", "-u", "active window screenshot"),
+    screenshot_key({ altkey }, "Print", "-u", "active window screenshot"),
     screenshot_key({ modkey, "Shift" }, "s", "-s", "select screenshot area"),
     screenshot_key({ modkey }, "F6", "", "screenshot"),
     screenshot_key({ modkey, "Shift" }, "F6", "-s", "select screenshot area"),
     screenshot_key({ modkey, "Control" }, "F6", "-d 5", "delayed screenshot"),
-    screenshot_key({ modkey, "Alt" }, "F6", "-d 10", "delayed screenshot"),
-    screenshot_key({ "Alt" }, "F6", "-u", "active window screenshot")
+    screenshot_key({ modkey, altkey }, "F6", "-d 10", "delayed screenshot"),
+    screenshot_key({ altkey }, "F6", "-u", "active window screenshot")
 )
 
 clientbuttons = mytable.join(
