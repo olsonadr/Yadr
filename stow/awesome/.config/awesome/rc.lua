@@ -209,7 +209,11 @@ end
 
 -- }}}
 
-run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
+run_once({
+    "urxvtd",
+    "unclutter -root",
+    "xss-lock --transfer-sleep-lock -- " .. scrlocker,
+})
 awful.spawn.with_shell("systemctl --user start kanata.service")
 
 local function start_touchegg()
@@ -248,7 +252,6 @@ awful.spawn.with_shell(
     'pasystray ; ' ..
     'setxkbmap -option ; ' ..
     'syndaemon -i 0.5 -t -K -R ; ' ..
-    'xss-lock --transfer-sleep-lock -- ' .. scrlocker ..
     -- end commands
     'if command -v dex-autostart >/dev/null 2>&1; then dex-autostart --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"; elif command -v dex >/dev/null 2>&1; then dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"; fi' -- https://github.com/jceb/dex
 )
@@ -383,10 +386,8 @@ globalkeys = mytable.join(
     awful.key({ altkey }, "p", function() os.execute("screenshot") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
-    -- X screen locker
-    -- awful.key({ modkey, "Shift" }, "l", function () os.execute(scrlocker) end,
-    --           {description = "lock screen (alt)", group = "hotkeys"}),
-    awful.key({ modkey, "Shift" }, "l", function () awful.spawn.with_shell("loginctl lock-session") end,
+    -- Lock directly so the shortcut does not depend on a logind screen-lock listener.
+    awful.key({ modkey, "Shift" }, "l", function () awful.spawn(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Show help
@@ -436,12 +437,6 @@ globalkeys = mytable.join(
             if client.focus then client.focus:raise() end
         end,
         {description = "focus left", group = "client"}),
-    awful.key({ modkey }, "l",
-        function()
-            awful.client.focus.global_bydirection("right")
-            if client.focus then client.focus:raise() end
-        end,
-        {description = "focus right", group = "client"}),
 
     -- Menu
     awful.key({ modkey,           }, "F1", function () awful.util.mymainmenu:show() end,
@@ -1042,8 +1037,10 @@ globalkeys = mytable.join(globalkeys,
     awful.key({ "Control", altkey }, "p", show_power_menu,
         {description = "power menu", group = "system"}),
     awful.key({ "Control", altkey }, "l", function ()
-        awful.spawn.with_shell("loginctl lock-session")
+        awful.spawn(scrlocker)
     end, {description = "lock screen", group = "system"}),
+    awful.key({ modkey }, "l", function () awful.spawn(scrlocker) end,
+        {description = "lock screen", group = "system"}),
     awful.key({ modkey, altkey }, "Left", function () swap_focused("left") end,
         {description = "swap window left", group = "client"}),
     awful.key({ modkey, altkey }, "Right", function () swap_focused("right") end,
