@@ -12,7 +12,7 @@
 # and --no-rehash avoids rebuilding the shim directory on every start. Run
 # "pyenv rehash" by hand after installing a new Python or entrypoint.
 if [ -n "$PYENV_ROOT" ]; then
-    _pyenv_cache="$HOME/.cache/pyenv-init.bash"
+    _pyenv_cache="${XDG_CACHE_HOME:-$HOME/.cache}/pyenv-init.bash"
     if [ ! -s "$_pyenv_cache" ] || [ "$PYENV_ROOT/bin/pyenv" -nt "$_pyenv_cache" ]; then
         mkdir -p "$(dirname "$_pyenv_cache")"
         pyenv init - --no-rehash bash > "$_pyenv_cache" 2>/dev/null

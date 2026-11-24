@@ -2,7 +2,8 @@
 " Sources ~/.vimrc.d/common.d/*.vim and ~/.vimrc.d/<g:vimdist>.d/*.vim, merged and
 " ordered by file BASENAME. Any stow package may add files there.
 " Files starting with "_" or ending in .bak/.disabled/.off/~ are skipped.
-let s:root = $HOME . '/.vimrc.d'
+if !exists('g:dots_root') | let g:dots_root = empty($SHELL_DOTS_ROOT) ? $HOME : $SHELL_DOTS_ROOT | endif
+let s:root = g:dots_root . '/.vimrc.d'
 let s:files = glob(s:root . '/common.d/*.vim', 0, 1) + glob(s:root . '/' . g:vimdist . '.d/*.vim', 0, 1)
 call filter(s:files, 'fnamemodify(v:val, ":t") !~# "^_"')
 call sort(s:files, {a, b -> fnamemodify(a, ':t') ==# fnamemodify(b, ':t') ? 0 : fnamemodify(a, ':t') ># fnamemodify(b, ':t') ? 1 : -1})

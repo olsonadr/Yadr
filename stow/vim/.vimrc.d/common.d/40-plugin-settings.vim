@@ -2,7 +2,7 @@
 " Plugin Settings (non-maps) "
 "----------------------------"
 " Ctrl-P Settings
-let runtimepath = $HOME.'/.'.g:vimdist.'/bundle/ctrlp.vim'
+let runtimepath = g:dots_root.'/.'.g:vimdist.'/bundle/ctrlp.vim'
 set tags+=doc/tags
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = ['buffertag', 'dir', 'line']

@@ -186,8 +186,12 @@ secret/secrets.env`); the env file becomes a link to it.
 container's default user, and the prefix goes in that user's `$HOME`) or
 `dir:///path`. Ships only the chosen packages to one
 prefix (default `~/.dots_tmp`), never touching existing dotfiles or secrets. On
-the target run `~/.dots_tmp/enter [bash|zsh]`; undo with `--clean`; preview
-with `-n`. `-b` copies portable binaries (nvim, tmux) into the prefix's `bin/`.
+the target run `~/.dots_tmp/enter [bash|zsh]`: it starts a shell that uses only the
+deployed config, and puts `vim`/`nvim`/`vi` wrappers first on `PATH` so they load
+the deployed `.vimrc`/`.nvimrc` (state such as shell history, viminfo and caches
+stays inside the prefix; `vim`/`nvim` must already be installed on the target).
+Undo with `--clean`; preview with `-n`. A prefix that exists but was not created
+by this script is never overwritten or removed unless you pass `--force`. `-b` copies portable binaries (nvim, tmux) into the prefix's `bin/`.
 
 ## TODOs
 

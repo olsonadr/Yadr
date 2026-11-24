@@ -18,7 +18,7 @@ set foldmethod=indent   " fold based on indent
 set nofoldenable
 set nocompatible
 set cc=81
-colorscheme palenight
+silent! colorscheme palenight
 let g:palenight_terminal_italics=1
 " Please no tabs
 "set paste&

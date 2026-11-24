@@ -1,10 +1,13 @@
+" Skip plugin setup when Vundle is not present (e.g. a minimal remote deploy)
+if !isdirectory(g:dots_root.'/.'.g:vimdist.'/bundle/Vundle.vim') | finish | endif
 "-----------------------------"
 " Vundle Settings/Plugin List "
 "-----------------------------"
-let &rtp .= ','.$HOME.'/.'.g:vimdist.'/bundle/Vundle.vim'
+let &rtp .= ','.g:dots_root.'/.'.g:vimdist.'/bundle/Vundle.vim'
+filetype on   " make sure filetype autocmds exist before turning them off (avoids E216)
 filetype off
 call vundle#begin()
-let g:vundle#bundle_dir = $HOME.'/.'.g:vimdist.'/bundle/'
+let g:vundle#bundle_dir = g:dots_root.'/.'.g:vimdist.'/bundle/'
 " vimdist-agnostic plugins
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'bullets-vim/bullets.vim'
@@ -39,7 +42,7 @@ endif
 
 call vundle#end()
 filetype plugin indent on
-let g:ycm_global_ycm_extra_conf = $HOME.'/.'.g:vimdist.'/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = g:dots_root.'/.'.g:vimdist.'/.ycm_extra_conf.py'
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
 
