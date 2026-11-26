@@ -1,0 +1,19 @@
+# Install:  mkdir -p ~/.config/systemd/user && cp pagecache-pin.service ~/.config/systemd/user/
+#           cp pagecache-pin.paths ~/.config/pagecache-pin.paths      (edit the list to taste)
+#           cp pagecache_pin.py ~/.local/bin/ ; systemctl --user daemon-reload ; systemctl --user enable --now pagecache-pin
+# Check:    pagecache_pin.py --status ; pagecache_pin.py --paths ~/.config/pagecache-pin.paths --check
+[Unit]
+Description=Keep the interactive hot set (tmux, zsh, git, nvim + plugins) locked in the page cache
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/pagecache_pin.py --paths %h/.config/pagecache-pin.paths --max-mb 700 --refresh 1800
+# Locked pages are not reclaimable and are charged to this unit: LimitMEMLOCK is the hard cap.
+LimitMEMLOCK=800M
+Nice=10
+IOSchedulingClass=idle
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=default.target

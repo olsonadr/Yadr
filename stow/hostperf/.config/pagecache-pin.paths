@@ -1,0 +1,64 @@
+# pagecache-pin.paths - the interactive hot set: what tmux, zsh, git and nvim (LazyVim) touch while you work.
+# Format: see the header of pagecache_pin.py.  Keep the total under the --max-mb budget (check with --list).
+@max-file-mb 64
+@exclude */.git/*
+@exclude */doc/*
+@exclude */docs/*
+@exclude */tests/*
+@exclude */test/*
+@exclude */spec/*
+@exclude */screenshots/*
+@exclude */assets/*
+@exclude */examples/*
+@exclude *.md
+@exclude *.png
+@exclude *.gif
+@exclude *.jpg
+@exclude *.svg
+@exclude *.zip
+@exclude *.gz
+@exclude *.ttf
+@exclude *.otf
+
+# --- programs and their shared libraries
+@ldd /usr/bin/tmux
+@ldd /usr/bin/zsh
+@ldd /usr/bin/git
+@ldd /usr/bin/bash
+@ldd /usr/bin/ssh
+@ldd /usr/bin/rg
+@ldd /usr/bin/fzf
+@ldd ~/.local/share/bob/nvim-bin/nvim
+/usr/bin/{sh,cut,sed,uname,grep,awk,ls,cat,id,whoami,env,less,date}
+/usr/lib/git-core/git
+/usr/lib/git-core/git-*
+/usr/share/terminfo/**
+/usr/lib/locale/C.utf8/**
+
+# --- zsh
+~/.zshrc
+~/.zcompdump*
+~/.oh-my-zsh/**
+~/.cache/pyenv-init.*
+/usr/share/zsh/**
+/usr/lib/x86_64-linux-gnu/zsh/**
+~/.dotfiles/stow/zsh/**
+~/.dotfiles/stow/bash/**
+
+# --- tmux
+~/.tmux.conf
+~/.tmux.conf.local
+~/.dotfiles/stow/tmux/**
+
+# --- neovim / LazyVim (NVIM_APPNAME=lazyvim)
+~/.local/share/bob/v*/share/**
+~/.local/share/bob/v*/bin/**
+~/.config/lazyvim/**
+~/.dotfiles/stow/lazyvim/**
+~/.local/share/lazyvim/lazy/**
+~/.local/share/lazyvim/site/**
+~/.local/state/lazyvim/shada/**
+~/.local/state/lazyvim/lazy/**
+~/.cache/lazyvim/**
+~/.local/share/lazyvim/mason/bin/clangd
+~/.local/share/lazyvim/mason/packages/clangd/**

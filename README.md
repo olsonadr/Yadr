@@ -241,3 +241,8 @@ by this script is never overwritten or removed unless you pass `--force`. `-b` c
   - [x] updata kanata tap-hold timings to reduce errors
   - [ ] autostart kanata on linux
   - [ ] add kanata instructions
+
+## Slow shared disks
+
+See [docs/DISK_LATENCY.md](docs/DISK_LATENCY.md) for the measured causes of slow tmux, nvim, and zsh on the SWIS hosts, the settings
+that mitigate them, and the optional `hostperf` package (page-cache pinning).

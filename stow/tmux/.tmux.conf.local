@@ -261,7 +261,9 @@ tmux_conf_theme_right_separator_sub="|"
 #tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | %R | %d %b | #{username}#{root} | #{hostname} "
 
 tmux_conf_theme_status_left=" ❐ #S | %d %b | %R "
-tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | #{username}#{root} | #{hostname} "
+# #{username}/#{hostname} each run a 5-process shell pipeline per status refresh and per pane
+# (56 execve/s at status-interval 1); #h is tmux-native (no fork). Was: ... | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | #h "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"

@@ -48,4 +48,14 @@ end
 -- Disable scrollbar v2 mirgration message
 vim.g.scrollbar_v2_notice = false
 
+-- Disk-latency mitigations (see docs/DISK_LATENCY.md):
+-- * 'fsync' off: every :w and every swap-file flush otherwise waits for a physical disk flush
+--   (p99 ~ 1 s on the shared SWIS disk). 30 writes of a 200 KB file: 6-8 s -> 0.4 s. Data still reaches
+--   the page cache and is written back by the kernel within seconds; only a host crash can lose it.
+vim.opt.fsync = false
+-- clangd logs every request at INFO (8 MB / 30k lines of lsp.log, rewritten constantly): keep WARN+
+pcall(function()
+  if vim.lsp.log and vim.lsp.log.set_level then vim.lsp.log.set_level("WARN") else vim.lsp.set_log_level("WARN") end
+end)
+
 --  vim: set ts=8 sw=4 tw=80 et :
