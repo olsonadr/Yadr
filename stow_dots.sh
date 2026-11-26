@@ -18,6 +18,7 @@ Options:
   -e, --exclude NAME     Exclude a stow package
   -m, --mirror DIR       Also stow into this mirror dir (default: .stow_mirror, gitignored)
       --no-mirror        Do not maintain the mirror dir
+      --conflicts MODE   Handle target conflicts: prompt, backup, overwrite, or fail
   -p, --private DIR      A private_dots dir whose packages are stowed too (overrides config.sh)
   -s, --secrets FILE     Track the secrets file at FILE (relative to the private dir) and link it
   -h, --help             Show this help text
@@ -50,6 +51,7 @@ readonly stow_dir="${script_dir}/stow"
 stow_config_file=""
 mirror_dir=""
 mirror_cli=""
+conflict_mode="prompt"
 cli_private=""
 cli_secrets=""
 selection_mode="include"
@@ -88,6 +90,11 @@ while (($#)); do
     --no-mirror)
       mirror_cli="no"
       shift
+      ;;
+    --conflicts)
+      [[ $# -ge 2 ]] || { echo "Missing conflict mode after $1" >&2; exit 1; }
+      conflict_mode="$2"
+      shift 2
       ;;
     -p|--private)
       [[ $# -ge 2 ]] || { echo "Missing dir after $1" >&2; exit 1; }
@@ -136,6 +143,14 @@ elif [[ "${CFG_MIRROR_ENABLED:-true}" == "true" ]]; then mirror_dir="${script_di
 else mirror_dir=""; fi
 target_dir="${CFG_STOW_TARGET:-}"; [[ -n "$target_dir" ]] || target_dir="${script_dir}/.."
 target_dir="$(cd "$target_dir" && pwd)"
+
+case "$conflict_mode" in
+  prompt|backup|overwrite|fail) ;;
+  *)
+    echo "Invalid conflict mode: $conflict_mode (use prompt, backup, overwrite, or fail)" >&2
+    exit 1
+    ;;
+esac
 
 selection_mode="${STOW_DEFAULT:-$selection_mode}"
 [[ "$selection_mode" == "include" || "$selection_mode" == "exclude" ]] || {
@@ -215,8 +230,32 @@ elif [[ -n "$private_dir" ]]; then
   echo "Warning: private dir not found: $private_dir" >&2
 fi
 
+is_delete=false
+is_simulate=false
+for a in "${passthrough_args[@]:-}"; do
+  [[ "$a" == -D || "$a" == --delete ]] && is_delete=true
+  [[ "$a" == -n || "$a" == --no || "$a" == --simulate ]] && is_simulate=true
+done
+
 run_stow() { # STOWDIR TARGET PKG...
   local d="$1" t="$2"; shift 2
+  local -a conflict_args=() package_args=()
+  local arg package
+  for arg in "${passthrough_args[@]}"; do
+    conflict_args+=(--stow-option "$arg")
+  done
+  for package in "$@"; do
+    package_args+=(--package "$package")
+  done
+  if ! $is_delete && ! $is_simulate; then
+    python3 "${script_dir}/scripts/stow_conflicts.py" \
+      --stow-dir "$d" \
+      --target-dir "$t" \
+      --mode "$conflict_mode" \
+      --ignore-regex 'secrets\.vars' \
+      "${conflict_args[@]}" \
+      "${package_args[@]}"
+  fi
   stow -d "$d" --target="$t" --no-folding --ignore='secrets\.vars' "${passthrough_args[@]}" "$@"
 }
 log "Stowing [${selected_packages[*]}] ${private_selected[*]:+and private [${private_selected[*]}]} into ${target_dir}"
@@ -231,9 +270,6 @@ if [[ -n "$mirror_dir" ]]; then
   run_stow "$stow_dir" "$mirror_dir" "${selected_packages[@]}"
   if (( ${#private_selected[@]} > 0 )); then run_stow "$private_dir" "$mirror_dir" "${private_selected[@]}"; fi
 fi
-
-is_delete=false
-for a in "${passthrough_args[@]:-}"; do [[ "$a" == -D || "$a" == --delete ]] && is_delete=true; done
 
 if ! $is_delete; then
   # ---- secrets: merge every package's secrets.vars into one file (values never removed)

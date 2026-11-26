@@ -12,6 +12,16 @@ fi
 
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
+if [ -r "$HOME/.shell_rcs/common.d/10-path.sh" ]; then
+    . "$HOME/.shell_rcs/common.d/10-path.sh"
+fi
+
+if command -v nvim >/dev/null 2>&1; then
+    export EDITOR="$(command -v nvim)"
+elif command -v vim >/dev/null 2>&1; then
+    export EDITOR="$(command -v vim)"
+fi
+
 ## Set GTK vars
 #export GTK_THEME="Yaru-purple-dark"
 

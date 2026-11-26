@@ -18,6 +18,10 @@ shell_load() {
     if [ -n "${ZSH_VERSION:-}" ]; then setopt local_options null_glob; else local _ng; _ng=$(shopt -p nullglob); shopt -s nullglob; fi
     for d in "$root/common.d" "$root/${sh}.d"; do
         for f in "$d"/*; do
+            if [ -L "$f" ] && [ ! -e "$f" ]; then
+                printf 'shell_load(%s/%s): broken link skipped: %s\n' "$kind" "$sh" "$f" >&2
+                continue
+            fi
             [ -f "$f" ] || continue
             case "${f##*/}" in _*|*~|*.bak*|*.disabled|*.off) continue ;; esac
             list="${list}${f##*/}	${f}
@@ -30,7 +34,11 @@ shell_load() {
     while IFS= read -r line; do
         f="${line#*	}"
         [ -n "${SHELL_LOAD_DEBUG:-}" ] && printf 'shell_load(%s/%s): %s\n' "$kind" "$sh" "$f" >&2
-        . "$f"
+        if [ -n "${ZSH_VERSION:-}" ]; then
+            printf 'source %q\n' "$f"
+        else
+            . "$f"
+        fi
     done <<EOT
 $(printf '%s' "$list" | LC_ALL=C sort -s -t "	" -k1,1)
 EOT

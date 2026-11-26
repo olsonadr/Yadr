@@ -1,0 +1,13 @@
+[Unit]
+Description=Touchpad gestures for Awesome
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecCondition=/usr/bin/test -x /usr/bin/touchegg
+ExecStart=/usr/bin/touchegg --client
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=default.target

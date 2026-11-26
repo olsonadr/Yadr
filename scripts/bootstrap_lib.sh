@@ -391,7 +391,11 @@ function install_repo_submodules() {
 
 function install_dotfiles() {
   stage "Installing dotfiles"
-  "${repo_root}/stow_dots.sh" --config "${bootstrap_stow_config}"
+  if $bootstrap_assume_yes; then
+    "${repo_root}/stow_dots.sh" --config "${bootstrap_stow_config}" --conflicts backup
+  else
+    "${repo_root}/stow_dots.sh" --config "${bootstrap_stow_config}"
+  fi
 }
 
 function prepare_shell_backups() {

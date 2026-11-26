@@ -3,7 +3,8 @@
 -- Add any additional keymaps here
 
 -- Get vimrc functions
-vim.cmd("source " .. os.getenv("HOME") .. "/.vimrc_common_funcs")
+vim.g.vimdist = "nvim"
+vim.cmd.source(vim.fn.fnameescape(vim.fn.expand("~/.vimrc_common")))
 
 -- ================
 -- Maps/Binds

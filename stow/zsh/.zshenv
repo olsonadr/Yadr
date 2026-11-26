@@ -22,4 +22,8 @@
 # Measured effect: interactive shell startup 1.2 s -> ~0.17 s.
 skip_global_compinit=1
 
+if [ -r "$HOME/.shell_rcs/common.d/10-path.sh" ]; then
+    . "$HOME/.shell_rcs/common.d/10-path.sh"
+fi
+
 #  vim: set ts=8 sw=4 tw=0 noet ft=zsh :

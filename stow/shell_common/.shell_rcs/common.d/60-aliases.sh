@@ -1,2 +1,6 @@
 # Load ~/.shell_aliases/{common.d,<shell>.d}/* (after brew/pyenv so PATH is final-ish)
-shell_load aliases "$([ -n "${ZSH_VERSION:-}" ] && echo zsh || echo bash)"
+if [ -n "${ZSH_VERSION:-}" ]; then
+    eval "$(shell_load aliases zsh)"
+else
+    shell_load aliases bash
+fi

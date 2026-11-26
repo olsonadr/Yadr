@@ -13,4 +13,4 @@ export PATH="${HOME}/.opencode/bin:${PATH}"
 #export PATH="${PATH}:/usr/local/bin/JLink_Linux_V794e_x86_64"
 
 # Common secrets
-[[ -d /usr/local/go/bin ]] && export PATH="$PATH:/usr/local/go/bin"
+[ -d /usr/local/go/bin ] && export PATH="$PATH:/usr/local/go/bin"
